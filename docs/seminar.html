@@ -5,15 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ゼミ紹介 | 重井研究室</title>
   <meta name="description" content="重井研究室のゼミの紹介ページです。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap">
   <link rel="stylesheet" href="css/style.css">
   <script src="js/main.js" defer></script>
 </head>
 <body>
 
+  <a class="skip-link" href="#main">本文へスキップ</a>
+
   <!-- ===== ヘッダー（全ページ共通） ===== -->
   <header class="site-header">
     <div class="container">
-      <a class="site-logo" href="index.html">重井研究室<span>.</span></a>
+      <a class="site-logo" href="index.html">重井研究室</a>
       <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="global-nav">
         <span></span><span></span><span></span>
       </button>
@@ -34,7 +39,16 @@
     </div>
   </header>
 
-  <main>
+  <main id="main">
+    <nav class="breadcrumb" aria-label="現在位置">
+      <div class="container">
+        <ol>
+          <li><a href="index.html">ホーム</a></li>
+          <li aria-current="page">ゼミ紹介</li>
+        </ol>
+      </div>
+    </nav>
+
     <section class="hero page-hero">
       <div class="container">
         <span class="label">SEMINAR</span>
@@ -47,19 +61,19 @@
       <div class="container article">
         <h2 class="section-title">ゼミの基本情報</h2>
         <table class="info-table">
-          <tr><th>頻度・曜日</th><td><span class="todo">【原稿待ち】例：週1回 〇曜日</span></td></tr>
-          <tr><th>形式</th><td><span class="todo">【原稿待ち】例：進捗報告、論文紹介 など</span></td></tr>
-          <tr><th>参加メンバー</th><td><span class="todo">【原稿待ち】例：教員1名・学生〇名</span></td></tr>
-          <tr><th>雰囲気</th><td><span class="todo">【原稿待ち】質問しやすさ、先生からのフィードバックの様子など</span></td></tr>
+          <tr><th scope="row">頻度・曜日</th><td><span class="todo">【原稿待ち】例：週1回 〇曜日</span></td></tr>
+          <tr><th scope="row">形式</th><td><span class="todo">【原稿待ち】例：進捗報告、論文紹介 など</span></td></tr>
+          <tr><th scope="row">参加メンバー</th><td><span class="todo">【原稿待ち】例：教員1名・学生〇名</span></td></tr>
+          <tr><th scope="row">雰囲気</th><td><span class="todo">【原稿待ち】質問しやすさ、先生からのフィードバックの様子など</span></td></tr>
         </table>
 
         <h2>ゼミの種類と対象</h2>
         <table class="info-table">
-          <tr><th>Unixゼミ</th><td>B4</td></tr>
-          <tr><th>機械学習ゼミ</th><td>B4</td></tr>
-          <tr><th>英語論文購読ゼミ</th><td>M1</td></tr>
-          <tr><th>就活ゼミ</th><td>全員</td></tr>
-          <tr><th>経過報告ゼミ</th><td>全員</td></tr>
+          <tr><th scope="row">Unixゼミ</th><td>B4</td></tr>
+          <tr><th scope="row">機械学習ゼミ</th><td>B4</td></tr>
+          <tr><th scope="row">英語論文購読ゼミ</th><td>M1</td></tr>
+          <tr><th scope="row">就活ゼミ</th><td>全員</td></tr>
+          <tr><th scope="row">経過報告ゼミ</th><td>全員</td></tr>
         </table>
 
         <h2>ゼミで身につくこと</h2>

@@ -5,15 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>行事紹介 | 重井研究室</title>
   <meta name="description" content="重井研究室で行っているイベントの紹介ページです。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap">
   <link rel="stylesheet" href="css/style.css">
   <script src="js/main.js" defer></script>
 </head>
 <body>
 
+  <a class="skip-link" href="#main">本文へスキップ</a>
+
   <!-- ===== ヘッダー（全ページ共通） ===== -->
   <header class="site-header">
     <div class="container">
-      <a class="site-logo" href="index.html">重井研究室<span>.</span></a>
+      <a class="site-logo" href="index.html">重井研究室</a>
       <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="global-nav">
         <span></span><span></span><span></span>
       </button>
@@ -34,7 +39,16 @@
     </div>
   </header>
 
-  <main>
+  <main id="main">
+    <nav class="breadcrumb" aria-label="現在位置">
+      <div class="container">
+        <ol>
+          <li><a href="index.html">ホーム</a></li>
+          <li aria-current="page">行事紹介</li>
+        </ol>
+      </div>
+    </nav>
+
     <section class="hero page-hero">
       <div class="container">
         <span class="label">EVENTS</span>
