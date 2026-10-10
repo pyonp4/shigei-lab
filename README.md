@@ -1,2 +1,35 @@
-# shigei-lab
-重井研究室 研究紹介サイト
+# 重井研究室 研究紹介サイト
+
+公開URL: https://pyonp4.github.io/shigei-lab/
+
+情報科学実践演習Ⅱ チーム DragonicKing（江藤・山下）
+
+## ファイル構成と担当
+
+サイトのファイルはすべて `docs/` に置く（GitHub Pages は `main` ブランチの `/docs` を公開する）。
+
+| ファイル | ページ | 担当 | 優先度 |
+|---|---|---|---|
+| docs/index.html | ホーム | 山下 | Must |
+| docs/research1.html | 手術手技スキルの推定 | 江藤 | Must |
+| docs/research2.html | 災害危険個所の推定 | 山下 | Must |
+| docs/events.html | 行事紹介 | 江藤 | Must |
+| docs/seminar.html | ゼミ紹介 | 山下 | Should |
+| docs/css/style.css | 全ページ共通のデザイン | 変更時は相談 | - |
+| docs/js/main.js | スマホ用メニュー | - | - |
+| docs/images/ | 画像置き場 | - | - |
+
+## 作業ルール
+
+- 自分の担当ページのファイルだけを編集する
+- `docs/css/style.css` を変えるときはひと声かける
+- 黄色の `【原稿待ち】`（`class="todo"`）は公開前にすべて消す
+- 研究の図や文章は、指導教員の掲載許可を得てから push する
+- 画像は `docs/images/` に入れて `<img src="images/ファイル名.png" alt="説明">` で表示する
+
+## 公開前チェック（受入基準）
+
+- [ ] 指導教員が研究内容に相違ないことを確認した
+- [ ] 学部生3人が重井研究室にポジティブな印象を持った
+- [ ] QRコードで正しく飛べる（3つのデバイスで確認）
+- [ ] スマートフォン（幅375px）で横スクロールが発生しない
