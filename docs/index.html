@@ -3,97 +3,171 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>重井研究室 | 研究紹介サイト</title>
+  <title data-en="Shigei Lab | Kagoshima University">重井研究室 | 鹿児島大学 工学部</title>
   <meta name="description" content="鹿児島大学工学部 重井研究室の研究内容と雰囲気を紹介するサイトです。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap">
   <link rel="stylesheet" href="css/style.css">
   <script src="js/main.js" defer></script>
 </head>
 <body>
 
+  <a class="skip-link" href="#main" data-en="Skip to main content">本文へスキップ</a>
+
   <!-- ===== ヘッダー（全ページ共通） ===== -->
   <header class="site-header">
     <div class="container">
-      <a class="site-logo" href="index.html">重井研究室<span>.</span></a>
-      <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="global-nav">
-        <span></span><span></span><span></span>
-      </button>
-      <nav class="global-nav" id="global-nav">
+      <a class="site-logo" href="index.html" data-en="Shigei Lab">重井研究室</a>
+      <nav class="global-nav" id="global-nav" aria-label="メインメニュー">
         <ul>
-          <li><a href="index.html" aria-current="page">ホーム</a></li>
+          <li><a href="about.html" data-en="About">研究室について</a></li>
+          <li><a href="news.html" data-en="News">ニュース</a></li>
           <li class="has-submenu">
-            <a href="index.html#research">研究紹介</a>
+            <a href="research.html" data-en="Research">研究紹介</a>
             <ul class="submenu">
-              <li><a href="research1.html">手術手技スキル推定</a></li>
-              <li><a href="research2.html">災害危険個所推定</a></li>
+              <li><a href="research.html#nlp" data-en="Natural Language Processing">自然言語処理</a></li>
+              <li><a href="research.html#iot" data-en="IoT">IoT</a></li>
+              <li><a href="research.html#vision" data-en="Image &amp; Video Recognition">画像・映像識別</a></li>
+              <li><a href="research.html#ee" data-en="Electrical &amp; Electronic Engineering">電気・電子</a></li>
             </ul>
           </li>
-          <li><a href="seminar.html">ゼミ紹介</a></li>
-          <li><a href="events.html">行事紹介</a></li>
+          <li><a href="seminar.html" data-en="Seminars">ゼミ紹介</a></li>
+          <li><a href="events.html" data-en="Events">行事紹介</a></li>
+          <li><a href="members.html" data-en="Members">メンバー</a></li>
+          <li><a href="careers.html" data-en="Careers">就職先</a></li>
         </ul>
       </nav>
+      <div class="lang-switch" role="group" aria-label="言語 / Language">
+        <button type="button" data-lang="ja" aria-pressed="true">JA</button>
+        <span aria-hidden="true">/</span>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <button class="menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="global-nav">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
 
-  <main>
+  <main id="main">
     <!-- ===== ヒーロー ===== -->
     <section class="hero">
       <div class="container">
-        <span class="label">鹿児島大学 工学部</span>
-        <h1>AIで、現場の「むずかしい」を見える化する。<span class="todo">（仮）</span></h1>
-        <p><span class="todo">【原稿待ち】研究室を一言で表すキャッチコピーと、2〜3行の紹介文を入れる。</span></p>
+        <span class="label" data-en="Kagoshima University, Faculty of Engineering">鹿児島大学 工学部</span>
+        <h1 data-en="Shigei Lab">重井研究室</h1>
         <div class="btn-row">
-          <a class="btn" href="#research">研究を見る</a>
-          <a class="btn btn--light" href="events.html">研究室の雰囲気</a>
+          <a class="btn" href="#research" data-en="Our research">研究を見る</a>
+          <a class="btn btn--light" href="about.html" data-en="About the lab">研究室について</a>
         </div>
       </div>
     </section>
 
-    <!-- ===== 研究一覧 ===== -->
+    <!-- ===== ニュース ===== -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title" data-en="News">ニュース</h2>
+          <a class="view-more" href="news.html">View more</a>
+        </div>
+        <ul class="news-list">
+          <li class="news-item">
+            <time class="news-date" datetime="2026-10-11">2026.10.11</time>
+            <span class="news-cat" data-en="News">お知らせ</span>
+            <p class="news-title"><a href="news-lab-visit.html" data-en="Lab visits to Shigei Lab (for FY2026 4th-year undergraduates)">重井研究室の研究室訪問について（2026年度B4対象）</a></p>
+          </li>
+          <li class="news-item">
+            <time class="news-date" datetime="2026-10-01"><span class="todo">2026.10.01</span></time>
+            <span class="news-cat" data-en="Paper">論文</span>
+            <p class="news-title"><span class="todo">【原稿待ち】ニュースのタイトル</span></p>
+          </li>
+          <li class="news-item">
+            <time class="news-date" datetime="2026-10-01"><span class="todo">2026.10.01</span></time>
+            <span class="news-cat" data-en="News">お知らせ</span>
+            <p class="news-title"><span class="todo">【原稿待ち】ニュースのタイトル</span></p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== 研究室について ===== -->
+    <section class="section section--sub">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title" data-en="About the lab">研究室について</h2>
+          <a class="view-more" href="about.html">View more</a>
+        </div>
+        <p class="section-lead"><span class="todo">【原稿待ち】研究室の紹介文を2〜3行で。</span></p>
+      </div>
+    </section>
+
+    <!-- ===== 研究紹介 ===== -->
     <section class="section" id="research">
       <div class="container">
-        <h2 class="section-title">研究紹介</h2>
+        <div class="section-head">
+          <h2 class="section-title" data-en="Research">研究紹介</h2>
+          <a class="view-more" href="research.html">View more</a>
+        </div>
         <div class="card-grid">
           <a class="card" href="research1.html">
             <div class="placeholder">研究①のイメージ画像<br>（16:9）</div>
             <div class="card-body">
-              <span class="card-tag">医療 × AI</span>
-              <h3>AIによる手術手技スキルの推定</h3>
+              <span class="card-tag" data-en="Medicine × AI">医療 × AI</span>
+              <h3 data-en="AI-based surgical skill assessment">AIによる手術手技スキルの推定</h3>
               <p><span class="todo">【原稿待ち】研究の概要を2行程度で。</span></p>
-              <span class="card-more">詳しく見る →</span>
+              <span class="card-more" data-en="Read more →">詳しく見る →</span>
             </div>
           </a>
           <a class="card" href="research2.html">
             <div class="placeholder">研究②のイメージ画像<br>（16:9）</div>
             <div class="card-body">
-              <span class="card-tag">防災 × AI</span>
-              <h3>AIによる災害危険個所の推定</h3>
+              <span class="card-tag" data-en="Disaster prevention × AI">防災 × AI</span>
+              <h3 data-en="AI-based disaster risk mapping">AIによる災害危険個所の推定</h3>
               <p><span class="todo">【原稿待ち】研究の概要を2行程度で。</span></p>
-              <span class="card-more">詳しく見る →</span>
+              <span class="card-more" data-en="Read more →">詳しく見る →</span>
             </div>
           </a>
         </div>
       </div>
     </section>
 
-    <!-- ===== 研究室の雰囲気 ===== -->
+    <!-- ===== メンバー ===== -->
     <section class="section section--sub">
       <div class="container">
-        <h2 class="section-title">研究室の雰囲気</h2>
-        <div class="card-grid">
-          <a class="card" href="events.html">
-            <div class="card-body">
-              <span class="card-tag">EVENTS</span>
-              <h3>行事紹介</h3>
-              <p>1年を通して研究室で行っているイベントを紹介します。</p>
-              <span class="card-more">行事を見る →</span>
-            </div>
-          </a>
+        <div class="section-head">
+          <h2 class="section-title" data-en="Members">メンバー</h2>
+          <a class="view-more" href="members.html">View more</a>
+        </div>
+        <p class="section-lead" data-en="Introducing the faculty and students of Shigei Lab.">重井研究室の教員と学生を紹介します。</p>
+      </div>
+    </section>
+
+    <!-- ===== 研究室の雰囲気・進路 ===== -->
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title" data-en="Life in the lab">研究室の雰囲気</h2>
+        <div class="card-grid card-grid--3">
           <a class="card" href="seminar.html">
             <div class="card-body">
               <span class="card-tag">SEMINAR</span>
-              <h3>ゼミ紹介</h3>
-              <p>ゼミの進め方や雰囲気を紹介します。</p>
-              <span class="card-more">ゼミを見る →</span>
+              <h3 data-en="Seminars">ゼミ紹介</h3>
+              <p data-en="How our seminars work and what they are like.">ゼミの進め方や雰囲気を紹介します。</p>
+              <span class="card-more" data-en="See seminars →">ゼミを見る →</span>
+            </div>
+          </a>
+          <a class="card" href="events.html">
+            <div class="card-body">
+              <span class="card-tag">EVENTS</span>
+              <h3 data-en="Events">行事紹介</h3>
+              <p data-en="Events we hold throughout the year.">1年を通して研究室で行っているイベントを紹介します。</p>
+              <span class="card-more" data-en="See events →">行事を見る →</span>
+            </div>
+          </a>
+          <a class="card" href="careers.html">
+            <div class="card-body">
+              <span class="card-tag">CAREERS</span>
+              <h3 data-en="Careers">就職先</h3>
+              <p data-en="Where our graduates go after the lab.">卒業生・修了生の主な就職先を紹介します。</p>
+              <span class="card-more" data-en="See careers →">就職先を見る →</span>
             </div>
           </a>
         </div>
@@ -101,17 +175,38 @@
     </section>
   </main>
 
+  <!-- ===== お問い合わせ（全ページ共通・フッターの直前） ===== -->
+  <!-- 背景写真は images/contact.jpg に置くと表示されます（無い場合はネイビー一色） -->
+  <section class="contact-cta" aria-labelledby="contact-cta-title">
+    <div class="container">
+      <h2 class="contact-cta__title" id="contact-cta-title">Contact</h2>
+      <p class="contact-cta__sub" data-en="Get in touch">お問い合わせ</p>
+      <p class="contact-cta__text" data-en="For enquiries about joining the lab,&lt;br&gt;joint research, or media coverage,&lt;br&gt;please contact us below.">当研究室への配属・進学のご希望、<br>共同研究や取材のご相談は<br>下記よりお問い合わせください。</p>
+      <a class="btn btn--ghost" href="contact.html">Contact us</a>
+    </div>
+  </section>
+
   <!-- ===== フッター（全ページ共通） ===== -->
   <footer class="site-footer">
     <div class="container">
-      <ul class="footer-nav">
-        <li><a href="index.html">ホーム</a></li>
-        <li><a href="research1.html">手術手技スキル推定</a></li>
-        <li><a href="research2.html">災害危険個所推定</a></li>
-        <li><a href="events.html">行事紹介</a></li>
-        <li><a href="seminar.html">ゼミ紹介</a></li>
-      </ul>
-      <p class="copyright">© 2026 重井研究室（鹿児島大学 工学部） / 制作：DragonicKing</p>
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="footer-logo" href="index.html" data-en="Shigei Lab">重井研究室</a>
+          <p data-en="Faculty of Engineering, Kagoshima University">鹿児島大学 工学部</p>
+        </div>
+        <ul class="footer-nav">
+          <li><a href="index.html" data-en="Home">ホーム</a></li>
+          <li><a href="about.html" data-en="About">研究室について</a></li>
+          <li><a href="news.html" data-en="News">ニュース</a></li>
+          <li><a href="research.html" data-en="Research">研究紹介</a></li>
+          <li><a href="seminar.html" data-en="Seminars">ゼミ紹介</a></li>
+          <li><a href="events.html" data-en="Events">行事紹介</a></li>
+          <li><a href="members.html" data-en="Members">メンバー</a></li>
+          <li><a href="careers.html" data-en="Careers">就職先</a></li>
+          <li><a href="contact.html" data-en="Contact">お問い合わせ</a></li>
+        </ul>
+      </div>
+      <p class="copyright" data-en="© 2026 Shigei Lab, Faculty of Engineering, Kagoshima University / Built by DragonicKing">© 2026 重井研究室（鹿児島大学 工学部） / 制作：DragonicKing</p>
     </div>
   </footer>
 

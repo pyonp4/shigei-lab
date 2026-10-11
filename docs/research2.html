@@ -3,43 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AIによる災害危険個所の推定 | 重井研究室</title>
+  <title data-en="AI-based disaster risk mapping | Shigei Lab">AIによる災害危険個所の推定 | 重井研究室</title>
   <meta name="description" content="AIによる災害危険個所の推定に関する研究紹介ページです。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap">
   <link rel="stylesheet" href="css/style.css">
   <script src="js/main.js" defer></script>
 </head>
 <body>
 
+  <a class="skip-link" href="#main" data-en="Skip to main content">本文へスキップ</a>
+
   <!-- ===== ヘッダー（全ページ共通） ===== -->
   <header class="site-header">
     <div class="container">
-      <a class="site-logo" href="index.html">重井研究室<span>.</span></a>
-      <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="global-nav">
-        <span></span><span></span><span></span>
-      </button>
-      <nav class="global-nav" id="global-nav">
+      <a class="site-logo" href="index.html" data-en="Shigei Lab">重井研究室</a>
+      <nav class="global-nav" id="global-nav" aria-label="メインメニュー">
         <ul>
-          <li><a href="index.html">ホーム</a></li>
+          <li><a href="about.html" data-en="About">研究室について</a></li>
+          <li><a href="news.html" data-en="News">ニュース</a></li>
           <li class="has-submenu">
-            <a href="index.html#research" class="is-current">研究紹介</a>
+            <a href="research.html" class="is-current" data-en="Research">研究紹介</a>
             <ul class="submenu">
-              <li><a href="research1.html">手術手技スキル推定</a></li>
-              <li><a href="research2.html" aria-current="page">災害危険個所推定</a></li>
+              <li><a href="research.html#nlp" data-en="Natural Language Processing">自然言語処理</a></li>
+              <li><a href="research.html#iot" data-en="IoT">IoT</a></li>
+              <li><a href="research.html#vision" data-en="Image &amp; Video Recognition">画像・映像識別</a></li>
+              <li><a href="research.html#ee" data-en="Electrical &amp; Electronic Engineering">電気・電子</a></li>
             </ul>
           </li>
-          <li><a href="seminar.html">ゼミ紹介</a></li>
-          <li><a href="events.html">行事紹介</a></li>
+          <li><a href="seminar.html" data-en="Seminars">ゼミ紹介</a></li>
+          <li><a href="events.html" data-en="Events">行事紹介</a></li>
+          <li><a href="members.html" data-en="Members">メンバー</a></li>
+          <li><a href="careers.html" data-en="Careers">就職先</a></li>
         </ul>
       </nav>
+      <div class="lang-switch" role="group" aria-label="言語 / Language">
+        <button type="button" data-lang="ja" aria-pressed="true">JA</button>
+        <span aria-hidden="true">/</span>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <button class="menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="global-nav">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
 
-  <main>
+  <main id="main">
+    <nav class="breadcrumb" aria-label="現在位置">
+      <div class="container">
+        <ol>
+          <li><a href="index.html" data-en="Home">ホーム</a></li>
+          <li><a href="research.html" data-en="Research">研究紹介</a></li>
+          <li><a href="research.html#vision" data-en="Image &amp; Video Recognition">画像・映像識別</a></li>
+          <li aria-current="page" data-en="AI-based disaster risk mapping">AIによる災害危険個所の推定</li>
+        </ol>
+      </div>
+    </nav>
+
     <section class="hero page-hero">
       <div class="container">
-        <span class="label">防災 × AI</span>
-        <h1>AIによる災害危険個所の推定</h1>
-        <p>担当：山下 旺亮</p>
+        <span class="label" data-en="Disaster prevention × AI">防災 × AI</span>
+        <h1 data-en="AI-based disaster risk mapping">AIによる災害危険個所の推定</h1>
+        <p data-en="Lead: 山下 旺亮">担当：山下 旺亮</p>
       </div>
     </section>
 
@@ -50,17 +76,17 @@
           <span class="todo">【原稿待ち】この研究を一言で言うと？（例：「〇〇を△△で自動判定する」）</span>
         </div>
 
-        <h2>どんな問題を解決するの？</h2>
+        <h2 data-en="What problem does it solve?">どんな問題を解決するの？</h2>
         <p><span class="todo">【原稿待ち】研究の背景。今どんな困りごとがあるのかを、専門外の学部生にも分かる言葉で3〜4文。</span></p>
 
-        <h2>どうやって解決するの？</h2>
+        <h2 data-en="How do we solve it?">どうやって解決するの？</h2>
         <figure>
           <div class="placeholder">研究の全体像の図<br>（既存の発表資料から流用・掲載許可後に差し替え）</div>
-          <figcaption>図1：<span class="todo">【原稿待ち】図の説明</span></figcaption>
+          <figcaption><span data-en="Figure 1: ">図1：</span><span class="todo">【原稿待ち】図の説明</span></figcaption>
         </figure>
         <p><span class="todo">【原稿待ち】手法を図に沿って3〜4文で。専門用語には一言説明を添える。</span></p>
 
-        <h2>この研究のここが面白い！</h2>
+        <h2 data-en="What makes it interesting">この研究のここが面白い！</h2>
         <ul class="point-list">
           <li><span class="todo">【原稿待ち】面白さ・やりがい①</span></li>
           <li><span class="todo">【原稿待ち】面白さ・やりがい②</span></li>
@@ -73,23 +99,44 @@
         </div>
 
         <div class="btn-row">
-          <a class="btn btn--outline" href="index.html">← ホームへ戻る</a>
+          <a class="btn btn--outline" href="index.html" data-en="← Back to home">← ホームへ戻る</a>
         </div>
       </div>
     </section>
   </main>
 
+  <!-- ===== お問い合わせ（全ページ共通・フッターの直前） ===== -->
+  <!-- 背景写真は images/contact.jpg に置くと表示されます（無い場合はネイビー一色） -->
+  <section class="contact-cta" aria-labelledby="contact-cta-title">
+    <div class="container">
+      <h2 class="contact-cta__title" id="contact-cta-title">Contact</h2>
+      <p class="contact-cta__sub" data-en="Get in touch">お問い合わせ</p>
+      <p class="contact-cta__text" data-en="For enquiries about joining the lab,&lt;br&gt;joint research, or media coverage,&lt;br&gt;please contact us below.">当研究室への配属・進学のご希望、<br>共同研究や取材のご相談は<br>下記よりお問い合わせください。</p>
+      <a class="btn btn--ghost" href="contact.html">Contact us</a>
+    </div>
+  </section>
+
   <!-- ===== フッター（全ページ共通） ===== -->
   <footer class="site-footer">
     <div class="container">
-      <ul class="footer-nav">
-        <li><a href="index.html">ホーム</a></li>
-        <li><a href="research1.html">手術手技スキル推定</a></li>
-        <li><a href="research2.html">災害危険個所推定</a></li>
-        <li><a href="events.html">行事紹介</a></li>
-        <li><a href="seminar.html">ゼミ紹介</a></li>
-      </ul>
-      <p class="copyright">© 2026 重井研究室（鹿児島大学 工学部） / 制作：DragonicKing</p>
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="footer-logo" href="index.html" data-en="Shigei Lab">重井研究室</a>
+          <p data-en="Faculty of Engineering, Kagoshima University">鹿児島大学 工学部</p>
+        </div>
+        <ul class="footer-nav">
+          <li><a href="index.html" data-en="Home">ホーム</a></li>
+          <li><a href="about.html" data-en="About">研究室について</a></li>
+          <li><a href="news.html" data-en="News">ニュース</a></li>
+          <li><a href="research.html" data-en="Research">研究紹介</a></li>
+          <li><a href="seminar.html" data-en="Seminars">ゼミ紹介</a></li>
+          <li><a href="events.html" data-en="Events">行事紹介</a></li>
+          <li><a href="members.html" data-en="Members">メンバー</a></li>
+          <li><a href="careers.html" data-en="Careers">就職先</a></li>
+          <li><a href="contact.html" data-en="Contact">お問い合わせ</a></li>
+        </ul>
+      </div>
+      <p class="copyright" data-en="© 2026 Shigei Lab, Faculty of Engineering, Kagoshima University / Built by DragonicKing">© 2026 重井研究室（鹿児島大学 工学部） / 制作：DragonicKing</p>
     </div>
   </footer>
 
