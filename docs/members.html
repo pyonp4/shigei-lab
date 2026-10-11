@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-en="Members | Shigei Lab">メンバー | 重井研究室</title>
+  <meta name="description" content="重井研究室の教員と学生を紹介するページです。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+
+  <a class="skip-link" href="#main" data-en="Skip to main content">本文へスキップ</a>
+
+  <!-- ===== ヘッダー（全ページ共通） ===== -->
+  <header class="site-header">
+    <div class="container">
+      <a class="site-logo" href="index.html" data-en="Shigei Lab">重井研究室</a>
+      <nav class="global-nav" id="global-nav" aria-label="メインメニュー">
+        <ul>
+          <li><a href="about.html" data-en="About">研究室について</a></li>
+          <li><a href="news.html" data-en="News">ニュース</a></li>
+          <li class="has-submenu">
+            <a href="research.html" data-en="Research">研究紹介</a>
+            <ul class="submenu">
+              <li><a href="research.html#nlp" data-en="Natural Language Processing">自然言語処理</a></li>
+              <li><a href="research.html#iot" data-en="IoT">IoT</a></li>
+              <li><a href="research.html#vision" data-en="Image &amp; Video Recognition">画像・映像識別</a></li>
+              <li><a href="research.html#ee" data-en="Electrical &amp; Electronic Engineering">電気・電子</a></li>
+            </ul>
+          </li>
+          <li><a href="seminar.html" data-en="Seminars">ゼミ紹介</a></li>
+          <li><a href="events.html" data-en="Events">行事紹介</a></li>
+          <li><a href="members.html" aria-current="page" data-en="Members">メンバー</a></li>
+          <li><a href="careers.html" data-en="Careers">就職先</a></li>
+        </ul>
+      </nav>
+      <div class="lang-switch" role="group" aria-label="言語 / Language">
+        <button type="button" data-lang="ja" aria-pressed="true">JA</button>
+        <span aria-hidden="true">/</span>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <button class="menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="global-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <nav class="breadcrumb" aria-label="現在位置">
+      <div class="container">
+        <ol>
+          <li><a href="index.html" data-en="Home">ホーム</a></li>
+          <li aria-current="page" data-en="Members">メンバー</li>
+        </ol>
+      </div>
+    </nav>
+
+    <section class="hero page-hero">
+      <div class="container">
+        <span class="label">MEMBERS</span>
+        <h1 data-en="Members">メンバー</h1>
+        <p data-en="Meet the faculty and students of Shigei Lab.">重井研究室の教員と学生を紹介します。</p>
+      </div>
+    </section>
+
+    <!-- ===== 教員 ===== -->
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title" data-en="Faculty">教員</h2>
+        <!-- 写真を用意したら .faculty-photo の中を <img src="images/xxx.jpg" alt=""> に差し替える -->
+        <div class="faculty-profile">
+          <div class="faculty-photo" aria-hidden="true">重</div>
+          <div class="faculty-body">
+            <span class="member-role" data-en="Professor">教授</span>
+            <p class="faculty-name">重井 徳貴<span class="faculty-name__en">SHIGEI Noritaka</span></p>
+            <dl class="faculty-data">
+              <div>
+                <dt data-en="Affiliation">所属</dt>
+                <dd data-en="Faculty of Science and Engineering (Engineering), Research Field in Science and Engineering, Kagoshima University">鹿児島大学 学術研究院 理工学域工学系</dd>
+              </div>
+              <div>
+                <dt data-en="Degree">学位</dt>
+                <dd data-en="Doctor of Engineering (Kagoshima University)">博士（工学）（鹿児島大学）</dd>
+              </div>
+              <div>
+                <dt data-en="Research fields">研究分野</dt>
+                <dd data-en="Soft computing, information networks, computer systems">ソフトコンピューティング、情報ネットワーク、計算機システム</dd>
+              </div>
+              <div>
+                <dt data-en="Keywords">キーワード</dt>
+                <dd data-en="Deep learning, neural networks, evolutionary computation, sensor networks, mobile agents, parallel computers, fault tolerance">深層学習、ニューラルネットワーク、進化的計算、センサネットワーク、モバイルエージェント、並列計算機、フォールトトレランス</dd>
+              </div>
+            </dl>
+            <ul class="faculty-links">
+              <li><a class="btn btn--outline btn--ext" href="https://ris.kuas.kagoshima-u.ac.jp/html/100005060_ja.html" target="_blank" rel="noopener"><span data-en="Researcher Database (Kagoshima University)">研究者総覧（鹿児島大学）</span><span class="visually-hidden" data-en="(opens in a new tab)">（新しいタブで開きます）</span></a></li>
+              <li><a class="btn btn--outline btn--ext" href="https://researchmap.jp/read0092816" target="_blank" rel="noopener"><span data-en="researchmap">researchmap</span><span class="visually-hidden" data-en="(opens in a new tab)">（新しいタブで開きます）</span></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 学生 ===== -->
+    <section class="section section--sub">
+      <div class="container">
+        <h2 class="section-title" data-en="Students">学生</h2>
+        <!-- 学年の高い順に並べる。人数分 <li class="member-card"> を増やす -->
+        <ul class="member-grid">
+          <li class="member-card">
+            <div class="member-photo" aria-hidden="true">江</div>
+            <div class="member-body">
+              <span class="member-role"><span class="todo">【原稿待ち】学年</span></span>
+              <p class="member-name">江藤 遥香</p>
+              <p class="member-theme"><a href="research1.html" data-en="Surgical skill assessment">手術手技スキル推定</a></p>
+            </div>
+          </li>
+          <li class="member-card">
+            <div class="member-photo" aria-hidden="true">山</div>
+            <div class="member-body">
+              <span class="member-role"><span class="todo">【原稿待ち】学年</span></span>
+              <p class="member-name">山下 旺亮</p>
+              <p class="member-theme"><a href="research2.html" data-en="Disaster risk mapping">災害危険個所推定</a></p>
+            </div>
+          </li>
+          <li class="member-card">
+            <div class="member-photo" aria-hidden="true">？</div>
+            <div class="member-body">
+              <span class="member-role"><span class="todo">【原稿待ち】学年</span></span>
+              <p class="member-name"><span class="todo">【原稿待ち】氏名</span></p>
+              <p class="member-theme"><span class="todo">【原稿待ち】研究テーマ</span></p>
+            </div>
+          </li>
+          <li class="member-card">
+            <div class="member-photo" aria-hidden="true">？</div>
+            <div class="member-body">
+              <span class="member-role"><span class="todo">【原稿待ち】学年</span></span>
+              <p class="member-name"><span class="todo">【原稿待ち】氏名</span></p>
+              <p class="member-theme"><span class="todo">【原稿待ち】研究テーマ</span></p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== お問い合わせ（全ページ共通・フッターの直前） ===== -->
+  <!-- 背景写真は images/contact.jpg に置くと表示されます（無い場合はネイビー一色） -->
+  <section class="contact-cta" aria-labelledby="contact-cta-title">
+    <div class="container">
+      <h2 class="contact-cta__title" id="contact-cta-title">Contact</h2>
+      <p class="contact-cta__sub" data-en="Get in touch">お問い合わせ</p>
+      <p class="contact-cta__text" data-en="For enquiries about joining the lab,&lt;br&gt;joint research, or media coverage,&lt;br&gt;please contact us below.">当研究室への配属・進学のご希望、<br>共同研究や取材のご相談は<br>下記よりお問い合わせください。</p>
+      <a class="btn btn--ghost" href="contact.html">Contact us</a>
+    </div>
+  </section>
+
+  <!-- ===== フッター（全ページ共通） ===== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="footer-logo" href="index.html" data-en="Shigei Lab">重井研究室</a>
+          <p data-en="Faculty of Engineering, Kagoshima University">鹿児島大学 工学部</p>
+        </div>
+        <ul class="footer-nav">
+          <li><a href="index.html" data-en="Home">ホーム</a></li>
+          <li><a href="about.html" data-en="About">研究室について</a></li>
+          <li><a href="news.html" data-en="News">ニュース</a></li>
+          <li><a href="research.html" data-en="Research">研究紹介</a></li>
+          <li><a href="seminar.html" data-en="Seminars">ゼミ紹介</a></li>
+          <li><a href="events.html" data-en="Events">行事紹介</a></li>
+          <li><a href="members.html" data-en="Members">メンバー</a></li>
+          <li><a href="careers.html" data-en="Careers">就職先</a></li>
+          <li><a href="contact.html" data-en="Contact">お問い合わせ</a></li>
+        </ul>
+      </div>
+      <p class="copyright" data-en="© 2026 Shigei Lab, Faculty of Engineering, Kagoshima University / Built by DragonicKing">© 2026 重井研究室（鹿児島大学 工学部） / 制作：DragonicKing</p>
+    </div>
+  </footer>
+
+</body>
+</html>
