@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ゼミ紹介 | 重井研究室</title>
+  <title data-en="Seminars | Shigei Lab">ゼミ紹介 | 重井研究室</title>
   <meta name="description" content="重井研究室のゼミの紹介ページです。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,29 +13,39 @@
 </head>
 <body>
 
-  <a class="skip-link" href="#main">本文へスキップ</a>
+  <a class="skip-link" href="#main" data-en="Skip to main content">本文へスキップ</a>
 
   <!-- ===== ヘッダー（全ページ共通） ===== -->
   <header class="site-header">
     <div class="container">
-      <a class="site-logo" href="index.html">重井研究室</a>
-      <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="global-nav">
-        <span></span><span></span><span></span>
-      </button>
-      <nav class="global-nav" id="global-nav">
+      <a class="site-logo" href="index.html" data-en="Shigei Lab">重井研究室</a>
+      <nav class="global-nav" id="global-nav" aria-label="メインメニュー">
         <ul>
-          <li><a href="index.html">ホーム</a></li>
+          <li><a href="about.html" data-en="About">研究室について</a></li>
+          <li><a href="news.html" data-en="News">ニュース</a></li>
           <li class="has-submenu">
-            <a href="index.html#research">研究紹介</a>
+            <a href="research.html" data-en="Research">研究紹介</a>
             <ul class="submenu">
-              <li><a href="research1.html">手術手技スキル推定</a></li>
-              <li><a href="research2.html">災害危険個所推定</a></li>
+              <li><a href="research.html#nlp" data-en="Natural Language Processing">自然言語処理</a></li>
+              <li><a href="research.html#iot" data-en="IoT">IoT</a></li>
+              <li><a href="research.html#vision" data-en="Image &amp; Video Recognition">画像・映像識別</a></li>
+              <li><a href="research.html#ee" data-en="Electrical &amp; Electronic Engineering">電気・電子</a></li>
             </ul>
           </li>
-          <li><a href="seminar.html" aria-current="page">ゼミ紹介</a></li>
-          <li><a href="events.html">行事紹介</a></li>
+          <li><a href="seminar.html" aria-current="page" data-en="Seminars">ゼミ紹介</a></li>
+          <li><a href="events.html" data-en="Events">行事紹介</a></li>
+          <li><a href="members.html" data-en="Members">メンバー</a></li>
+          <li><a href="careers.html" data-en="Careers">就職先</a></li>
         </ul>
       </nav>
+      <div class="lang-switch" role="group" aria-label="言語 / Language">
+        <button type="button" data-lang="ja" aria-pressed="true">JA</button>
+        <span aria-hidden="true">/</span>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <button class="menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="global-nav">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
 
@@ -43,8 +53,8 @@
     <nav class="breadcrumb" aria-label="現在位置">
       <div class="container">
         <ol>
-          <li><a href="index.html">ホーム</a></li>
-          <li aria-current="page">ゼミ紹介</li>
+          <li><a href="index.html" data-en="Home">ホーム</a></li>
+          <li aria-current="page" data-en="Seminars">ゼミ紹介</li>
         </ol>
       </div>
     </nav>
@@ -52,54 +62,75 @@
     <section class="hero page-hero">
       <div class="container">
         <span class="label">SEMINAR</span>
-        <h1>ゼミ紹介</h1>
-        <p>重井研究室のゼミの進め方と雰囲気を紹介します。</p>
+        <h1 data-en="Seminars">ゼミ紹介</h1>
+        <p data-en="How our seminars work and what they are like.">重井研究室のゼミの進め方と雰囲気を紹介します。</p>
       </div>
     </section>
 
     <section class="section">
       <div class="container article">
-        <h2 class="section-title">ゼミの基本情報</h2>
+        <h2 class="section-title" data-en="Basics">ゼミの基本情報</h2>
         <table class="info-table">
-          <tr><th scope="row">頻度・曜日</th><td><span class="todo">【原稿待ち】例：週1回 〇曜日</span></td></tr>
-          <tr><th scope="row">形式</th><td><span class="todo">【原稿待ち】例：進捗報告、論文紹介 など</span></td></tr>
-          <tr><th scope="row">参加メンバー</th><td><span class="todo">【原稿待ち】例：教員1名・学生〇名</span></td></tr>
-          <tr><th scope="row">雰囲気</th><td><span class="todo">【原稿待ち】質問しやすさ、先生からのフィードバックの様子など</span></td></tr>
+          <tr><th scope="row" data-en="Schedule">頻度・曜日</th><td><span class="todo">【原稿待ち】例：週1回 〇曜日</span></td></tr>
+          <tr><th scope="row" data-en="Format">形式</th><td><span class="todo">【原稿待ち】例：進捗報告、論文紹介 など</span></td></tr>
+          <tr><th scope="row" data-en="Participants">参加メンバー</th><td><span class="todo">【原稿待ち】例：教員1名・学生〇名</span></td></tr>
+          <tr><th scope="row" data-en="Atmosphere">雰囲気</th><td><span class="todo">【原稿待ち】質問しやすさ、先生からのフィードバックの様子など</span></td></tr>
         </table>
 
-        <h2>ゼミの種類と対象</h2>
+        <h2 data-en="Types of seminars">ゼミの種類と対象</h2>
         <table class="info-table">
-          <tr><th scope="row">Unixゼミ</th><td>B4</td></tr>
-          <tr><th scope="row">機械学習ゼミ</th><td>B4</td></tr>
-          <tr><th scope="row">英語論文購読ゼミ</th><td>M1</td></tr>
-          <tr><th scope="row">就活ゼミ</th><td>全員</td></tr>
-          <tr><th scope="row">経過報告ゼミ</th><td>全員</td></tr>
+          <tr><th scope="row" data-en="Unix seminar">Unixゼミ</th><td>B4</td></tr>
+          <tr><th scope="row" data-en="Machine learning seminar">機械学習ゼミ</th><td>B4</td></tr>
+          <tr><th scope="row" data-en="English paper reading seminar">英語論文購読ゼミ</th><td>M1</td></tr>
+          <tr><th scope="row" data-en="Job-hunting seminar">就活ゼミ</th><td data-en="All members">全員</td></tr>
+          <tr><th scope="row" data-en="Progress report seminar">経過報告ゼミ</th><td data-en="All members">全員</td></tr>
         </table>
 
-        <h2>ゼミで身につくこと</h2>
+        <h2 data-en="What you will learn">ゼミで身につくこと</h2>
         <ul class="point-list">
           <li><span class="todo">【原稿待ち】例：研究内容を人に伝える力</span></li>
           <li><span class="todo">【原稿待ち】例：論文を読む力</span></li>
         </ul>
 
         <div class="btn-row">
-          <a class="btn btn--outline" href="index.html">← ホームへ戻る</a>
+          <a class="btn btn--outline" href="index.html" data-en="← Back to home">← ホームへ戻る</a>
         </div>
       </div>
     </section>
   </main>
 
+  <!-- ===== お問い合わせ（全ページ共通・フッターの直前） ===== -->
+  <!-- 背景写真は images/contact.jpg に置くと表示されます（無い場合はネイビー一色） -->
+  <section class="contact-cta" aria-labelledby="contact-cta-title">
+    <div class="container">
+      <h2 class="contact-cta__title" id="contact-cta-title">Contact</h2>
+      <p class="contact-cta__sub" data-en="Get in touch">お問い合わせ</p>
+      <p class="contact-cta__text" data-en="For enquiries about joining the lab,&lt;br&gt;joint research, or media coverage,&lt;br&gt;please contact us below.">当研究室への配属・進学のご希望、<br>共同研究や取材のご相談は<br>下記よりお問い合わせください。</p>
+      <a class="btn btn--ghost" href="contact.html">Contact us</a>
+    </div>
+  </section>
+
   <!-- ===== フッター（全ページ共通） ===== -->
   <footer class="site-footer">
     <div class="container">
-      <ul class="footer-nav">
-        <li><a href="index.html">ホーム</a></li>
-        <li><a href="research1.html">手術手技スキル推定</a></li>
-        <li><a href="research2.html">災害危険個所推定</a></li>
-        <li><a href="events.html">行事紹介</a></li>
-        <li><a href="seminar.html">ゼミ紹介</a></li>
-      </ul>
-      <p class="copyright">© 2026 重井研究室（鹿児島大学 工学部） / 制作：DragonicKing</p>
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="footer-logo" href="index.html" data-en="Shigei Lab">重井研究室</a>
+          <p data-en="Faculty of Engineering, Kagoshima University">鹿児島大学 工学部</p>
+        </div>
+        <ul class="footer-nav">
+          <li><a href="index.html" data-en="Home">ホーム</a></li>
+          <li><a href="about.html" data-en="About">研究室について</a></li>
+          <li><a href="news.html" data-en="News">ニュース</a></li>
+          <li><a href="research.html" data-en="Research">研究紹介</a></li>
+          <li><a href="seminar.html" data-en="Seminars">ゼミ紹介</a></li>
+          <li><a href="events.html" data-en="Events">行事紹介</a></li>
+          <li><a href="members.html" data-en="Members">メンバー</a></li>
+          <li><a href="careers.html" data-en="Careers">就職先</a></li>
+          <li><a href="contact.html" data-en="Contact">お問い合わせ</a></li>
+        </ul>
+      </div>
+      <p class="copyright" data-en="© 2026 Shigei Lab, Faculty of Engineering, Kagoshima University / Built by DragonicKing">© 2026 重井研究室（鹿児島大学 工学部） / 制作：DragonicKing</p>
     </div>
   </footer>
 

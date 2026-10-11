@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-en="News | Shigei Lab">ニュース | 重井研究室</title>
+  <meta name="description" content="重井研究室のお知らせ・論文・受賞などのニュース一覧です。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+
+  <a class="skip-link" href="#main" data-en="Skip to main content">本文へスキップ</a>
+
+  <!-- ===== ヘッダー（全ページ共通） ===== -->
+  <header class="site-header">
+    <div class="container">
+      <a class="site-logo" href="index.html" data-en="Shigei Lab">重井研究室</a>
+      <nav class="global-nav" id="global-nav" aria-label="メインメニュー">
+        <ul>
+          <li><a href="about.html" data-en="About">研究室について</a></li>
+          <li><a href="news.html" aria-current="page" data-en="News">ニュース</a></li>
+          <li class="has-submenu">
+            <a href="research.html" data-en="Research">研究紹介</a>
+            <ul class="submenu">
+              <li><a href="research.html#nlp" data-en="Natural Language Processing">自然言語処理</a></li>
+              <li><a href="research.html#iot" data-en="IoT">IoT</a></li>
+              <li><a href="research.html#vision" data-en="Image &amp; Video Recognition">画像・映像識別</a></li>
+              <li><a href="research.html#ee" data-en="Electrical &amp; Electronic Engineering">電気・電子</a></li>
+            </ul>
+          </li>
+          <li><a href="seminar.html" data-en="Seminars">ゼミ紹介</a></li>
+          <li><a href="events.html" data-en="Events">行事紹介</a></li>
+          <li><a href="members.html" data-en="Members">メンバー</a></li>
+          <li><a href="careers.html" data-en="Careers">就職先</a></li>
+        </ul>
+      </nav>
+      <div class="lang-switch" role="group" aria-label="言語 / Language">
+        <button type="button" data-lang="ja" aria-pressed="true">JA</button>
+        <span aria-hidden="true">/</span>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <button class="menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="global-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <nav class="breadcrumb" aria-label="現在位置">
+      <div class="container">
+        <ol>
+          <li><a href="index.html" data-en="Home">ホーム</a></li>
+          <li aria-current="page" data-en="News">ニュース</li>
+        </ol>
+      </div>
+    </nav>
+
+    <section class="hero page-hero">
+      <div class="container">
+        <span class="label">NEWS</span>
+        <h1 data-en="News">ニュース</h1>
+        <p data-en="Announcements, accepted papers, awards and more.">研究室からのお知らせ、論文の採択、受賞などを掲載します。</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container article">
+        <!-- 新しいものを上に追加してください。カテゴリ例：お知らせ／論文／受賞／イベント
+             詳細ページは news-lab-visit.html を複製して作り、タイトルの <a href> にファイル名を書く -->
+        <ul class="news-list">
+          <li class="news-item">
+            <time class="news-date" datetime="2026-10-11">2026.10.11</time>
+            <span class="news-cat" data-en="News">お知らせ</span>
+            <p class="news-title"><a href="news-lab-visit.html" data-en="Lab visits to Shigei Lab (for FY2026 4th-year undergraduates)">重井研究室の研究室訪問について（2026年度B4対象）</a></p>
+          </li>
+          <li class="news-item">
+            <time class="news-date" datetime="2026-10-01"><span class="todo">2026.10.01</span></time>
+            <span class="news-cat" data-en="News">お知らせ</span>
+            <p class="news-title"><span class="todo">【原稿待ち】ニュースのタイトル</span></p>
+          </li>
+          <li class="news-item">
+            <time class="news-date" datetime="2026-10-01"><span class="todo">2026.10.01</span></time>
+            <span class="news-cat" data-en="Paper">論文</span>
+            <p class="news-title"><span class="todo">【原稿待ち】ニュースのタイトル</span></p>
+          </li>
+          <li class="news-item">
+            <time class="news-date" datetime="2026-10-01"><span class="todo">2026.10.01</span></time>
+            <span class="news-cat" data-en="News">お知らせ</span>
+            <p class="news-title"><span class="todo">【原稿待ち】ニュースのタイトル</span></p>
+          </li>
+          <li class="news-item">
+            <time class="news-date" datetime="2026-10-01"><span class="todo">2026.10.01</span></time>
+            <span class="news-cat" data-en="Paper">論文</span>
+            <p class="news-title"><span class="todo">【原稿待ち】ニュースのタイトル</span></p>
+          </li>
+          <li class="news-item">
+            <time class="news-date" datetime="2026-10-01"><span class="todo">2026.10.01</span></time>
+            <span class="news-cat" data-en="News">お知らせ</span>
+            <p class="news-title"><span class="todo">【原稿待ち】ニュースのタイトル</span></p>
+          </li>
+          <li class="news-item">
+            <time class="news-date" datetime="2026-10-01"><span class="todo">2026.10.01</span></time>
+            <span class="news-cat" data-en="Paper">論文</span>
+            <p class="news-title"><span class="todo">【原稿待ち】ニュースのタイトル</span></p>
+          </li>
+        </ul>
+
+        <div class="btn-row">
+          <a class="btn btn--outline" href="index.html" data-en="← Back to home">← ホームへ戻る</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== お問い合わせ（全ページ共通・フッターの直前） ===== -->
+  <!-- 背景写真は images/contact.jpg に置くと表示されます（無い場合はネイビー一色） -->
+  <section class="contact-cta" aria-labelledby="contact-cta-title">
+    <div class="container">
+      <h2 class="contact-cta__title" id="contact-cta-title">Contact</h2>
+      <p class="contact-cta__sub" data-en="Get in touch">お問い合わせ</p>
+      <p class="contact-cta__text" data-en="For enquiries about joining the lab,&lt;br&gt;joint research, or media coverage,&lt;br&gt;please contact us below.">当研究室への配属・進学のご希望、<br>共同研究や取材のご相談は<br>下記よりお問い合わせください。</p>
+      <a class="btn btn--ghost" href="contact.html">Contact us</a>
+    </div>
+  </section>
+
+  <!-- ===== フッター（全ページ共通） ===== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="footer-logo" href="index.html" data-en="Shigei Lab">重井研究室</a>
+          <p data-en="Faculty of Engineering, Kagoshima University">鹿児島大学 工学部</p>
+        </div>
+        <ul class="footer-nav">
+          <li><a href="index.html" data-en="Home">ホーム</a></li>
+          <li><a href="about.html" data-en="About">研究室について</a></li>
+          <li><a href="news.html" data-en="News">ニュース</a></li>
+          <li><a href="research.html" data-en="Research">研究紹介</a></li>
+          <li><a href="seminar.html" data-en="Seminars">ゼミ紹介</a></li>
+          <li><a href="events.html" data-en="Events">行事紹介</a></li>
+          <li><a href="members.html" data-en="Members">メンバー</a></li>
+          <li><a href="careers.html" data-en="Careers">就職先</a></li>
+          <li><a href="contact.html" data-en="Contact">お問い合わせ</a></li>
+        </ul>
+      </div>
+      <p class="copyright" data-en="© 2026 Shigei Lab, Faculty of Engineering, Kagoshima University / Built by DragonicKing">© 2026 重井研究室（鹿児島大学 工学部） / 制作：DragonicKing</p>
+    </div>
+  </footer>
+
+</body>
+</html>
