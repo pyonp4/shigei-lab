@@ -9,10 +9,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/lucian.css">
+  <script>document.documentElement.classList.add("lx-js"); // Lucian の登場アニメーション用（JavaScript が動くときだけ最初に隠す）</script>
   <script>
     // 保存した文字サイズを、表示する前に反映する（ちらつき防止）
     try { var fs = localStorage.getItem("fontSize"); if (fs === "small" || fs === "large") document.documentElement.dataset.fontSize = fs; } catch (e) {}
   </script>
+  <script src="js/lucian.js" defer></script>
   <script src="js/main.js" defer></script>
 </head>
 <body>
@@ -69,16 +72,27 @@
     <!-- ===== ヒーロー ===== -->
     <!-- 背景写真：images/slab_rouka_sakurajima.jpg（同じファイル名で上書きすれば差し替え可能）
          元の紺色グラデーションのデザインに戻したいときは、class から「hero--photo」を消す -->
-    <section class="hero hero--photo">
+    <!-- Lucian UX/UI Prompt #216・#226 を使用（動きは css/lucian.css と js/lucian.js）
+         data-s を付けた要素が、style="--d:ミリ秒" だけ遅れて順に浮かび上がる -->
+    <section class="hero hero--photo ux u216 u226">
+      <div class="u226-gd" aria-hidden="true"></div>
+      <div class="u226-gl" aria-hidden="true"></div>
+      <canvas class="u226-cv" aria-hidden="true"></canvas>
+      <div class="u226-glow" aria-hidden="true"></div>
       <div class="container">
-        <span class="label" data-en="Kagoshima University, Faculty of Engineering">鹿児島大学 工学部</span>
-        <h1 data-en="Shigei Lab">重井研究室</h1>
-        <div class="btn-row">
+        <span class="label" data-s style="--d:180" data-en="Kagoshima University, Faculty of Engineering">鹿児島大学 工学部</span>
+        <h1 data-en='<span class="u216-w"><span style="--d:300">Shigei</span></span> <span class="u216-w"><span style="--d:370">Lab</span></span>'><span class="u216-w"><span style="--d:300">重井</span></span><span class="u216-w"><span style="--d:370">研究室</span></span></h1>
+        <p class="u216-p" data-s style="--d:620" data-en="Our research spans four areas: natural language processing, IoT, image &amp; video recognition, and electrical &amp; electronic engineering.">「自然言語処理」「IoT」「画像・映像識別」「電気・電子」の4つの分野で研究を行っています。</p>
+        <div class="btn-row" data-s style="--d:760">
           <a class="btn" href="#research" data-en="Our research">研究を見る</a>
           <a class="btn btn--light" href="about.html" data-en="About the lab">研究室について</a>
         </div>
       </div>
     </section>
+
+    <!-- ===== 研究分野が流れる帯（Lucian UX/UI Prompt #394）：飾りなので読み上げない ===== -->
+    <!-- 流す文字は data-rows に「|」区切りで3段分書く -->
+    <div class="ux u394" aria-hidden="true" data-rows="NATURAL LANGUAGE PROCESSING · IoT · IMAGE &amp; VIDEO RECOGNITION · ELECTRICAL &amp; ELECTRONIC ENGINEERING · |自然言語処理 · IoT · 画像・映像識別 · 電気・電子 · |SHIGEI LAB · KAGOSHIMA UNIVERSITY · "></div>
 
     <!-- ===== ニュース ===== -->
     <section class="section">
@@ -123,72 +137,107 @@
     <section class="section" id="research">
       <div class="container">
         <div class="section-head">
-          <h2 class="section-title" data-en="Research">研究紹介</h2>
+          <h2 class="section-title" id="research-title" data-en="Research">研究紹介</h2>
           <a class="view-more" href="research.html">View more</a>
         </div>
-        <div class="card-grid">
-          <a class="card" href="research1.html">
-            <div class="placeholder">研究①のイメージ画像<br>（16:9）</div>
-            <div class="card-body">
-              <span class="card-tag" data-en="Medicine × AI">医療 × AI</span>
-              <h3 data-en="AI-based surgical skill assessment">AIによる手術手技スキルの推定</h3>
-              <p><span class="todo">【原稿待ち】研究の概要を2行程度で。</span></p>
-              <span class="card-more" data-en="Read more →">詳しく見る →</span>
-            </div>
+        <!-- Lucian UX/UI Prompt #389（横に開くパネル）：カーソルを合わせる・フォーカスする・タップすると、そのパネルが広がる
+             ←/→ キーでも移動できる。パネル全体が各ページへのリンク（タップでは1回目で開き、2回目でページへ移動）
+             背景は --bg で指定。写真ができたら url("images/ファイル名.jpg") center / cover に差し替える -->
+        <div class="ux u389" role="group" aria-labelledby="research-title">
+          <a class="u389-p" href="research1.html" style="--bg:radial-gradient(60% 40% at 70% 20%,rgba(125,180,255,.45),transparent 70%),linear-gradient(#3d6fc4,#1d4185 50%,#0a1f44)">
+            <span class="u389-lb" data-en="AI-based surgical skill assessment">AIによる手術手技スキルの推定</span>
+            <span class="u389-ds">
+              <small data-en="Medicine × AI">医療 × AI</small>
+              <span><span class="todo">【原稿待ち】研究の概要を2行程度で。</span></span>
+              <i data-en="Read more">詳しく見る</i>
+            </span>
           </a>
-          <a class="card" href="research2.html">
-            <div class="placeholder">研究②のイメージ画像<br>（16:9）</div>
-            <div class="card-body">
-              <span class="card-tag" data-en="Disaster prevention × AI">防災 × AI</span>
-              <h3 data-en="AI-based disaster risk mapping">AIによる災害危険個所の推定</h3>
-              <p><span class="todo">【原稿待ち】研究の概要を2行程度で。</span></p>
-              <span class="card-more" data-en="Read more →">詳しく見る →</span>
-            </div>
+          <a class="u389-p" href="research2.html" style="--bg:radial-gradient(50% 35% at 30% 25%,rgba(165,242,211,.35),transparent 70%),linear-gradient(#1f7a68,#14524f 50%,#0a1f44)">
+            <span class="u389-lb" data-en="AI-based disaster risk mapping">AIによる災害危険個所の推定</span>
+            <span class="u389-ds">
+              <small data-en="Disaster prevention × AI">防災 × AI</small>
+              <span><span class="todo">【原稿待ち】研究の概要を2行程度で。</span></span>
+              <i data-en="Read more">詳しく見る</i>
+            </span>
+          </a>
+          <a class="u389-p" href="research.html#nlp" style="--bg:repeating-linear-gradient(0deg,rgba(255,255,255,.06) 0 1px,transparent 1px 22px),linear-gradient(#4a5fb8,#2a3a85 55%,#0a1f44)">
+            <span class="u389-lb" data-en="Natural Language Processing">自然言語処理</span>
+            <span class="u389-ds">
+              <small data-en="Research area">研究分野</small>
+              <i data-en="See this area">分野を見る</i>
+            </span>
+          </a>
+          <a class="u389-p" href="research.html#iot" style="--bg:radial-gradient(2px 2px at 30% 30%,#c7d6f2,transparent),radial-gradient(2px 2px at 65% 45%,#c7d6f2,transparent),radial-gradient(2px 2px at 45% 65%,#c7d6f2,transparent),linear-gradient(#2c6e9e,#1b4a73 55%,#0a1f44)">
+            <span class="u389-lb">IoT</span>
+            <span class="u389-ds">
+              <small data-en="Research area">研究分野</small>
+              <i data-en="See this area">分野を見る</i>
+            </span>
+          </a>
+          <a class="u389-p" href="research.html#vision" style="--bg:radial-gradient(40% 30% at 50% 30%,rgba(199,214,242,.4),transparent 70%),linear-gradient(#5b4fa8,#33307a 55%,#0a1f44)">
+            <span class="u389-lb" data-en="Image &amp; Video Recognition">画像・映像識別</span>
+            <span class="u389-ds">
+              <small data-en="Research area">研究分野</small>
+              <i data-en="See this area">分野を見る</i>
+            </span>
+          </a>
+          <a class="u389-p" href="research.html#ee" style="--bg:repeating-linear-gradient(90deg,rgba(255,255,255,.06) 0 1px,transparent 1px 26px),linear-gradient(#2e5aa8,#132c5a 55%,#06142e)">
+            <span class="u389-lb" data-en="Electrical &amp; Electronic Engineering">電気・電子</span>
+            <span class="u389-ds">
+              <small data-en="Research area">研究分野</small>
+              <i data-en="See this area">分野を見る</i>
+            </span>
           </a>
         </div>
       </div>
     </section>
 
-    <!-- ===== メンバー ===== -->
+    <!-- ===== 研究室の雰囲気・メンバー・進路（Lucian UX/UI Prompt #214 のベントーグリッド） ===== -->
+    <!-- タイルにカーソルを合わせる（またはフォーカスする）と、タイルごとの動きが再生される
+         data-type / data-type-en は、入力欄に打ち込まれる文字（日本語 / 英語） -->
     <section class="section section--sub">
       <div class="container">
-        <div class="section-head">
-          <h2 class="section-title" data-en="Members">メンバー</h2>
-          <a class="view-more" href="members.html">View more</a>
-        </div>
-        <p class="section-lead" data-en="Introducing the faculty and students of Shigei Lab.">重井研究室の教員と学生を紹介します。</p>
-      </div>
-    </section>
-
-    <!-- ===== 研究室の雰囲気・進路 ===== -->
-    <section class="section">
-      <div class="container">
         <h2 class="section-title" data-en="Life in the lab">研究室の雰囲気</h2>
-        <div class="card-grid card-grid--3">
-          <a class="card" href="seminar.html">
-            <div class="card-body">
-              <span class="card-tag">SEMINAR</span>
+        <div class="ux u214">
+          <div class="u214-gd">
+            <a class="u214-t u214-a" href="seminar.html">
               <h3 data-en="Seminars">ゼミ紹介</h3>
-              <p data-en="How our seminars work and what they are like.">ゼミの進め方や雰囲気を紹介します。</p>
-              <span class="card-more" data-en="See seminars →">ゼミを見る →</span>
-            </div>
-          </a>
-          <a class="card" href="events.html">
-            <div class="card-body">
-              <span class="card-tag">EVENTS</span>
+              <small data-en="How our seminars work and what they are like.">ゼミの進め方や雰囲気を紹介します。</small>
+              <span class="u214-av" aria-hidden="true"><i></i><i></i><i></i></span>
+              <div class="u214-ty" aria-hidden="true" data-type="今週の研究の進捗を共有します" data-type-en="Sharing this week’s progress" data-en="This week’s progress">今週の進捗</div>
+              <span class="u214-go" data-en="See seminars">ゼミを見る</span>
+            </a>
+            <a class="u214-t u214-b" href="events.html">
               <h3 data-en="Events">行事紹介</h3>
-              <p data-en="Events we hold throughout the year.">1年を通して研究室で行っているイベントを紹介します。</p>
-              <span class="card-more" data-en="See events →">行事を見る →</span>
-            </div>
-          </a>
-          <a class="card" href="careers.html">
-            <div class="card-body">
-              <span class="card-tag">CAREERS</span>
+              <small data-en="Events we hold throughout the year.">1年を通して研究室で行っているイベントを紹介します。</small>
+              <div class="u214-sb" aria-hidden="true"><svg viewBox="0 0 12 12"><circle cx="5" cy="5" r="3.4" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7.6 7.6 10.5 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span data-type="研究室の1年の流れ" data-type-en="Our year in the lab" data-en="Our year">1年の流れ</span></div>
+              <div class="u214-rs" aria-hidden="true"><i style="--w:.92"></i><i style="--w:.7"></i><i style="--w:.82"></i><i style="--w:.55"></i></div>
+              <span class="u214-go" data-en="See events">行事を見る</span>
+            </a>
+            <a class="u214-t u214-c" href="careers.html">
               <h3 data-en="Careers">就職先</h3>
-              <p data-en="Where our graduates go after the lab.">卒業生・修了生の主な就職先を紹介します。</p>
-              <span class="card-more" data-en="See careers →">就職先を見る →</span>
-            </div>
-          </a>
+              <small data-en="Where our graduates go after the lab.">卒業生・修了生の主な就職先を紹介します。</small>
+              <div class="u214-br" aria-hidden="true"></div>
+              <span class="u214-go" data-en="See careers">就職先を見る</span>
+            </a>
+            <a class="u214-t u214-d" href="members.html">
+              <h3 data-en="Members">メンバー</h3>
+              <small data-en="Introducing the faculty and students of Shigei Lab.">重井研究室の教員と学生を紹介します。</small>
+              <span class="u214-sh" aria-hidden="true"><svg viewBox="0 0 44 44"><circle cx="17" cy="15" r="6" fill="currentColor" opacity=".18"/><circle cx="17" cy="15" r="6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 36c0-7 5-11 11-11s11 4 11 11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="30" cy="17" r="4.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M30 26c5 0 8.5 3.5 8.5 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+              <span class="u214-go" data-en="See members">メンバーを見る</span>
+            </a>
+            <a class="u214-t u214-e" href="research.html">
+              <h3 data-en="Research areas">研究分野</h3>
+              <small data-en="Four areas, from language to electronics.">言葉から電子回路まで、4つの分野で研究しています。</small>
+              <div class="u214-lg" aria-hidden="true">
+                <div class="u214-lt">
+                  <i data-en="Natural Language Processing">自然言語処理</i><i>IoT</i><i data-en="Image &amp; Video Recognition">画像・映像識別</i><i data-en="Electrical &amp; Electronic Eng.">電気・電子</i>
+                  <i data-en="Natural Language Processing">自然言語処理</i><i>IoT</i><i data-en="Image &amp; Video Recognition">画像・映像識別</i><i data-en="Electrical &amp; Electronic Eng.">電気・電子</i>
+                </div>
+              </div>
+              <span class="u214-go" data-en="See research">研究紹介を見る</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>
