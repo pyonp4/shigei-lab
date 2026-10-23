@@ -1526,27 +1526,28 @@ figcaption {
 }
 
 /* ---------- ニュース：詳細ページへのリンク ---------- */
-/* タイトルのリンクを行全体に広げ、どこを押しても詳細ページへ移動できるようにする */
+/* タイトルのリンクを行全体に広げ、どこを押しても詳細ページへ移動できるようにする
+   本文中の外部リンク（.ext-link：学会・論文など）は普通のリンクのまま */
 .news-item {
   position: relative;
 }
 
-.news-title a {
+.news-title a:not(.ext-link) {
   color: var(--color-main);
   font-weight: 700;
 }
 
-.news-title a::after {
+.news-title a:not(.ext-link)::after {
   content: "";
   position: absolute;
   inset: 0;
 }
 
-.news-item:has(a):hover {
+.news-item:has(.news-title a:not(.ext-link)):hover {
   background: var(--color-bg-sub);
 }
 
-.news-title a:visited {
+.news-title a:not(.ext-link):visited {
   color: var(--color-link-visited);
 }
 
