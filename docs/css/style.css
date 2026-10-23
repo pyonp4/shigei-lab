@@ -542,6 +542,11 @@ figcaption {
   border-top: none;
 }
 
+/* 見出しの下線を表の上線として使うので、間に余白を入れない（1行目だけ下寄りに見えるのを防ぐ） */
+.article h2:has(+ .info-table) {
+  margin-bottom: 0;
+}
+
 .article h2.section-title {
   margin-top: 0;
   border-bottom: none;
@@ -666,7 +671,7 @@ figcaption {
   padding: 18px 20px;
   border-bottom: 1px solid var(--color-border);
   text-align: left;
-  vertical-align: top;
+  vertical-align: middle;   /* 内容が複数行でも見出しを上下中央に */
 }
 
 .info-table th {
@@ -682,7 +687,8 @@ figcaption {
   content: "";
   position: absolute;
   left: 12px;
-  top: 28px;
+  top: 50%;
+  transform: translateY(-50%);
   width: 8px;
   height: 8px;
   background: var(--color-accent);
@@ -1267,6 +1273,7 @@ figcaption {
 
   .info-table th::before {
     top: 26px;
+    transform: none;
   }
 
   .info-table td {
@@ -1472,7 +1479,8 @@ figcaption {
 }
 
 /* ヘッダーに隠れないよう、ジャンプ先を少し下げる */
-.research-category {
+.research-category,
+#access {
   scroll-margin-top: 72px;
 }
 
@@ -1509,7 +1517,8 @@ figcaption {
     border-right: none;
   }
 
-  .research-category {
+  .research-category,
+  #access {
     scroll-margin-top: 64px;
   }
 
@@ -1521,16 +1530,16 @@ figcaption {
 /* ---------- メンバー ---------- */
 .member-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 32px;
+  grid-template-columns: repeat(5, 1fr);   /* PCは1行に5名（タブレット3名・スマホ2名） */
+  gap: 48px 40px;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
+/* 写真の下に名前・学年を枠なしで並べる */
 .member-card {
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
+  margin: 0;
 }
 
 /* 写真の仮置き（正方形）。写真を入れたら img が枠いっぱいに表示される */
@@ -1552,7 +1561,7 @@ figcaption {
 }
 
 .member-body {
-  padding: 20px 22px 24px;
+  padding: 16px 0 0;
 }
 
 .member-role {
@@ -1564,10 +1573,19 @@ figcaption {
 }
 
 .member-name {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--color-main);
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--color-text);
   margin: 0 0 8px;
+}
+
+/* カードの学年は名前の下に青緑の小さめの文字で（背景白・グレーともコントラスト比 4.5:1 以上） */
+.member-card .member-role {
+  font-weight: 400;
+  color: #1f6f78;
+  margin: 0 0 4px;
 }
 
 .member-theme {
@@ -1576,9 +1594,76 @@ figcaption {
   margin: 0;
 }
 
-/* 教員は少し大きく */
-.member-grid--faculty {
-  grid-template-columns: repeat(auto-fill, minmax(280px, 340px));
+/* 押すとプロフィールが開くカード（重井先生） */
+.member-card__button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.member-card__button:hover .member-name,
+.member-card__button:hover .member-more {
+  text-decoration-thickness: 3px;
+}
+
+.member-card__button .member-body {
+  display: block;
+}
+
+.member-card__button .member-name {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.member-more {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.875rem;
+  color: var(--color-link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+/* 博士課程と研究生のように、少人数のグループを横に並べる（列の幅は .member-grid と同じ） */
+.member-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 48px 40px;
+}
+
+.member-group .member-grid {
+  grid-template-columns: 1fr;
+}
+
+/* 学生の学年ごとの見出し（左に線、右に人数） */
+.member-group-title {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin: 56px 0 24px;
+  padding-left: 16px;
+  border-left: 4px solid var(--color-accent);
+  font-size: 1.375rem;
+  color: var(--color-main);
+}
+
+.section-title + .member-group-title,
+.section-title + .member-row .member-group-title,
+.member-row .member-group-title {
+  margin-top: 0;
+}
+
+.member-group-count {
+  font-size: 0.95rem;
+  color: var(--color-text-sub);
 }
 
 @media (max-width: 768px) {
@@ -1587,12 +1672,13 @@ figcaption {
     gap: 16px;
   }
 
-  .member-grid--faculty {
-    grid-template-columns: minmax(0, 260px);
+  .member-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
 
   .member-body {
-    padding: 14px 14px 18px;
+    padding: 12px 0 0;
   }
 
   .member-name {
@@ -1711,6 +1797,15 @@ figcaption {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .member-grid,
+  .member-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .member-group .member-grid {
+    grid-template-columns: 1fr;
+  }
+
   .category-nav li:nth-child(n + 3) a {
     border-top: 1px solid var(--color-border);
   }
@@ -1721,32 +1816,42 @@ figcaption {
 }
 
 /* ---------- 教員プロフィール（メンバーページ） ---------- */
-.faculty-profile {
-  display: grid;
-  grid-template-columns: 280px 1fr;
+/* ---------- プロフィールのダイアログ ---------- */
+.profile-dialog {
+  width: min(760px, calc(100% - 32px));
+  max-height: calc(100% - 32px);
+  padding: 0;
+  border: none;
   background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.profile-dialog::backdrop {
+  background: rgba(10, 31, 68, 0.7);
+}
+
+.profile-dialog__inner {
+  position: relative;
+  padding: 48px 40px 40px;
+}
+
+.profile-dialog__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 16px;
   border: 1px solid var(--color-border);
-}
-
-.faculty-photo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  aspect-ratio: 1 / 1;
-  background: var(--color-main);
-  color: #fff;
-  font-size: 4rem;
+  background: var(--color-bg);
+  color: var(--color-main);
+  font: inherit;
   font-weight: 700;
+  cursor: pointer;
 }
 
-.faculty-photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.faculty-body {
-  padding: 32px 36px;
+.profile-dialog__close:hover {
+  background: var(--color-bg-sub);
 }
 
 .faculty-name {
@@ -1807,7 +1912,13 @@ figcaption {
   content: "↗" / "";
 }
 
-.ext-link::after {
+/* サイト内の別ページへのリンク（研究室データなど）。同じタブで移動する */
+.page-link::after {
+  content: "↗" / "";
+}
+
+.ext-link::after,
+.page-link::after {
   margin-left: 4px;
   display: inline-block;
 }
@@ -1817,18 +1928,8 @@ figcaption {
 }
 
 @media (max-width: 768px) {
-  .faculty-profile {
-    grid-template-columns: 1fr;
-  }
-
-  .faculty-photo {
-    max-height: 240px;
-    aspect-ratio: auto;
-    height: 240px;
-  }
-
-  .faculty-body {
-    padding: 24px 20px;
+  .profile-dialog__inner {
+    padding: 64px 20px 24px;
   }
 
   .faculty-name {
