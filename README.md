@@ -33,3 +33,8 @@
 - [ ] 学部生3人が重井研究室にポジティブな印象を持った
 - [ ] QRコードで正しく飛べる（3つのデバイスで確認）
 - [ ] スマートフォン（幅375px）で横スクロールが発生しない
+
+## 参考リンク
+
+- [Lucian UX/UI Prompt 紹介ページ](https://lucianlabs.dev/uxui-prompt/introducing/) — lucianLabs が無料（MITライセンス）で公開している UI 部品集。プロンプトをコピーして AI コーディングツールに貼ると組み込める
+- [Lucian UI 部品カタログ（日本語一覧）](https://claude.ai/artifact/SJ5YKVdFaD31XWiqHfMCb5?sk=jJyLxiiQ4D52-_0CrJye0g) — 上記の部品400点を、動くプレビュー・日本語名・分類・検索つきで一覧にしたもの
