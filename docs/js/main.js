@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   setupPagination(); // ページ番号にも data-en を付けるので、言語切り替えより先に作る
   setupLanguage();
+  setupFontSize();
   setupMenu();
   setupDialogs();
 });
@@ -243,5 +244,38 @@ function setupDialogs() {
 
     // 閉じたら、開いたボタンにフォーカスを戻す
     dialog.addEventListener("close", () => button.focus());
+  });
+}
+
+// 文字サイズの切り替え（小・中・大）
+// <html data-font-size="medium|large"> を付けると CSS で文字が大きくなる（小は付けない）
+// 選んだ大きさはページを移動しても引き継ぐ（<head> の小さなスクリプトで表示前にも反映している）
+function setupFontSize() {
+  const buttons = document.querySelectorAll(".font-switch button");
+  if (!buttons.length) return;
+
+  const apply = (size) => {
+    if (size === "small") {
+      delete document.documentElement.dataset.fontSize;
+    } else {
+      document.documentElement.dataset.fontSize = size;
+    }
+    buttons.forEach((button) => {
+      button.setAttribute("aria-pressed", String(button.dataset.fontSize === size));
+    });
+  };
+
+  apply(document.documentElement.dataset.fontSize || "small");
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const size = button.dataset.fontSize;
+      apply(size);
+      try {
+        localStorage.setItem("fontSize", size);
+      } catch (e) {
+        // 保存できない環境では、このページだけ切り替える
+      }
+    });
   });
 }

@@ -39,6 +39,16 @@ html {
   scroll-behavior: smooth;
 }
 
+/* 文字サイズの切り替え（小＝16px・中＝18px・大＝20px）。rem で指定した文字がまとめて変わる
+   DADS の「本文16px以上」を守るため、小は今までと同じ大きさ */
+html[data-font-size="medium"] {
+  font-size: 112.5%;
+}
+
+html[data-font-size="large"] {
+  font-size: 125%;
+}
+
 body {
   margin: 0;
   font-family: "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN",
@@ -46,7 +56,7 @@ body {
   color: var(--color-text);
   background: var(--color-bg);
   line-height: 1.7;          /* DADS：本文は行間150%以上 */
-  font-size: 16px;           /* DADS：本文・UIは16px以上 */
+  font-size: 1rem;           /* DADS：本文・UIは16px以上（文字サイズ切り替えに合わせて変わる） */
   letter-spacing: 0.02em;
   overflow-wrap: anywhere; /* 長い英単語・URLで横スクロールさせない */
   -webkit-font-smoothing: antialiased;
@@ -102,6 +112,11 @@ p {
   color: #fff;
 }
 
+/* ヘッダーは文字サイズ切り替えの対象外（メニューがはみ出さないよう 16px に固定し、中は em で指定） */
+.site-header {
+  font-size: 16px;
+}
+
 .site-header .container {
   display: flex;
   align-items: center;
@@ -111,24 +126,68 @@ p {
 
 .site-logo {
   font-weight: 700;
-  font-size: 1.25rem;
+  font-size: 1.25em;
   color: #fff;
   text-decoration: none;
   letter-spacing: 0.02em;
 }
 
 .global-nav {
+  display: flex;
+  align-items: center;
   margin-left: auto;
 }
 
 /* JA / EN 切り替え */
+/* 文字サイズ切り替え（小・中・大） */
+.font-switch {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-left: 20px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.875em;
+}
+
+.font-switch__label {
+  margin-right: 4px;
+  font-weight: 700;
+}
+
+.font-switch button {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.font-switch button:hover {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}
+
+/* 選択中の大きさは下線＋白で示す（色だけに頼らない） */
+.font-switch button[aria-pressed="true"] {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.3em;
+  cursor: default;
+}
+
 .lang-switch {
   display: flex;
   align-items: center;
   gap: 2px;
-  margin-left: 20px;
+  margin-left: 12px;
   color: rgba(255, 255, 255, 0.6);
-  font-size: 0.875rem;
+  font-size: 0.875em;
 }
 
 .lang-switch button {
@@ -172,7 +231,7 @@ p {
   padding: 24px 14px;
   color: #fff;
   text-decoration: none;
-  font-size: 0.95rem;
+  font-size: 0.95em;
   font-weight: 400;
   position: relative;
 }
@@ -1184,7 +1243,7 @@ figcaption {
 /* =========================================================
    メニューが横に収まらない幅（1024px以下）はハンバーガーメニュー
    ========================================================= */
-@media (max-width: 1024px) {
+@media (max-width: 1279px) {   /* ヘッダーはこの幅からメニューを≡ボタンにまとめる */
   .site-header .container {
     height: 64px;
   }
@@ -1196,6 +1255,14 @@ figcaption {
   .lang-switch {
     margin-left: auto;
     margin-right: 4px;
+  }
+
+  /* 文字サイズはメニューを開いた中の一番下に表示 */
+  .global-nav .font-switch {
+    margin: 0 20px 16px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.45);
+    font-size: 1em;
   }
 
   .global-nav {
@@ -1221,7 +1288,7 @@ figcaption {
 
   .global-nav a {
     padding: 14px 0;
-    font-size: 1.05rem;
+    font-size: 1.05em;
   }
 
   .global-nav a::before {

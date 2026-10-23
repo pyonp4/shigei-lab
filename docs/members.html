@@ -9,6 +9,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap">
   <link rel="stylesheet" href="css/style.css">
+  <script>
+    // 保存した文字サイズを、表示する前に反映する（ちらつき防止）
+    try { var fs = localStorage.getItem("fontSize"); if (fs === "medium" || fs === "large") document.documentElement.dataset.fontSize = fs; } catch (e) {}
+  </script>
   <script src="js/main.js" defer></script>
 </head>
 <body>
@@ -37,6 +41,12 @@
           <li><a href="members.html" aria-current="page" data-en="Members">メンバー</a></li>
           <li><a href="careers.html" data-en="Careers">就職先</a></li>
         </ul>
+        <div class="font-switch" role="group" aria-label="文字サイズ / Text size">
+          <span class="font-switch__label" aria-hidden="true" data-en="Text">文字</span>
+          <button type="button" data-font-size="small" aria-pressed="true" data-en="S">小</button>
+          <button type="button" data-font-size="medium" aria-pressed="false" data-en="M">中</button>
+          <button type="button" data-font-size="large" aria-pressed="false" data-en="L">大</button>
+        </div>
       </nav>
       <div class="lang-switch" role="group" aria-label="言語 / Language">
         <button type="button" data-lang="ja" aria-pressed="true">JA</button>
