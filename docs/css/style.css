@@ -290,6 +290,14 @@ p {
   padding: 140px 0 120px;
 }
 
+/* トップの写真付きヒーロー：文字のある左側ほど紺を濃く重ねてコントラストを確保 */
+.hero--photo {
+  background:
+    linear-gradient(90deg, rgba(10, 31, 68, 0.88) 0%, rgba(10, 31, 68, 0.7) 55%, rgba(10, 31, 68, 0.45) 100%),
+    url("../images/slab_rouka_sakurajima.jpg") center 50% / cover no-repeat,
+    var(--color-main);
+}
+
 .hero .container {
   position: relative;
   z-index: 1;
