@@ -1479,7 +1479,8 @@ figcaption {
 }
 
 /* ヘッダーに隠れないよう、ジャンプ先を少し下げる */
-.research-category {
+.research-category,
+#access {
   scroll-margin-top: 72px;
 }
 
@@ -1516,7 +1517,8 @@ figcaption {
     border-right: none;
   }
 
-  .research-category {
+  .research-category,
+  #access {
     scroll-margin-top: 64px;
   }
 
@@ -1910,7 +1912,13 @@ figcaption {
   content: "↗" / "";
 }
 
-.ext-link::after {
+/* サイト内の別ページへのリンク（研究室データなど）。同じタブで移動する */
+.page-link::after {
+  content: "↗" / "";
+}
+
+.ext-link::after,
+.page-link::after {
   margin-left: 4px;
   display: inline-block;
 }
