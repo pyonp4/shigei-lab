@@ -290,10 +290,10 @@ p {
   padding: 140px 0 120px;
 }
 
-/* トップの写真付きヒーロー：文字のある左側ほど紺を濃く重ねてコントラストを確保 */
+/* トップの写真付きヒーロー：文字のある左側だけ暗くし、右側は写真そのまま */
 .hero--photo {
   background:
-    linear-gradient(90deg, rgba(10, 31, 68, 0.88) 0%, rgba(10, 31, 68, 0.7) 55%, rgba(10, 31, 68, 0.45) 100%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.45) 35%, rgba(0, 0, 0, 0) 60%),
     url("../images/slab_rouka_sakurajima.jpg") center 50% / cover no-repeat,
     var(--color-main);
 }
@@ -1096,6 +1096,14 @@ figcaption {
 
   .hero {
     padding: 88px 0 72px;
+  }
+
+  /* 文字が全幅に広がるため、写真全体を薄く暗くする */
+  .hero--photo {
+    background:
+      linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url("../images/slab_rouka_sakurajima.jpg") center 50% / cover no-repeat,
+      var(--color-main);
   }
 
   .page-hero {
