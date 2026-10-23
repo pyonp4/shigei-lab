@@ -9,10 +9,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/lucian.css">
+  <script>document.documentElement.classList.add("lx-js"); // Lucian の登場アニメーション用（JavaScript が動くときだけ最初に隠す）</script>
   <script>
     // 保存した文字サイズを、表示する前に反映する（ちらつき防止）
     try { var fs = localStorage.getItem("fontSize"); if (fs === "small" || fs === "large") document.documentElement.dataset.fontSize = fs; } catch (e) {}
   </script>
+  <script src="js/lucian.js" defer></script>
   <script src="js/main.js" defer></script>
 </head>
 <body>

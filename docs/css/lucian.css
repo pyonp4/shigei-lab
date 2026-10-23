@@ -1,0 +1,1196 @@
+/* =========================================================
+   Lucian UX/UI Prompt の部品を、このサイト用に移植したスタイル
+     https://lucianlabs.dev/uxui-prompt/
+   各部品の先頭に、元の部品の番号と MIT ライセンスの表記を残している（消さないこと）
+   - 部品の中だけで効くよう、クラス名は元の番号（.u212 など）で始める
+   - 色は --ux-* を、style.css のネイビーの色に対応づけて使う
+   - 文字の大きさは、文字サイズ切り替えが効くよう rem に置き換えている
+   - フォーカスリングは style.css の DADS 準拠のもの（黒＋黄色）をそのまま使う
+   ========================================================= */
+
+/* Lucian UX/UI Prompt theme tokens · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/
+   このサイトはライトテーマだけなので、ダーク用の値は持たない */
+:root {
+  --ux-page: var(--color-bg);
+  --ux-surface: var(--color-bg);
+  --ux-surface-2: var(--color-bg-sub);
+  --ux-surface-3: #e4e8ef;
+  --ux-ink: var(--color-text);
+  --ux-ink-2: var(--color-text-sub);
+  --ux-ink-3: var(--color-text-sub);   /* 元の薄い灰色は白地で 4.5:1 に届かないため、本文の補助色にそろえる */
+  --ux-line: rgba(14, 26, 46, 0.12);
+  --ux-line-2: var(--color-border);
+  --ux-accent: var(--color-accent);
+  --ux-accent-2: var(--color-accent-light);
+  --ux-accent-soft: rgba(46, 90, 168, 0.12);
+  --ux-accent-ink: #fff;
+  --ux-mint: #119c72;
+  --ux-shadow: rgba(10, 31, 68, 0.14);
+  --ux-shadow-strong: rgba(10, 31, 68, 0.3);
+  --ux-grad: linear-gradient(120deg, var(--color-main), var(--color-accent) 55%, #7db4ff);
+  --ux-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ux-spring: cubic-bezier(0.34, 1.45, 0.64, 1);
+}
+
+.ux [hidden] {
+  display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ux,
+  .ux *,
+  .ux *::before,
+  .ux *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- ヘッダー（全ページ） ---------- */
+/* Lucian UX/UI Prompt #212 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#212
+   下にスクロールすると上へ隠れ、少し戻すとすりガラスのヘッダーで戻ってくる。下の細い線は読んだ量 */
+.u212 {
+  transition: transform 0.38s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.3s, box-shadow 0.3s,
+    backdrop-filter 0.3s;
+}
+
+.u212.is-solid {
+  background: rgba(10, 31, 68, 0.9);
+  background: color-mix(in srgb, var(--color-main) 88%, transparent);   /* 白文字が読める濃さを保つ */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08), 0 8px 20px -14px var(--ux-shadow-strong);
+}
+
+.u212.is-hide {
+  transform: translateY(-110%);
+}
+
+/* キーボードでヘッダー内を操作している間は隠さない */
+.u212.is-hide:focus-within {
+  transform: none;
+}
+
+.u212-pg {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 2px;
+  width: 0;
+  background: var(--color-accent-light);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.u212.is-solid .u212-pg {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .u212 {
+    transition: none;
+  }
+}
+
+/* ---------- トップのヒーロー：光が走る方眼の背景 ---------- */
+/* Lucian UX/UI Prompt #226 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#226
+   写真の上に薄い方眼を重ね、線に沿って光が流れる。カーソルの周りだけ方眼が明るくなる */
+.u226 {
+  --mx: -200px;
+  --my: -200px;
+}
+
+.u226-gd,
+.u226-gl {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 34px 34px;
+  background-position: -1px -1px;
+}
+
+.u226-gd {
+  -webkit-mask-image: radial-gradient(75% 70% at 50% 45%, #000, transparent);
+  mask-image: radial-gradient(75% 70% at 50% 45%, #000, transparent);
+}
+
+.u226-gl {
+  background-image: linear-gradient(rgba(199, 214, 242, 0.55) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(199, 214, 242, 0.55) 1px, transparent 1px);
+  -webkit-mask-image: radial-gradient(90px 90px at var(--mx) var(--my), #000, transparent);
+  mask-image: radial-gradient(90px 90px at var(--mx) var(--my), #000, transparent);
+  transition: opacity 0.4s;
+}
+
+.u226-cv {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.u226-glow {
+  position: absolute;
+  left: 30%;
+  top: 50%;
+  width: 520px;
+  max-width: 90%;
+  height: 360px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(46, 90, 168, 0.35), transparent);
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+/* ---------- トップのヒーロー：順番に浮かび上がる登場 ---------- */
+/* Lucian UX/UI Prompt #216 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#216
+   ラベル → 見出しの語 → 説明 → ボタンの順に、少しずつ間をあけて下から浮かび上がる
+   見出しの語は、見えない線の下からせり上がる（JavaScript が動かない環境では最初から表示） */
+.u216-w {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding: 0 0.08em;
+  margin: 0 -0.08em;   /* 字の端が切れない余白は残しつつ、日本語の語の間にすき間を作らない */
+}
+
+.u216-w > span {
+  display: inline-block;
+}
+
+.u216-p {
+  font-size: 1.15rem;
+  max-width: 640px;
+  margin: 0;
+}
+
+.lx-js .u216 [data-s] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.55s var(--ux-ease), transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition-delay: calc(var(--d) * 1ms);
+}
+
+.lx-js .u216 .u216-w > span {
+  transform: translateY(105%);
+  transition: transform 0.75s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition-delay: calc(var(--d) * 1ms);
+}
+
+.lx-js .u216.is-in [data-s] {
+  opacity: 1;
+  transform: none;
+}
+
+.lx-js .u216.is-in .u216-w > span {
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lx-js .u216 [data-s],
+  .lx-js .u216 .u216-w > span {
+    transition: none;
+  }
+}
+
+/* ---------- 研究分野が流れる帯（トップ） ---------- */
+/* Lucian UX/UI Prompt #394 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#394
+   3段の大きな文字がゆっくり逆向きに流れ、スクロールの速さに合わせて加速し、少し傾く */
+.u394 {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  padding: 48px 0;
+  background: var(--color-main);
+  color: #fff;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.u394-row {
+  display: flex;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.u394-row span {
+  flex: none;
+  padding-right: 0.3em;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+.u394-row:nth-child(2) span {
+  font-size: clamp(1.5rem, 3.5vw, 2.9rem);
+  font-weight: 700;
+  color: var(--color-accent-light);
+  letter-spacing: -0.03em;
+}
+
+.u394-row:nth-child(3) span {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.7);
+}
+
+/* ---------- カードと見出しのスクロール登場（全ページ） ---------- */
+/* Lucian UX/UI Prompt #251 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#251
+   画面に入ったカードが左の列から順に下から浮かび上がり、タグが少し弾んで大きくなる
+   見出しの上のラインは左から引かれる。上に戻ってからもう一度下ると、また最初から登場する */
+@media (prefers-reduced-motion: no-preference) {
+  .lx-js .u251-cd {
+    opacity: 0;
+    transform: translateY(26px) scale(0.97);
+    transition: opacity 0.5s, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.3s, color 0.3s,
+      border-color 0.3s;
+    transition-delay: var(--d, 0s), var(--d, 0s), 0s, 0s, 0s;
+  }
+
+  .lx-js .u251-cd.is-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  .lx-js .u251-cd .card-tag {
+    display: inline-block;
+    transform: scale(0.4);
+    transform-origin: 0 50%;
+    transition: transform 0.55s cubic-bezier(0.3, 1.7, 0.5, 1);
+    transition-delay: calc(var(--d, 0s) + 0.18s);
+  }
+
+  .lx-js .u251-cd.is-in .card-tag {
+    transform: none;
+  }
+
+  .lx-js .u251-hd::before {
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s;
+  }
+
+  .lx-js .u251-hd.is-in::before {
+    transform: none;
+  }
+}
+
+/* ---------- 研究室の雰囲気：動くベントーグリッド（トップ） ---------- */
+/* Lucian UX/UI Prompt #214 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#214
+   大きさの違うタイルを組み合わせて並べる。カーソルを合わせる（またはフォーカスする）と
+   タイルが少し浮き、タイルごとの小さな動きが再生される */
+.u214-gd {
+  display: grid;
+  grid-template-columns: 1fr 1fr 0.9fr;
+  grid-template-rows: minmax(220px, auto) minmax(220px, auto) minmax(160px, auto);
+  grid-template-areas: "a a b" "c d b" "e e e";
+  gap: 16px;
+}
+
+.u214-t {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border-radius: 24px;
+  background: var(--ux-surface);   /* 灰色のセクション背景の上に置くので白。中の入力欄などを灰色にする */
+  box-shadow: inset 0 0 0 1px var(--ux-line);
+  padding: 24px 24px 22px;
+  color: var(--ux-ink);
+  text-decoration: none;
+  transition: transform 0.35s cubic-bezier(0.3, 1.4, 0.5, 1), box-shadow 0.3s;
+}
+
+.u214-t:visited {
+  color: var(--ux-ink);
+}
+
+.u214-t:hover,
+.u214-t:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: inset 0 0 0 1.5px rgba(46, 90, 168, 0.55), 0 14px 26px -16px var(--ux-accent);
+}
+
+/* DADS のフォーカスリングは残しつつ、角丸に沿わせる */
+.u214-t:focus-visible {
+  border-radius: 24px;
+}
+
+.u214-t h3 {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-size: 1.3rem;
+  line-height: 1.4;
+  color: var(--color-main);
+}
+
+.u214-t small {
+  position: relative;
+  z-index: 1;
+  display: block;
+  max-width: 28em;
+  margin-top: 4px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--ux-ink-2);
+}
+
+/* 右下の「→」。タイル全体がリンクであることを示す */
+.u214-go {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+  padding-top: 16px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-link);
+}
+
+.u214-go::after {
+  content: " →" / "";
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+.u214-t.is-on .u214-go::after {
+  transform: translateX(4px);
+}
+
+.u214-a { grid-area: a; }
+.u214-b { grid-area: b; }
+.u214-c { grid-area: c; }
+.u214-d { grid-area: d; }
+.u214-e { grid-area: e; }
+
+/* ゼミ：参加者のアイコンが集まり、入力欄に文字が打たれる */
+.u214-av {
+  position: absolute;
+  right: 24px;
+  top: 24px;
+  display: flex;
+}
+
+.u214-av i {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 3px solid var(--ux-surface);
+  margin-left: -10px;
+  transition: transform 0.45s cubic-bezier(0.3, 1.5, 0.5, 1);
+}
+
+.u214-av i:nth-child(1) { background: #7db4ff; transform: translateX(26px); }
+.u214-av i:nth-child(2) { background: var(--color-accent); transform: translateX(13px); }
+.u214-av i:nth-child(3) { background: var(--color-main); }
+
+.u214-a.is-on .u214-av i {
+  transform: none;
+}
+
+.u214-ty {
+  position: relative;
+  z-index: 1;
+  max-width: 420px;
+  height: 40px;
+  margin-top: 20px;
+  padding: 0 14px;
+  border-radius: 12px;
+  background: var(--ux-surface-2);
+  font-size: 0.95rem;
+  line-height: 40px;
+  color: var(--ux-ink-2);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.u214-ty::after {
+  content: "";
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  margin-left: 2px;
+  vertical-align: -0.2em;
+  background: var(--color-accent);
+}
+
+/* 行事：検索欄に文字が入り、結果の行が伸びる */
+.u214-sb {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  margin-top: 20px;
+  padding: 0 12px;
+  border-radius: 12px;
+  background: var(--ux-surface-2);
+  font-size: 0.95rem;
+  color: var(--ux-ink-2);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.u214-sb svg {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  color: var(--ux-ink-3);
+}
+
+.u214-rs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.u214-rs i {
+  height: 12px;
+  border-radius: 6px;
+  background: var(--ux-line);
+  transform-origin: 0 50%;
+  transform: scaleX(0.3);
+  opacity: 0.4;
+  transition: transform 0.45s cubic-bezier(0.3, 1.3, 0.5, 1), opacity 0.3s;
+}
+
+.u214-rs i:nth-child(2) { transition-delay: 0.06s; }
+.u214-rs i:nth-child(3) { transition-delay: 0.12s; }
+.u214-rs i:nth-child(4) { transition-delay: 0.18s; }
+
+.u214-rs i:first-child {
+  background: rgba(46, 90, 168, 0.45);
+}
+
+.u214-b.is-on .u214-rs i {
+  transform: scaleX(var(--w, 1));
+  opacity: 1;
+}
+
+/* 就職先：棒グラフが伸びる */
+.u214-br {
+  position: absolute;
+  right: 24px;
+  bottom: 22px;
+  width: 45%;
+  height: 64px;
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.u214-br i {
+  flex: 1;
+  height: 100%;
+  border-radius: 4px 4px 0 0;
+  background: rgba(46, 90, 168, 0.55);
+  transform-origin: 50% 100%;
+  transform: scaleY(0.25);
+  transition: transform 0.5s cubic-bezier(0.3, 1.5, 0.5, 1);
+  transition-delay: calc(var(--i) * 45ms);
+}
+
+.u214-c.is-on .u214-br i {
+  transform: scaleY(var(--h));
+}
+
+/* メンバー：人のアイコンの周りに輪が広がる（元は盾のアイコン） */
+.u214-sh {
+  position: absolute;
+  right: 24px;
+  bottom: 22px;
+  width: 44px;
+  height: 44px;
+  color: var(--color-accent);
+}
+
+.u214-sh::before,
+.u214-sh::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 44px;
+  height: 44px;
+  margin: -22px 0 0 -22px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  opacity: 0;
+}
+
+.u214-d.is-on .u214-sh::before {
+  animation: u214-p 1.4s ease-out infinite;
+}
+
+.u214-d.is-on .u214-sh::after {
+  animation: u214-p 1.4s ease-out 0.7s infinite;
+}
+
+@keyframes u214-p {
+  0% { transform: scale(0.6); opacity: 0.7; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+
+.u214-sh svg {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* 研究分野：分野名の札が横に流れる */
+.u214-lg {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 58%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent);
+}
+
+.u214-lt {
+  display: flex;
+  gap: 12px;
+  animation: u214-m 9s linear infinite;
+  animation-play-state: paused;
+}
+
+.u214-e.is-on .u214-lt {
+  animation-play-state: running;
+  animation-duration: 3.6s;
+}
+
+@keyframes u214-m {
+  to { transform: translateX(-50%); }
+}
+
+.u214-lt i {
+  flex: none;
+  height: 44px;
+  padding: 0 16px;
+  border-radius: 12px;
+  background: var(--ux-surface-2);
+  box-shadow: 0 0 0 1px var(--ux-line);
+  display: grid;
+  place-items: center;
+  font-style: normal;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-main);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .u214-t,
+  .u214-av i,
+  .u214-rs i,
+  .u214-br i {
+    transition: none;
+  }
+
+  .u214-lt {
+    animation: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .u214-gd {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: none;
+    grid-template-areas: "a a" "b c" "b d" "e e";
+  }
+}
+
+@media (max-width: 768px) {
+  .u214-gd {
+    grid-template-columns: 1fr;
+    grid-template-areas: "a" "b" "c" "d" "e";
+    gap: 12px;
+  }
+
+  .u214-t {
+    min-height: 180px;
+    padding: 20px;
+  }
+
+  /* 狭い画面では、流れる札をタイルの下側に回して文字と重ならないようにする */
+  .u214-e {
+    padding-bottom: 84px;
+  }
+
+  .u214-lg {
+    top: auto;
+    left: 0;
+    width: auto;
+    height: 76px;
+  }
+
+  .u214-av {
+    right: 20px;
+    top: 20px;
+  }
+
+  .u214-a h3,
+  .u214-a small {
+    padding-right: 72px;
+  }
+}
+
+/* ---------- お問い合わせ（全ページ下部）：光るボタン ---------- */
+/* Lucian UX/UI Prompt #211 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#211
+   ボタンの後ろで薄い方眼と光の帯が回り、ボタンの縁を色の光がゆっくり一周する
+   カーソルを合わせると光が速くなり、ボタンが少し浮いて矢印が前に出る
+   （元の部品の「押すと送信完了になる」動きは、ここではページ移動のリンクなので使わない） */
+.u211 {
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.u211::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 26px 26px;
+  background-position: center;
+  -webkit-mask: radial-gradient(60% 50% at 50% 70%, #000, transparent 75%);
+  mask: radial-gradient(60% 50% at 50% 70%, #000, transparent 75%);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+@property --u211-b {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@property --u211-a {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.u211-bm {
+  position: absolute;
+  left: 50%;
+  top: 68%;
+  z-index: -1;
+  width: 600px;
+  height: 600px;
+  margin: -300px 0 0 -300px;
+  border-radius: 50%;
+  background: conic-gradient(from var(--u211-b), transparent 0 70%, rgba(125, 180, 255, 0.45) 80%,
+    rgba(165, 242, 211, 0.4) 86%, transparent 92%);
+  filter: blur(22px);
+  opacity: 0.55;
+  animation: u211-b 9s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes u211-b {
+  to { --u211-b: 360deg; }
+}
+
+/* 「Contact」の文字に、ボタンと同じ色の帯が流れる */
+.u211-gr {
+  background: linear-gradient(90deg, #fff, var(--color-accent-light), #7db4ff, #a5f2d3, #fff);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: u211-g 6s linear infinite;
+}
+
+@keyframes u211-g {
+  to { background-position: -200% 0; }
+}
+
+.u211 .u211-bt {
+  position: relative;
+  display: inline-flex;
+  min-width: 280px;
+  height: 60px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: conic-gradient(from var(--u211-a), #7db4ff, #a5f2d3, var(--color-accent-light), #2e5aa8, #7db4ff);
+  color: #fff;
+  text-decoration: none;
+  animation: u211-r 4s linear infinite;
+  transition: transform 0.3s cubic-bezier(0.3, 1.6, 0.5, 1), box-shadow 0.3s;
+  box-shadow: 0 10px 26px -14px #7db4ff;
+}
+
+.u211 .u211-bt::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: inherit;
+  background: inherit;
+  filter: blur(14px);
+  opacity: 0.35;
+  z-index: -1;
+  transition: opacity 0.3s;
+}
+
+.u211 .u211-bt:hover {
+  background: conic-gradient(from var(--u211-a), #7db4ff, #a5f2d3, var(--color-accent-light), #2e5aa8, #7db4ff);
+  transform: translateY(-2px);
+  animation-duration: 1.4s;
+}
+
+.u211 .u211-bt:hover::before {
+  opacity: 0.75;
+}
+
+.u211 .u211-bt:focus-visible {
+  border-radius: 999px;
+}
+
+@keyframes u211-r {
+  to { --u211-a: 360deg; }
+}
+
+.u211-in {
+  position: absolute;
+  inset: 2px;
+  border-radius: inherit;
+  background: var(--color-main);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-weight: 700;
+  overflow: hidden;
+}
+
+.u211-ar {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+.u211 .u211-bt:hover .u211-ar {
+  transform: translateX(4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .u211 .u211-bt,
+  .u211-bm,
+  .u211-gr {
+    animation: none;
+  }
+}
+
+/* ---------- ページの先頭へ戻るボタン（全ページ） ---------- */
+/* Lucian UX/UI Prompt #343 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#343
+   ある程度下へスクロールすると右下に丸いボタンが浮かび、周りの輪が読んだ量だけ埋まる
+   押すと矢印がロケットに変わって炎を出して飛び、ページがなめらかに先頭へ戻る */
+.u343-up {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 90;
+  width: 52px;
+  height: 52px;
+  border: 0;
+  padding: 0;
+  border-radius: 50%;
+  background: var(--color-main);
+  color: #fff;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.35), 0 12px 24px -10px var(--ux-shadow-strong);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;   /* 隠れている間は Tab で止まらないようにする */
+  transform: translateY(20px) scale(0.6);
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.5s var(--ux-spring), visibility 0s 0.5s;
+}
+
+.u343.show .u343-up {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  pointer-events: auto;
+  transition-delay: 0s;
+}
+
+.u343-up svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.u343-ring {
+  fill: none;
+  stroke: var(--color-accent-light);
+  stroke-width: 3;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 26px 26px;
+}
+
+.u343-ar {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: opacity 0.2s;
+}
+
+.u343-rk { opacity: 0; }
+.u343-rk .b { fill: currentColor; }
+.u343-rk .w { fill: #7db4ff; }
+.u343-rk .f { fill: #ff922b; transform-box: fill-box; transform-origin: 50% 0; }
+
+.u343.fly .u343-ar { opacity: 0; }
+.u343.fly .u343-rk { opacity: 1; }
+
+.u343.fly .u343-rk .f {
+  animation: u343-fl 0.12s linear infinite alternate;
+}
+
+@keyframes u343-fl {
+  to { transform: scaleY(1.6); }
+}
+
+@media (max-width: 768px) {
+  .u343-up {
+    right: 16px;
+    bottom: 16px;
+  }
+}
+
+/* ---------- 行事紹介：スクロールで光るタイムライン ---------- */
+/* Lucian UX/UI Prompt #370 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#370
+   下へスクロールすると中央の線が上から光で満ちていき、線の先が届いた月の点が弾んで点灯する
+   その月のカードは左右交互に滑り込み、上へ戻すと逆の順に消えていく
+   左右は li だけを数える（先頭に足す線の <span> を数えないよう nth-of-type を使う）
+   JavaScript が動くときだけ .u370 が付く（動かない環境では style.css の縦線のタイムラインのまま） */
+.timeline.u370::before,
+.timeline.u370 li::before {
+  content: none;
+}
+
+.u370 {
+  padding: 20px 0 40px;
+  overflow-x: clip;   /* 滑り込む前のカード（横に24pxずれている）で横スクロールさせない */
+}
+
+.u370-ln {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 40px;
+  width: 3px;
+  margin-left: -1.5px;
+  border-radius: 3px;
+  background: var(--ux-line);
+}
+
+.u370-ln i {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(var(--ux-accent), #7db4ff);
+  transform-origin: 50% 0;
+  transform: scaleY(var(--p, 0));
+}
+
+/* 線の先の光る玉（線と一緒に縦に伸びないよう、逆の倍率で打ち消す） */
+.u370-ln i::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  border-radius: 50%;
+  background: #7db4ff;
+  box-shadow: 0 0 14px #7db4ff;
+  transform: scaleY(calc(1 / max(var(--p, 0), 0.02)));
+}
+
+.timeline.u370 li.u370-ev {
+  position: relative;
+  min-height: 150px;
+  padding: 0 0 32px;
+}
+
+.u370-dot {
+  position: absolute;
+  left: 50%;
+  top: 10px;
+  width: 18px;
+  height: 18px;
+  margin-left: -9px;
+  border-radius: 50%;
+  background: var(--ux-surface);
+  box-shadow: 0 0 0 3px var(--ux-line-2);
+  transition: box-shadow 0.3s, transform 0.45s var(--ux-spring), background-color 0.3s;
+}
+
+.u370-ev.on .u370-dot {
+  background: var(--ux-accent);
+  box-shadow: 0 0 0 4px rgba(46, 90, 168, 0.25);
+  transform: scale(1.15);
+}
+
+.u370-cd {
+  position: relative;
+  width: calc(50% - 40px);
+  padding: 20px 24px;
+  border-radius: 20px;
+  background: var(--ux-surface-2);
+}
+
+li.u370-ev:nth-of-type(odd) .u370-cd {
+  margin-right: auto;
+}
+
+li.u370-ev:nth-of-type(even) .u370-cd {
+  margin-left: auto;
+}
+
+.lx-js .u370-cd {
+  opacity: 0;
+  transition: opacity 0.4s, transform 0.6s var(--ux-spring);
+}
+
+.lx-js li.u370-ev:nth-of-type(odd) .u370-cd {
+  transform: translateX(-24px);
+}
+
+.lx-js li.u370-ev:nth-of-type(even) .u370-cd {
+  transform: translateX(24px);
+}
+
+.lx-js li.u370-ev.on:nth-of-type(n) .u370-cd {
+  opacity: 1;
+  transform: none;
+}
+
+.u370 .timeline-month {
+  display: block;
+  font-size: 1.4rem;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+}
+
+.u370 .timeline-month + h3 {
+  margin-top: 8px;
+}
+
+/* スマートフォンでは線を左に寄せ、カードはすべて右側から滑り込む */
+@media (max-width: 768px) {
+  .u370-ln,
+  .u370-dot {
+    left: 13px;   /* 点の外側の輪（4px）が左端で切れない位置 */
+  }
+
+  li.u370-ev:nth-of-type(n) .u370-cd {
+    width: auto;
+    margin: 0 0 0 44px;
+  }
+
+  .lx-js li.u370-ev:nth-of-type(n) .u370-cd {
+    transform: translateX(24px);
+  }
+
+  .timeline.u370 li.u370-ev {
+    min-height: 0;
+    padding-bottom: 24px;
+  }
+}
+
+/* ---------- トップの研究紹介：横に開くパネル ---------- */
+/* Lucian UX/UI Prompt #389 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#389
+   細い縦のパネルのどれかにカーソルを合わせると、そのパネルが大きく開き、ほかは細くなる
+   閉じたパネルは横向きの名前だけを表示し、開いた瞬間に名前が起き上がって、説明とボタンが下から浮かぶ
+   開いたときの名前の高さ（--lb-b）は、説明の量に合わせて JavaScript で決める */
+.u389 {
+  display: flex;
+  gap: 8px;
+  height: 460px;
+  padding: 12px;
+  border-radius: 28px;
+  background: var(--ux-surface);
+  box-shadow: 0 0 0 1px var(--ux-line), 0 30px 60px -36px var(--ux-shadow-strong);
+  overflow: hidden;
+}
+
+.u389-p {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--bg);
+  color: #fff;
+  text-decoration: none;
+  text-align: left;
+  transition: flex-grow 0.6s cubic-bezier(0.3, 1, 0.3, 1);
+}
+
+.u389-p:visited {
+  color: #fff;
+}
+
+.u389-p.on {
+  flex-grow: 5;
+}
+
+/* 下側を暗くして、白い文字を読みやすくする */
+.u389-p::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent 35%, rgba(0, 0, 0, 0.55));
+  pointer-events: none;
+}
+
+.u389-p:focus-visible {
+  border-radius: 18px;
+}
+
+.u389-lb {
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  z-index: 1;
+  white-space: nowrap;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
+  transform-origin: 0 0;
+  transform: rotate(-90deg) translate(0, -50%);
+  transition: transform 0.5s var(--ux-spring), left 0.5s var(--ux-spring), bottom 0.5s, font-size 0.4s;
+}
+
+.u389-p.on .u389-lb {
+  left: 24px;
+  right: 24px;
+  bottom: var(--lb-b, 96px);
+  white-space: normal;
+  transform: none;
+  font-size: 1.6rem;
+}
+
+.u389-ds {
+  position: absolute;
+  left: 24px;
+  bottom: 24px;
+  width: var(--ds-w, calc(100% - 48px));
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.2s, transform 0.4s var(--ux-spring);
+}
+
+.u389-p.on .u389-ds {
+  opacity: 1;
+  transform: none;
+  transition-delay: 0.25s;
+}
+
+.u389-ds small {
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--color-accent-light);
+}
+
+.u389-ds > span {
+  max-width: 32em;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.u389-ds i {
+  flex: none;
+  font-style: normal;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--color-main);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.u389-ds i::after {
+  content: " →" / "";
+}
+
+/* スマートフォンでは縦に積み、開いたパネルだけ高くなる（名前は横書きのまま） */
+@media (max-width: 768px) {
+  .u389 {
+    flex-direction: column;
+    height: auto;
+    padding: 8px;
+    border-radius: 24px;
+  }
+
+  .u389-p {
+    flex: none;
+    height: 64px;
+    transition: height 0.6s cubic-bezier(0.3, 1, 0.3, 1);
+  }
+
+  .u389-p.on {
+    height: 280px;
+  }
+
+  .u389-lb {
+    left: 20px;
+    right: 20px;
+    bottom: 18px;
+    transform: none;
+    white-space: normal;
+  }
+
+  .u389-p.on .u389-lb {
+    left: 20px;
+    right: 20px;
+    font-size: 1.35rem;
+  }
+
+  .u389-ds {
+    left: 20px;
+    bottom: 20px;
+    width: calc(100% - 40px);
+  }
+}
