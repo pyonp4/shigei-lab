@@ -884,6 +884,57 @@ figcaption {
   margin: 0;
 }
 
+/* ページ送りで隠す行（.news-item の display: grid より優先させる） */
+.news-item[hidden] {
+  display: none;
+}
+
+/* ---------- ページ送り ---------- */
+.pagination ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 48px 0 0;
+  padding: 0;
+}
+
+.pagination a,
+.pagination span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;            /* DADS：タップしやすい大きさ */
+  min-height: 44px;
+  padding: 0 12px;
+  font-weight: 700;
+}
+
+.pagination a {
+  border: 1px solid var(--color-border);
+  color: var(--color-main);
+  text-decoration: none;
+}
+
+.pagination a:hover {
+  background: var(--color-bg-sub);
+  text-decoration: underline;
+}
+
+.pagination [aria-current="page"] {
+  border: 1px solid var(--color-main);
+  background: var(--color-main);
+  color: #fff;
+}
+
+.pagination__gap {
+  display: flex;
+  align-items: flex-end;
+  padding: 0 4px 10px;
+  color: var(--color-text-sub);
+}
+
 /* ---------- 就職先 ---------- */
 .note {
   color: var(--color-text-sub);
@@ -1475,27 +1526,28 @@ figcaption {
 }
 
 /* ---------- ニュース：詳細ページへのリンク ---------- */
-/* タイトルのリンクを行全体に広げ、どこを押しても詳細ページへ移動できるようにする */
+/* タイトルのリンクを行全体に広げ、どこを押しても詳細ページへ移動できるようにする
+   本文中の外部リンク（.ext-link：学会・論文など）は普通のリンクのまま */
 .news-item {
   position: relative;
 }
 
-.news-title a {
+.news-title a:not(.ext-link) {
   color: var(--color-main);
   font-weight: 700;
 }
 
-.news-title a::after {
+.news-title a:not(.ext-link)::after {
   content: "";
   position: absolute;
   inset: 0;
 }
 
-.news-item:has(a):hover {
+.news-item:has(.news-title a:not(.ext-link)):hover {
   background: var(--color-bg-sub);
 }
 
-.news-title a:visited {
+.news-title a:not(.ext-link):visited {
   color: var(--color-link-visited);
 }
 
