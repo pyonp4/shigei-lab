@@ -71,12 +71,34 @@
     <section class="section">
       <div class="container">
         <h2 class="section-title" data-en="Faculty &amp; Staff">教員・スタッフ</h2>
-        <!-- 写真を用意したら .faculty-photo の中を <img src="images/xxx.jpg" alt=""> に差し替える -->
-        <div class="faculty-profile">
-          <div class="faculty-photo" aria-hidden="true">重</div>
-          <div class="faculty-body">
+        <!-- 写真を用意したら .member-photo の中を <img src="images/xxx.jpg" alt=""> に差し替える
+             写真・名前を押すと下の <dialog>（id は aria-controls と同じ）が開く -->
+        <ul class="member-grid">
+          <li class="member-card">
+            <button type="button" class="member-card__button" aria-haspopup="dialog" aria-controls="profile-shigei">
+              <span class="member-photo" aria-hidden="true">重</span>
+              <span class="member-body">
+                <span class="member-name">重井 徳貴</span>
+                <span class="member-role" data-en="Professor">教授</span>
+                <span class="member-more" data-en="View profile">プロフィールを見る</span>
+              </span>
+            </button>
+          </li>
+          <li class="member-card">
+            <div class="member-photo" aria-hidden="true">中</div>
+            <div class="member-body">
+              <p class="member-name">中村 喜寛</p>
+              <span class="member-role" data-en="Technical Staff">技術職員</span>
+            </div>
+          </li>
+        </ul>
+
+        <!-- 重井先生のプロフィール（写真・名前を押すと開く） -->
+        <dialog class="profile-dialog" id="profile-shigei" aria-labelledby="profile-shigei-name">
+          <div class="profile-dialog__inner">
+            <button type="button" class="profile-dialog__close" data-dialog-close><span data-en="Close">閉じる</span></button>
             <span class="member-role" data-en="Professor">教授</span>
-            <p class="faculty-name">重井 徳貴<span class="faculty-name__en">SHIGEI Noritaka</span></p>
+            <h3 class="faculty-name" id="profile-shigei-name">重井 徳貴<span class="faculty-name__en">SHIGEI Noritaka</span></h3>
             <dl class="faculty-data">
               <div>
                 <dt data-en="Affiliation">所属</dt>
@@ -100,18 +122,7 @@
               <li><a class="btn btn--outline btn--ext" href="https://researchmap.jp/read0092816" target="_blank" rel="noopener"><span data-en="researchmap">researchmap</span><span class="visually-hidden" data-en="(opens in a new tab)">（新しいタブで開きます）</span></a></li>
             </ul>
           </div>
-        </div>
-
-        <!-- 技術職員 -->
-        <ul class="member-grid member-staff">
-          <li class="member-card">
-            <div class="member-photo" aria-hidden="true">中</div>
-            <div class="member-body">
-              <p class="member-name">中村 喜寛</p>
-              <span class="member-role" data-en="Technical Staff">技術職員</span>
-            </div>
-          </li>
-        </ul>
+        </dialog>
       </div>
     </section>
 
@@ -121,27 +132,33 @@
         <h2 class="section-title" data-en="Students">学生</h2>
         <!-- 学年ごとに見出し（h3）と一覧（ul）を置く。人数が変わったら見出しの「○名」も直す
              写真を用意したら .member-photo の中を <img src="images/xxx.jpg" alt=""> に差し替える -->
-        <h3 class="member-group-title" id="doctor"><span data-en="Doctoral Students">博士課程</span><span class="member-group-count" data-en="1 student">1名</span></h3>
-        <ul class="member-grid">
-          <li class="member-card">
-            <div class="member-photo" aria-hidden="true">L</div>
-            <div class="member-body">
-              <p class="member-name">LI SHIJIA</p>
-              <span class="member-role">D3</span>
-            </div>
-          </li>
-        </ul>
-
-        <h3 class="member-group-title" id="research"><span data-en="Research Students">研究生</span><span class="member-group-count" data-en="1 student">1名</span></h3>
-        <ul class="member-grid">
-          <li class="member-card">
-            <div class="member-photo" aria-hidden="true">S</div>
-            <div class="member-body">
-              <p class="member-name">SUO TIANZHANG</p>
-              <span class="member-role" data-en="Research Student">研究生</span>
-            </div>
-          </li>
-        </ul>
+        <!-- 博士課程と研究生は横に並べる -->
+        <div class="member-row">
+          <div class="member-group">
+            <h3 class="member-group-title" id="doctor"><span data-en="Doctoral Students">博士課程</span><span class="member-group-count" data-en="1 student">1名</span></h3>
+            <ul class="member-grid">
+              <li class="member-card">
+                <div class="member-photo" aria-hidden="true">L</div>
+                <div class="member-body">
+                  <p class="member-name">LI SHIJIA</p>
+                  <span class="member-role">D3</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="member-group">
+            <h3 class="member-group-title" id="research"><span data-en="Research Students">研究生</span><span class="member-group-count" data-en="1 student">1名</span></h3>
+            <ul class="member-grid">
+              <li class="member-card">
+                <div class="member-photo" aria-hidden="true">S</div>
+                <div class="member-body">
+                  <p class="member-name">SUO TIANZHANG</p>
+                  <span class="member-role" data-en="Research Student">研究生</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
 
         <h3 class="member-group-title" id="m2"><span data-en="Master’s 2nd Year (M2)">修士2年（M2）</span><span class="member-group-count" data-en="4 students">4名</span></h3>
         <ul class="member-grid">

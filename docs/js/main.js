@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupPagination(); // ページ番号にも data-en を付けるので、言語切り替えより先に作る
   setupLanguage();
   setupMenu();
+  setupDialogs();
 });
 
 const isEnglish = () => document.documentElement.lang === "en";
@@ -220,4 +221,27 @@ function setupPagination() {
   window.addEventListener("popstate", () => render(stateFromUrl()));
 
   render(stateFromUrl());
+}
+
+// プロフィールなどのダイアログ
+// aria-controls="ダイアログのid" を付けたボタンで開き、data-dialog-close のボタン・外側のクリック・Esc で閉じる
+function setupDialogs() {
+  document.querySelectorAll('[aria-haspopup="dialog"][aria-controls]').forEach((button) => {
+    const dialog = document.getElementById(button.getAttribute("aria-controls"));
+    if (!dialog || typeof dialog.showModal !== "function") return;
+
+    button.addEventListener("click", () => dialog.showModal());
+
+    dialog.querySelectorAll("[data-dialog-close]").forEach((close) => {
+      close.addEventListener("click", () => dialog.close());
+    });
+
+    // 暗くなった外側を押したら閉じる
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+
+    // 閉じたら、開いたボタンにフォーカスを戻す
+    dialog.addEventListener("close", () => button.focus());
+  });
 }
