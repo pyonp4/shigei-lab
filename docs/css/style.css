@@ -39,6 +39,16 @@ html {
   scroll-behavior: smooth;
 }
 
+/* 文字サイズの切り替え（小＝14px・中＝16px・大＝20px）。rem で指定した文字がまとめて変わる
+   中（何も付けない状態）が標準。小は本人が選んだときだけ使う */
+html[data-font-size="small"] {
+  font-size: 87.5%;
+}
+
+html[data-font-size="large"] {
+  font-size: 125%;
+}
+
 body {
   margin: 0;
   font-family: "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN",
@@ -46,7 +56,7 @@ body {
   color: var(--color-text);
   background: var(--color-bg);
   line-height: 1.7;          /* DADS：本文は行間150%以上 */
-  font-size: 16px;           /* DADS：本文・UIは16px以上 */
+  font-size: 1rem;           /* DADS：本文・UIは16px以上（文字サイズ切り替えに合わせて変わる） */
   letter-spacing: 0.02em;
   overflow-wrap: anywhere; /* 長い英単語・URLで横スクロールさせない */
   -webkit-font-smoothing: antialiased;
@@ -102,6 +112,11 @@ p {
   color: #fff;
 }
 
+/* ヘッダーは文字サイズ切り替えの対象外（メニューがはみ出さないよう 16px に固定し、中は em で指定） */
+.site-header {
+  font-size: 16px;
+}
+
 .site-header .container {
   display: flex;
   align-items: center;
@@ -110,8 +125,9 @@ p {
 }
 
 .site-logo {
+  white-space: nowrap;
   font-weight: 700;
-  font-size: 1.25rem;
+  font-size: 1.25em;
   color: #fff;
   text-decoration: none;
   letter-spacing: 0.02em;
@@ -121,14 +137,126 @@ p {
   margin-left: auto;
 }
 
+/* 文字サイズと言語の切り替えをまとめた枠（JA / EN の隣に文字サイズ） */
+.header-tools {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.global-nav a {
+  white-space: nowrap;
+}
+
 /* JA / EN 切り替え */
+/* 文字サイズ：「文字サイズ」にカーソルを合わせる（または押す）と、下に小・中・大が開く */
+.font-menu {
+  position: relative;
+  margin-left: 16px;
+  font-size: 0.875em;
+}
+
+.font-menu__toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 4px;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* 下向きの矢印 */
+.font-menu__toggle::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+}
+
+.font-menu__toggle:hover,
+.font-menu.is-open .font-menu__toggle {
+  color: #fff;
+}
+
+.font-menu__list {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;   /* 「文字サイズ」のボタンと同じ横幅 */
+  z-index: 10;
+  margin: 0;
+  padding: 8px 0;
+  list-style: none;
+  background: var(--color-main);
+  border-top: 4px solid var(--color-accent);
+}
+
+.font-menu.is-open .font-menu__list {
+  display: block;
+}
+
+/* マウスのある端末ではカーソルを合わせるだけで開く */
+@media (hover: hover) {
+  .font-menu:hover .font-menu__list {
+    display: block;
+  }
+}
+
+.font-menu__list button {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  font: inherit;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* 各項目は、選んだときの本文の大きさで表示する */
+.font-menu__list [data-font-size="small"] {
+  font-size: 14px;
+}
+
+.font-menu__list [data-font-size="medium"] {
+  font-size: 16px;
+}
+
+.font-menu__list [data-font-size="large"] {
+  font-size: 20px;
+}
+
+.font-menu__list button:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* 選択中の大きさは下線＋白で示す（色だけに頼らない） */
+.font-menu__list button[aria-pressed="true"] {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.3em;
+}
+
 .lang-switch {
   display: flex;
   align-items: center;
   gap: 2px;
-  margin-left: 20px;
+  margin-left: 12px;
   color: rgba(255, 255, 255, 0.6);
-  font-size: 0.875rem;
+  font-size: 0.875em;
 }
 
 .lang-switch button {
@@ -172,7 +300,7 @@ p {
   padding: 24px 14px;
   color: #fff;
   text-decoration: none;
-  font-size: 0.95rem;
+  font-size: 0.95em;
   font-weight: 400;
   position: relative;
 }
@@ -1184,6 +1312,23 @@ figcaption {
 /* =========================================================
    メニューが横に収まらない幅（1024px以下）はハンバーガーメニュー
    ========================================================= */
+/* 1025〜1279px：メニューの間隔と文字を詰めて、文字サイズ・言語の切り替えと1行に収める */
+@media (min-width: 1025px) and (max-width: 1279px) {
+  .global-nav a {
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 0.875em;
+  }
+
+  .lang-switch {
+    margin-left: 12px;
+  }
+
+  .font-menu {
+    margin-left: 8px;
+  }
+}
+
 @media (max-width: 1024px) {
   .site-header .container {
     height: 64px;
@@ -1193,14 +1338,14 @@ figcaption {
     display: block;
   }
 
-  .lang-switch {
+  .header-tools {
     margin-left: auto;
     margin-right: 4px;
   }
 
   .global-nav {
     position: absolute;
-    top: 64px;
+    top: 100%;   /* ヘッダーの高さが変わっても（スマホの2段表示）すぐ下に開く */
     left: 0;
     right: 0;
     background: var(--color-main);
@@ -1221,7 +1366,7 @@ figcaption {
 
   .global-nav a {
     padding: 14px 0;
-    font-size: 1.05rem;
+    font-size: 1.05em;
   }
 
   .global-nav a::before {
@@ -2004,4 +2149,35 @@ figcaption {
   font-weight: 700;
   color: var(--color-main);
   margin-bottom: 4px;
+}
+
+/* 560px以下：ヘッダーを2段にし、2段目の右に文字サイズ・言語の切り替えを並べる */
+@media (max-width: 560px) {
+  .site-header .container {
+    flex-wrap: wrap;
+    height: auto;
+    padding-top: 10px;
+  }
+
+  .menu-toggle {
+    order: 2;
+    margin-left: auto;
+  }
+
+  .header-tools {
+    order: 3;
+    flex-basis: 100%;
+    justify-content: flex-end;
+    margin-right: 0;
+  }
+
+  /* 2段になった分、ジャンプ先がヘッダーに隠れないよう下げる */
+  .research-category,
+  #access {
+    scroll-margin-top: 112px;
+  }
+
+  .news-list[data-per-page] {
+    scroll-margin-top: 128px;
+  }
 }

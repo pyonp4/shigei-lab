@@ -9,6 +9,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap">
   <link rel="stylesheet" href="css/style.css">
+  <script>
+    // 保存した文字サイズを、表示する前に反映する（ちらつき防止）
+    try { var fs = localStorage.getItem("fontSize"); if (fs === "small" || fs === "large") document.documentElement.dataset.fontSize = fs; } catch (e) {}
+  </script>
   <script src="js/main.js" defer></script>
 </head>
 <body>
@@ -38,10 +42,22 @@
           <li><a href="careers.html" aria-current="page" data-en="Careers">就職先</a></li>
         </ul>
       </nav>
-      <div class="lang-switch" role="group" aria-label="言語 / Language">
-        <button type="button" data-lang="ja" aria-pressed="true">JA</button>
-        <span aria-hidden="true">/</span>
-        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      <!-- 言語と文字サイズの切り替え（スマホではヘッダーの2段目に並ぶ） -->
+      <div class="header-tools">
+        <div class="lang-switch" role="group" aria-label="言語 / Language">
+          <button type="button" data-lang="ja" aria-pressed="true">JA</button>
+          <span aria-hidden="true">/</span>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <!-- 文字サイズ：「文字サイズ」にカーソルを合わせる（または押す）と小・中・大が開く -->
+        <div class="font-menu">
+          <button type="button" class="font-menu__toggle" aria-expanded="false" aria-controls="font-menu-list"><span data-en="Text size">文字サイズ</span></button>
+          <ul class="font-menu__list" id="font-menu-list">
+            <li><button type="button" data-font-size="small" aria-pressed="false" data-en="Small">小</button></li>
+            <li><button type="button" data-font-size="medium" aria-pressed="true" data-en="Medium">中</button></li>
+            <li><button type="button" data-font-size="large" aria-pressed="false" data-en="Large">大</button></li>
+          </ul>
+        </div>
       </div>
       <button class="menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="global-nav">
         <span></span><span></span><span></span>
