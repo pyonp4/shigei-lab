@@ -1010,7 +1010,7 @@ figcaption {
   color: var(--color-text-sub);
 }
 
-/* 就職先：枠なしの3列の一覧（タブレット2列・スマホ1列） */
+/* 就職先：枠・線なしの3列の一覧（タブレット2列・スマホ1列） */
 .career-list {
   list-style: none;
   margin: 0 0 1em;
@@ -1018,7 +1018,6 @@ figcaption {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   column-gap: 40px;
-  border-top: 1px solid var(--color-border);
 }
 
 @media (max-width: 1024px) {
@@ -1048,8 +1047,7 @@ figcaption {
 
 .career-list li {
   position: relative;
-  padding: 14px 8px 14px 24px;
-  border-bottom: 1px solid var(--color-border);
+  padding: 8px 8px 8px 24px;
 }
 
 /* 旧社名は社名の下に小さく */
@@ -1063,7 +1061,7 @@ figcaption {
   content: "";
   position: absolute;
   left: 4px;
-  top: 1.45em;
+  top: calc(8px + 0.85em - 4px);   /* 1行目の文字の高さの中央 */
   width: 8px;
   height: 8px;
   background: var(--color-accent);
