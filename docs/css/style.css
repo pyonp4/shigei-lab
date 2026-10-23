@@ -905,9 +905,10 @@ figcaption {
   text-align: center;
 }
 
+.news-item[data-category="news"] .news-cat { background: #a5651f; }          /* きつね色 */
 .news-item[data-category="presentation"] .news-cat { background: #2e5aa8; }
 .news-item[data-category="paper"] .news-cat { background: #5c5c5c; }
-.news-item[data-category="award"] .news-cat { background: #8a5a00; }
+.news-item[data-category="award"] .news-cat { background: #a8323a; }         /* えんじ色 */
 .news-item[data-category="event"] .news-cat { background: #1f6f78; }
 
 .news-list .news-title {
