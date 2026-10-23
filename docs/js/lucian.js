@@ -13,7 +13,6 @@
   setupGridBeams();
   setupMarquee();
   setupScrollIn();
-  setupBento();
   setupGlowCta();
   setupBackToTop();
   setupTimeline();
@@ -293,53 +292,6 @@
       });
     }, { threshold: 0.18 });
     R.forEach((el) => io.observe(el));
-  }
-
-  // Lucian UX/UI Prompt #214 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#214
-  // ベントーグリッドのタイルにカーソルを合わせる（またはフォーカスする）と、タイルごとの動きが再生される
-  // 打ち込まれる文字は HTML の data-type（日本語）と data-type-en（英語）に書く
-  function setupBento() {
-    const root = document.querySelector(".u214");
-    if (!root) return;
-    const br = root.querySelector(".u214-br");
-    if (br) {
-      [0.45, 0.7, 0.55, 0.9, 0.75, 1].forEach((h, i) => {
-        const b = document.createElement("i");
-        b.style.setProperty("--h", h);
-        b.style.setProperty("--i", i);
-        br.appendChild(b);
-      });
-    }
-
-    const timers = new Map();
-    const type = (el) => {
-      clearTimeout(timers.get(el));
-      const text = isEnglish() ? el.dataset.typeEn : el.dataset.type;
-      if (!text) return;
-      if (reduceMotion) {
-        el.textContent = text;
-        return;
-      }
-      const s = Array.from(text);
-      let k = 0;
-      const t = () => {
-        el.textContent = s.slice(0, ++k).join("");
-        if (k < s.length) timers.set(el, setTimeout(t, 45));
-      };
-      t();
-    };
-
-    root.querySelectorAll(".u214-t").forEach((t) => {
-      const on = () => {
-        t.classList.add("is-on");
-        t.querySelectorAll("[data-type]").forEach(type);
-      };
-      const off = () => t.classList.remove("is-on");
-      t.addEventListener("pointerenter", on);
-      t.addEventListener("pointerleave", off);
-      t.addEventListener("focus", on);
-      t.addEventListener("blur", off);
-    });
   }
 
   // Lucian UX/UI Prompt #211 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#211

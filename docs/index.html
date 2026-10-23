@@ -192,52 +192,46 @@
       </div>
     </section>
 
-    <!-- ===== 研究室の雰囲気・メンバー・進路（Lucian UX/UI Prompt #214 のベントーグリッド） ===== -->
-    <!-- タイルにカーソルを合わせる（またはフォーカスする）と、タイルごとの動きが再生される
-         data-type / data-type-en は、入力欄に打ち込まれる文字（日本語 / 英語） -->
+    <!-- ===== メンバー ===== -->
     <section class="section section--sub">
       <div class="container">
+        <div class="section-head">
+          <h2 class="section-title" data-en="Members">メンバー</h2>
+          <a class="view-more" href="members.html">View more</a>
+        </div>
+        <p class="section-lead" data-en="Introducing the faculty and students of Shigei Lab.">重井研究室の教員と学生を紹介します。</p>
+      </div>
+    </section>
+
+    <!-- ===== 研究室の雰囲気・進路 ===== -->
+    <section class="section">
+      <div class="container">
         <h2 class="section-title" data-en="Life in the lab">研究室の雰囲気</h2>
-        <div class="ux u214">
-          <div class="u214-gd">
-            <a class="u214-t u214-a" href="seminar.html">
+        <div class="card-grid card-grid--3">
+          <a class="card" href="seminar.html">
+            <div class="card-body">
+              <span class="card-tag">SEMINAR</span>
               <h3 data-en="Seminars">ゼミ紹介</h3>
-              <small data-en="How our seminars work and what they are like.">ゼミの進め方や雰囲気を紹介します。</small>
-              <span class="u214-av" aria-hidden="true"><i></i><i></i><i></i></span>
-              <div class="u214-ty" aria-hidden="true" data-type="今週の研究の進捗を共有します" data-type-en="Sharing this week’s progress" data-en="This week’s progress">今週の進捗</div>
-              <span class="u214-go" data-en="See seminars">ゼミを見る</span>
-            </a>
-            <a class="u214-t u214-b" href="events.html">
+              <p data-en="How our seminars work and what they are like.">ゼミの進め方や雰囲気を紹介します。</p>
+              <span class="card-more" data-en="See seminars →">ゼミを見る →</span>
+            </div>
+          </a>
+          <a class="card" href="events.html">
+            <div class="card-body">
+              <span class="card-tag">EVENTS</span>
               <h3 data-en="Events">行事紹介</h3>
-              <small data-en="Events we hold throughout the year.">1年を通して研究室で行っているイベントを紹介します。</small>
-              <div class="u214-sb" aria-hidden="true"><svg viewBox="0 0 12 12"><circle cx="5" cy="5" r="3.4" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7.6 7.6 10.5 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span data-type="研究室の1年の流れ" data-type-en="Our year in the lab" data-en="Our year">1年の流れ</span></div>
-              <div class="u214-rs" aria-hidden="true"><i style="--w:.92"></i><i style="--w:.7"></i><i style="--w:.82"></i><i style="--w:.55"></i></div>
-              <span class="u214-go" data-en="See events">行事を見る</span>
-            </a>
-            <a class="u214-t u214-c" href="careers.html">
+              <p data-en="Events we hold throughout the year.">1年を通して研究室で行っているイベントを紹介します。</p>
+              <span class="card-more" data-en="See events →">行事を見る →</span>
+            </div>
+          </a>
+          <a class="card" href="careers.html">
+            <div class="card-body">
+              <span class="card-tag">CAREERS</span>
               <h3 data-en="Careers">就職先</h3>
-              <small data-en="Where our graduates go after the lab.">卒業生・修了生の主な就職先を紹介します。</small>
-              <div class="u214-br" aria-hidden="true"></div>
-              <span class="u214-go" data-en="See careers">就職先を見る</span>
-            </a>
-            <a class="u214-t u214-d" href="members.html">
-              <h3 data-en="Members">メンバー</h3>
-              <small data-en="Introducing the faculty and students of Shigei Lab.">重井研究室の教員と学生を紹介します。</small>
-              <span class="u214-sh" aria-hidden="true"><svg viewBox="0 0 44 44"><circle cx="17" cy="15" r="6" fill="currentColor" opacity=".18"/><circle cx="17" cy="15" r="6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 36c0-7 5-11 11-11s11 4 11 11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="30" cy="17" r="4.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M30 26c5 0 8.5 3.5 8.5 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
-              <span class="u214-go" data-en="See members">メンバーを見る</span>
-            </a>
-            <a class="u214-t u214-e" href="research.html">
-              <h3 data-en="Research areas">研究分野</h3>
-              <small data-en="Four areas, from language to electronics.">言葉から電子回路まで、4つの分野で研究しています。</small>
-              <div class="u214-lg" aria-hidden="true">
-                <div class="u214-lt">
-                  <i data-en="Natural Language Processing">自然言語処理</i><i>IoT</i><i data-en="Image &amp; Video Recognition">画像・映像識別</i><i data-en="Electrical &amp; Electronic Eng.">電気・電子</i>
-                  <i data-en="Natural Language Processing">自然言語処理</i><i>IoT</i><i data-en="Image &amp; Video Recognition">画像・映像識別</i><i data-en="Electrical &amp; Electronic Eng.">電気・電子</i>
-                </div>
-              </div>
-              <span class="u214-go" data-en="See research">研究紹介を見る</span>
-            </a>
-          </div>
+              <p data-en="Where our graduates go after the lab.">卒業生・修了生の主な就職先を紹介します。</p>
+              <span class="card-more" data-en="See careers →">就職先を見る →</span>
+            </div>
+          </a>
         </div>
       </div>
     </section>
