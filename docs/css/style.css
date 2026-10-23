@@ -884,6 +884,11 @@ figcaption {
   margin: 0;
 }
 
+/* ページを切り替えたときのスクロール先：ヘッダーに隠れないよう少し下げる */
+.news-list[data-per-page] {
+  scroll-margin-top: 96px;
+}
+
 /* ページ送りで隠す行（.news-item の display: grid より優先させる） */
 .news-item[hidden] {
   display: none;
@@ -1436,6 +1441,10 @@ figcaption {
 
   .research-category {
     scroll-margin-top: 64px;
+  }
+
+  .news-list[data-per-page] {
+    scroll-margin-top: 88px;
   }
 }
 

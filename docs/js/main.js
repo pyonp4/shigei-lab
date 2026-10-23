@@ -75,6 +75,7 @@ function setupMenu() {
 // ニュース一覧のページ送り
 // <ul class="news-list" data-per-page="10"> のように件数を書くと、その件数ごとにページを分ける
 // 表示中のページは URL の ?page=2 で表す（JavaScript が動かない環境では全件表示）
+// ページ番号を押したときは読み込み直さずに中身だけ入れ替え、一覧の先頭までスクロールする
 function setupPagination() {
   const list = document.querySelector(".news-list[data-per-page]");
   if (!list) return;
@@ -84,66 +85,103 @@ function setupPagination() {
   const total = Math.ceil(items.length / perPage);
   if (total <= 1) return;
 
-  const requested = Number(new URLSearchParams(location.search).get("page")) || 1;
-  const current = Math.min(Math.max(requested, 1), total);
-
-  items.forEach((item, i) => {
-    item.hidden = Math.floor(i / perPage) + 1 !== current;
-  });
-
-  // 表示するページ番号：最初・最後・現在のページの前後2つ。間は「…」で省略する
-  const pages = [];
-  for (let p = 1; p <= total; p++) {
-    if (p === 1 || p === total || Math.abs(p - current) <= 2) {
-      pages.push(p);
-    } else if (pages[pages.length - 1] !== "…") {
-      pages.push("…");
-    }
-  }
-
+  const pageFromUrl = () => {
+    const requested = Number(new URLSearchParams(location.search).get("page")) || 1;
+    return Math.min(Math.max(requested, 1), total);
+  };
   const pageUrl = (p) => (p === 1 ? location.pathname : `?page=${p}`);
+
+  const makeLink = (text, className) => {
+    const a = document.createElement("a");
+    a.className = className;
+    a.textContent = text;
+    return a;
+  };
+
+  // 「前へ」「次へ」は一度だけ作って使い回す（言語切り替えの対象に含めるため）
+  const prevItem = document.createElement("li");
+  const prev = makeLink("前へ", "pagination__prev");
+  prev.dataset.en = "Previous";
+  prevItem.appendChild(prev);
+
+  const nextItem = document.createElement("li");
+  const next = makeLink("次へ", "pagination__next");
+  next.dataset.en = "Next";
+  nextItem.appendChild(next);
 
   const nav = document.createElement("nav");
   nav.className = "pagination";
   nav.setAttribute("aria-label", "ニュースのページ / News pages");
   const ul = document.createElement("ul");
-
-  const addLink = (text, en, p, className) => {
-    const li = document.createElement("li");
-    const a = document.createElement("a");
-    a.href = pageUrl(p);
-    a.className = className;
-    a.textContent = text;
-    a.dataset.en = en;
-    li.appendChild(a);
-    ul.appendChild(li);
-  };
-
-  if (current > 1) addLink("前へ", "Previous", current - 1, "pagination__prev");
-
-  pages.forEach((p) => {
-    const li = document.createElement("li");
-    if (p === "…") {
-      li.className = "pagination__gap";
-      li.textContent = "…";
-    } else if (p === current) {
-      const span = document.createElement("span");
-      span.className = "pagination__num";
-      span.setAttribute("aria-current", "page");
-      span.textContent = p;
-      li.appendChild(span);
-    } else {
-      const a = document.createElement("a");
-      a.href = pageUrl(p);
-      a.className = "pagination__num";
-      a.textContent = p;
-      li.appendChild(a);
-    }
-    ul.appendChild(li);
-  });
-
-  if (current < total) addLink("次へ", "Next", current + 1, "pagination__next");
-
   nav.appendChild(ul);
   list.after(nav);
+
+  const render = (current) => {
+    items.forEach((item, i) => {
+      item.hidden = Math.floor(i / perPage) + 1 !== current;
+    });
+
+    // 表示するページ番号：最初・最後・現在のページの前後2つ。間は「…」で省略する
+    const pages = [];
+    for (let p = 1; p <= total; p++) {
+      if (p === 1 || p === total || Math.abs(p - current) <= 2) {
+        pages.push(p);
+      } else if (pages[pages.length - 1] !== "…") {
+        pages.push("…");
+      }
+    }
+
+    ul.replaceChildren();
+
+    if (current > 1) {
+      prev.href = pageUrl(current - 1);
+      prev.dataset.page = current - 1;
+      ul.appendChild(prevItem);
+    }
+
+    pages.forEach((p) => {
+      const li = document.createElement("li");
+      if (p === "…") {
+        li.className = "pagination__gap";
+        li.textContent = "…";
+      } else if (p === current) {
+        const span = document.createElement("span");
+        span.className = "pagination__num";
+        span.setAttribute("aria-current", "page");
+        span.textContent = p;
+        li.appendChild(span);
+      } else {
+        const a = makeLink(p, "pagination__num");
+        a.href = pageUrl(p);
+        a.dataset.page = p;
+        li.appendChild(a);
+      }
+      ul.appendChild(li);
+    });
+
+    if (current < total) {
+      next.href = pageUrl(current + 1);
+      next.dataset.page = current + 1;
+      ul.appendChild(nextItem);
+    }
+  };
+
+  // 切り替えたら一覧の先頭へ移動し、読み上げソフトにも一覧の先頭から伝わるようにする
+  list.tabIndex = -1;
+  nav.addEventListener("click", (event) => {
+    const link = event.target.closest("a[data-page]");
+    // Ctrl＋クリックなどで新しいタブに開くときは、ふつうのリンクとして動かす
+    if (!link || event.ctrlKey || event.metaKey || event.shiftKey || event.button !== 0) return;
+    event.preventDefault();
+    const page = Number(link.dataset.page);
+    history.pushState(null, "", pageUrl(page));
+    render(page);
+    list.scrollIntoView({ block: "start" });
+    list.focus({ preventScroll: true });
+  });
+
+  // ブラウザの「戻る」「進む」でもページを切り替える
+  window.addEventListener("popstate", () => render(pageFromUrl()));
+
+  render(pageFromUrl());
 }
