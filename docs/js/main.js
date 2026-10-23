@@ -247,35 +247,61 @@ function setupDialogs() {
   });
 }
 
-// 文字サイズの切り替え（小・中・大）
-// <html data-font-size="medium|large"> を付けると CSS で文字が大きくなる（小は付けない）
+// 文字サイズの切り替え（大・中・小）
+// <html data-font-size="small|large"> を付けると CSS で文字の大きさが変わる（中は何も付けない）
+// 「文字サイズ」にカーソルを合わせると CSS で一覧が開く。押したとき・キーボードでも開閉できるようにする
 // 選んだ大きさはページを移動しても引き継ぐ（<head> の小さなスクリプトで表示前にも反映している）
 function setupFontSize() {
-  const buttons = document.querySelectorAll(".font-switch button");
-  if (!buttons.length) return;
+  const menu = document.querySelector(".font-menu");
+  if (!menu) return;
+  const toggle = menu.querySelector(".font-menu__toggle");
+  const options = menu.querySelectorAll("[data-font-size]");
+
+  const setOpen = (isOpen) => {
+    menu.classList.toggle("is-open", isOpen);
+    toggle.setAttribute("aria-expanded", String(isOpen));
+  };
 
   const apply = (size) => {
-    if (size === "small") {
+    if (size === "medium") {
       delete document.documentElement.dataset.fontSize;
     } else {
       document.documentElement.dataset.fontSize = size;
     }
-    buttons.forEach((button) => {
-      button.setAttribute("aria-pressed", String(button.dataset.fontSize === size));
+    options.forEach((option) => {
+      option.setAttribute("aria-pressed", String(option.dataset.fontSize === size));
     });
   };
 
-  apply(document.documentElement.dataset.fontSize || "small");
+  apply(document.documentElement.dataset.fontSize || "medium");
 
-  buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const size = button.dataset.fontSize;
+  toggle.addEventListener("click", () => setOpen(!menu.classList.contains("is-open")));
+
+  options.forEach((option) => {
+    option.addEventListener("click", () => {
+      const size = option.dataset.fontSize;
       apply(size);
+      setOpen(false);
+      toggle.focus();
       try {
         localStorage.setItem("fontSize", size);
       } catch (e) {
         // 保存できない環境では、このページだけ切り替える
       }
     });
+  });
+
+  // 外側を押す・Esc・フォーカスが外れたら閉じる
+  document.addEventListener("click", (event) => {
+    if (!menu.contains(event.target)) setOpen(false);
+  });
+  menu.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && menu.classList.contains("is-open")) {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+  menu.addEventListener("focusout", (event) => {
+    if (!menu.contains(event.relatedTarget)) setOpen(false);
   });
 }

@@ -39,10 +39,10 @@ html {
   scroll-behavior: smooth;
 }
 
-/* 文字サイズの切り替え（小＝16px・中＝18px・大＝20px）。rem で指定した文字がまとめて変わる
-   DADS の「本文16px以上」を守るため、小は今までと同じ大きさ */
-html[data-font-size="medium"] {
-  font-size: 112.5%;
+/* 文字サイズの切り替え（小＝14px・中＝16px・大＝20px）。rem で指定した文字がまとめて変わる
+   中（何も付けない状態）が標準。小は本人が選んだときだけ使う */
+html[data-font-size="small"] {
+  font-size: 87.5%;
 }
 
 html[data-font-size="large"] {
@@ -149,25 +149,19 @@ p {
 }
 
 /* JA / EN 切り替え */
-/* 文字サイズ切り替え（小・中・大） */
-.font-switch {
-  display: flex;
-  align-items: center;
-  gap: 0;
-  margin-left: 20px;
-  color: rgba(255, 255, 255, 0.8);
+/* 文字サイズ：「文字サイズ」にカーソルを合わせる（または押す）と、下に大・中・小が開く */
+.font-menu {
+  position: relative;
+  margin-left: 16px;
   font-size: 0.875em;
 }
 
-.font-switch__label {
-  margin-right: 4px;
-  font-weight: 700;
-}
-
-.font-switch button {
-  min-width: 44px;
+.font-menu__toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   min-height: 44px;
-  padding: 0;
+  padding: 0 4px;
   border: none;
   background: transparent;
   color: rgba(255, 255, 255, 0.8);
@@ -176,19 +170,71 @@ p {
   cursor: pointer;
 }
 
-.font-switch button:hover {
+/* 下向きの矢印 */
+.font-menu__toggle::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+}
+
+.font-menu__toggle:hover,
+.font-menu.is-open .font-menu__toggle {
   color: #fff;
-  text-decoration: underline;
-  text-underline-offset: 0.3em;
+}
+
+.font-menu__list {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 10;
+  min-width: 120px;
+  margin: 0;
+  padding: 8px 0;
+  list-style: none;
+  background: var(--color-main);
+  border-top: 4px solid var(--color-accent);
+}
+
+.font-menu.is-open .font-menu__list {
+  display: block;
+}
+
+/* マウスのある端末ではカーソルを合わせるだけで開く */
+@media (hover: hover) {
+  .font-menu:hover .font-menu__list {
+    display: block;
+  }
+}
+
+.font-menu__list button {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  padding: 0 20px;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.font-menu__list button:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 /* 選択中の大きさは下線＋白で示す（色だけに頼らない） */
-.font-switch button[aria-pressed="true"] {
+.font-menu__list button[aria-pressed="true"] {
   color: #fff;
   text-decoration: underline;
   text-decoration-thickness: 2px;
   text-underline-offset: 0.3em;
-  cursor: default;
 }
 
 .lang-switch {
@@ -1261,12 +1307,12 @@ figcaption {
     font-size: 0.875em;
   }
 
-  .font-switch {
+  .lang-switch {
     margin-left: 12px;
   }
 
-  .lang-switch {
-    margin-left: 4px;
+  .font-menu {
+    margin-left: 8px;
   }
 }
 
@@ -1282,10 +1328,6 @@ figcaption {
   .header-tools {
     margin-left: auto;
     margin-right: 4px;
-  }
-
-  .font-switch {
-    margin-left: 0;
   }
 
   .global-nav {

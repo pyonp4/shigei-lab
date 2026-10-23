@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="css/style.css">
   <script>
     // 保存した文字サイズを、表示する前に反映する（ちらつき防止）
-    try { var fs = localStorage.getItem("fontSize"); if (fs === "medium" || fs === "large") document.documentElement.dataset.fontSize = fs; } catch (e) {}
+    try { var fs = localStorage.getItem("fontSize"); if (fs === "small" || fs === "large") document.documentElement.dataset.fontSize = fs; } catch (e) {}
   </script>
   <script src="js/main.js" defer></script>
 </head>
@@ -42,18 +42,21 @@
           <li><a href="careers.html" data-en="Careers">就職先</a></li>
         </ul>
       </nav>
-      <!-- 文字サイズと言語の切り替え（スマホではヘッダーの2段目に並ぶ） -->
+      <!-- 言語と文字サイズの切り替え（スマホではヘッダーの2段目に並ぶ） -->
       <div class="header-tools">
-        <div class="font-switch" role="group" aria-label="文字サイズ / Text size">
-          <span class="font-switch__label" aria-hidden="true" data-en="Text">文字</span>
-          <button type="button" data-font-size="small" aria-pressed="true" data-en="S">小</button>
-          <button type="button" data-font-size="medium" aria-pressed="false" data-en="M">中</button>
-          <button type="button" data-font-size="large" aria-pressed="false" data-en="L">大</button>
-        </div>
         <div class="lang-switch" role="group" aria-label="言語 / Language">
           <button type="button" data-lang="ja" aria-pressed="true">JA</button>
           <span aria-hidden="true">/</span>
           <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <!-- 文字サイズ：「文字サイズ」にカーソルを合わせる（または押す）と大・中・小が開く -->
+        <div class="font-menu">
+          <button type="button" class="font-menu__toggle" aria-expanded="false" aria-controls="font-menu-list"><span data-en="Text size">文字サイズ</span></button>
+          <ul class="font-menu__list" id="font-menu-list">
+            <li><button type="button" data-font-size="large" aria-pressed="false" data-en="Large">大</button></li>
+            <li><button type="button" data-font-size="medium" aria-pressed="true" data-en="Medium">中</button></li>
+            <li><button type="button" data-font-size="small" aria-pressed="false" data-en="Small">小</button></li>
+          </ul>
         </div>
       </div>
       <button class="menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="global-nav">
