@@ -528,6 +528,11 @@ figcaption {
   max-width: 860px;
 }
 
+/* 一覧が多いページ（就職先など）は全幅で表示する */
+.article--wide {
+  max-width: var(--max-width);
+}
+
 .article h2 {
   font-size: clamp(1.5rem, 3.4vw, 2rem);
   color: var(--color-main);
