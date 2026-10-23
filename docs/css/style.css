@@ -859,7 +859,7 @@ figcaption {
 
 .news-item {
   display: grid;
-  grid-template-columns: auto 8em 1fr;
+  grid-template-columns: 7.5em 8em 1fr;   /* 日付の長さが違っても列の先頭がそろうよう固定幅 */
   align-items: center;
   gap: 8px 24px;
   padding: 28px 8px;
@@ -888,6 +888,7 @@ figcaption {
 .news-list .news-date {
   font-weight: 400;
   white-space: nowrap;
+  font-variant-numeric: tabular-nums;   /* 数字の幅をそろえる */
 }
 
 .news-list .news-date::after {
@@ -1286,7 +1287,7 @@ figcaption {
   }
 
   .news-item {
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 7.5em 1fr;
   }
 
   .news-title {
