@@ -290,6 +290,16 @@ p {
   padding: 140px 0 120px;
 }
 
+/* トップの写真付きヒーロー：文字のある左側だけ暗くし、右側は写真そのまま
+   ファイル名を変えるときは、下のスマートフォン対応内の .hero--photo も合わせて書き換える
+   元の紺色グラデーションに戻すときは、index.html の class から「hero--photo」を消す */
+.hero--photo {
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.45) 35%, rgba(0, 0, 0, 0) 60%),
+    url("../images/slab_rouka_sakurajima.jpg") center 50% / cover no-repeat,
+    var(--color-main);
+}
+
 .hero .container {
   position: relative;
   z-index: 1;
@@ -1088,6 +1098,14 @@ figcaption {
 
   .hero {
     padding: 88px 0 72px;
+  }
+
+  /* 文字が全幅に広がるため、写真全体を薄く暗くする */
+  .hero--photo {
+    background:
+      linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url("../images/slab_rouka_sakurajima.jpg") center 50% / cover no-repeat,
+      var(--color-main);
   }
 
   .page-hero {
