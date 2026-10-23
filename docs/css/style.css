@@ -1521,8 +1521,8 @@ figcaption {
 /* ---------- メンバー ---------- */
 .member-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 32px;
+  grid-template-columns: repeat(5, 1fr);   /* PCは1行に5名（タブレット3名・スマホ2名） */
+  gap: 24px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -1735,6 +1735,10 @@ figcaption {
 @media (max-width: 1024px) and (min-width: 769px) {
   .category-nav ul {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .member-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .category-nav li:nth-child(n + 3) a {
