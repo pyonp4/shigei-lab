@@ -859,10 +859,10 @@ figcaption {
 
 .news-item {
   display: grid;
-  grid-template-columns: 7em 7em 1fr;
-  align-items: baseline;
+  grid-template-columns: 7.5em 8em 1fr;   /* 日付の長さが違っても列の先頭がそろうよう固定幅 */
+  align-items: center;
   gap: 8px 24px;
-  padding: 24px 8px;
+  padding: 28px 8px;
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -882,6 +882,71 @@ figcaption {
 
 .news-title {
   margin: 0;
+}
+
+/* 一覧の中の日付・カテゴリー・タイトル */
+.news-list .news-date {
+  font-weight: 400;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;   /* 数字の幅をそろえる */
+}
+
+.news-list .news-date::after {
+  content: " —" / "";
+}
+
+/* カテゴリーは色付きの帯で表示（白文字とのコントラスト比 4.5:1 以上の色） */
+.news-list .news-cat {
+  justify-self: stretch;
+  padding: 4px 8px;
+  border: none;
+  background: var(--color-accent-dark);
+  color: #fff;
+  text-align: center;
+}
+
+.news-item[data-category="news"] .news-cat { background: #a5651f; }          /* きつね色 */
+.news-item[data-category="presentation"] .news-cat { background: #2e5aa8; }
+.news-item[data-category="paper"] .news-cat { background: #5c5c5c; }
+.news-item[data-category="award"] .news-cat { background: #a8323a; }         /* えんじ色 */
+.news-item[data-category="event"] .news-cat { background: #1f6f78; }
+
+.news-list .news-title {
+  font-size: 1.0625rem;
+  line-height: 1.8;
+}
+
+/* ---------- カテゴリーで絞り込み ---------- */
+.news-filter {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.news-filter[hidden] {
+  display: none;
+}
+
+.news-filter label {
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.news-filter select {
+  min-width: 240px;
+  min-height: 48px;
+  padding: 0 12px;
+  border: 1px solid var(--color-text);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+}
+
+/* ページを切り替えたときのスクロール先：ヘッダーに隠れないよう少し下げる */
+.news-list[data-per-page] {
+  scroll-margin-top: 96px;
 }
 
 /* ページ送りで隠す行（.news-item の display: grid より優先させる） */
@@ -1223,11 +1288,21 @@ figcaption {
   }
 
   .news-item {
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 7.5em 1fr;
   }
 
   .news-title {
     grid-column: 1 / -1;
+  }
+
+  .news-list .news-cat {
+    justify-self: start;
+    min-width: 8em;
+  }
+
+  .news-filter select {
+    flex: 1;
+    min-width: 0;
   }
 
   .contact-cta {
@@ -1436,6 +1511,10 @@ figcaption {
 
   .research-category {
     scroll-margin-top: 64px;
+  }
+
+  .news-list[data-per-page] {
+    scroll-margin-top: 88px;
   }
 }
 
