@@ -149,7 +149,7 @@ p {
 }
 
 /* JA / EN 切り替え */
-/* 文字サイズ：「文字サイズ」にカーソルを合わせる（または押す）と、下に大・中・小が開く */
+/* 文字サイズ：「文字サイズ」にカーソルを合わせる（または押す）と、下に小・中・大が開く */
 .font-menu {
   position: relative;
   margin-left: 16px;
@@ -189,9 +189,9 @@ p {
   display: none;
   position: absolute;
   top: 100%;
-  right: 0;
+  left: 0;
+  right: 0;   /* 「文字サイズ」のボタンと同じ横幅 */
   z-index: 10;
-  min-width: 120px;
   margin: 0;
   padding: 8px 0;
   list-style: none;
@@ -214,14 +214,27 @@ p {
   display: block;
   width: 100%;
   min-height: 44px;
-  padding: 0 20px;
+  padding: 0;
   border: none;
   background: transparent;
   color: rgba(255, 255, 255, 0.8);
   font: inherit;
   font-weight: 700;
-  text-align: left;
+  text-align: center;
   cursor: pointer;
+}
+
+/* 各項目は、選んだときの本文の大きさで表示する */
+.font-menu__list [data-font-size="small"] {
+  font-size: 14px;
+}
+
+.font-menu__list [data-font-size="medium"] {
+  font-size: 16px;
+}
+
+.font-menu__list [data-font-size="large"] {
+  font-size: 20px;
 }
 
 .font-menu__list button:hover {
