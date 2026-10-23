@@ -125,6 +125,7 @@ p {
 }
 
 .site-logo {
+  white-space: nowrap;
   font-weight: 700;
   font-size: 1.25em;
   color: #fff;
@@ -133,9 +134,18 @@ p {
 }
 
 .global-nav {
+  margin-left: auto;
+}
+
+/* 文字サイズと言語の切り替えをまとめた枠（JA / EN の隣に文字サイズ） */
+.header-tools {
   display: flex;
   align-items: center;
-  margin-left: auto;
+  white-space: nowrap;
+}
+
+.global-nav a {
+  white-space: nowrap;
 }
 
 /* JA / EN 切り替え */
@@ -1243,7 +1253,24 @@ figcaption {
 /* =========================================================
    メニューが横に収まらない幅（1024px以下）はハンバーガーメニュー
    ========================================================= */
-@media (max-width: 1279px) {   /* ヘッダーはこの幅からメニューを≡ボタンにまとめる */
+/* 1025〜1279px：メニューの間隔と文字を詰めて、文字サイズ・言語の切り替えと1行に収める */
+@media (min-width: 1025px) and (max-width: 1279px) {
+  .global-nav a {
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 0.875em;
+  }
+
+  .font-switch {
+    margin-left: 12px;
+  }
+
+  .lang-switch {
+    margin-left: 4px;
+  }
+}
+
+@media (max-width: 1024px) {
   .site-header .container {
     height: 64px;
   }
@@ -1252,22 +1279,18 @@ figcaption {
     display: block;
   }
 
-  .lang-switch {
+  .header-tools {
     margin-left: auto;
     margin-right: 4px;
   }
 
-  /* 文字サイズはメニューを開いた中の一番下に表示 */
-  .global-nav .font-switch {
-    margin: 0 20px 16px;
-    padding-top: 12px;
-    border-top: 1px solid rgba(255, 255, 255, 0.45);
-    font-size: 1em;
+  .font-switch {
+    margin-left: 0;
   }
 
   .global-nav {
     position: absolute;
-    top: 64px;
+    top: 100%;   /* ヘッダーの高さが変わっても（スマホの2段表示）すぐ下に開く */
     left: 0;
     right: 0;
     background: var(--color-main);
@@ -2071,4 +2094,35 @@ figcaption {
   font-weight: 700;
   color: var(--color-main);
   margin-bottom: 4px;
+}
+
+/* 560px以下：ヘッダーを2段にし、2段目の右に文字サイズ・言語の切り替えを並べる */
+@media (max-width: 560px) {
+  .site-header .container {
+    flex-wrap: wrap;
+    height: auto;
+    padding-top: 10px;
+  }
+
+  .menu-toggle {
+    order: 2;
+    margin-left: auto;
+  }
+
+  .header-tools {
+    order: 3;
+    flex-basis: 100%;
+    justify-content: flex-end;
+    margin-right: 0;
+  }
+
+  /* 2段になった分、ジャンプ先がヘッダーに隠れないよう下げる */
+  .research-category,
+  #access {
+    scroll-margin-top: 112px;
+  }
+
+  .news-list[data-per-page] {
+    scroll-margin-top: 128px;
+  }
 }
