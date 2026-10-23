@@ -542,6 +542,11 @@ figcaption {
   border-top: none;
 }
 
+/* 見出しの下線を表の上線として使うので、間に余白を入れない（1行目だけ下寄りに見えるのを防ぐ） */
+.article h2:has(+ .info-table) {
+  margin-bottom: 0;
+}
+
 .article h2.section-title {
   margin-top: 0;
   border-bottom: none;
