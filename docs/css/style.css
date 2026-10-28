@@ -419,13 +419,25 @@ p {
 }
 
 /* トップの写真付きヒーロー：文字のある左側だけ暗くし、右側は写真そのまま
-   ファイル名を変えるときは、下のスマートフォン対応内の .hero--photo も合わせて書き換える
+   写真は時間帯で切り替える（どの時間帯にするかは index.html の <head> のスクリプトで決める）
+     午前（5〜11時）：asa.jpg　昼（12〜16時）：slab_rouka_sakurajima.jpg　夕方〜夜（17〜翌4時）：yuugata.jpg
+   写真を差し替えるときは、下の --hero-photo の3か所だけ書き換える（スマートフォン用もこれを使う）
+   JavaScript が動かない環境では、昼の写真になる
    元の紺色グラデーションに戻すときは、index.html の class から「hero--photo」を消す */
 .hero--photo {
+  --hero-photo: url("../images/slab_rouka_sakurajima.jpg");
   background:
     linear-gradient(90deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.45) 35%, rgba(0, 0, 0, 0) 60%),
-    url("../images/slab_rouka_sakurajima.jpg") center 50% / cover no-repeat,
+    var(--hero-photo) center 50% / cover no-repeat,
     var(--color-main);
+}
+
+html[data-hero-time="morning"] .hero--photo {
+  --hero-photo: url("../images/asa.jpg");
+}
+
+html[data-hero-time="evening"] .hero--photo {
+  --hero-photo: url("../images/yuugata.jpg");
 }
 
 .hero .container {
@@ -1417,7 +1429,7 @@ figcaption {
   .hero--photo {
     background:
       linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-      url("../images/slab_rouka_sakurajima.jpg") center 50% / cover no-repeat,
+      var(--hero-photo) center 50% / cover no-repeat,
       var(--color-main);
   }
 
