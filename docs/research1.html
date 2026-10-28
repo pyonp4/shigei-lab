@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-en="AI-based surgical skill assessment | Shigei Lab">AIによる手術手技スキルの推定 | 重井研究室</title>
-  <meta name="description" content="AIによる手術手技スキルの推定に関する研究紹介ページです。">
+  <title data-en="Surgical Video Understanding toward Objective Assessment of Surgical Skill | Shigei Lab">手術映像理解による外科手技の定量化 | 重井研究室</title>
+  <meta name="description" content="腹腔鏡下手術映像の時系列行動セグメンテーションにより、外科手技を客観的・定量的に記述する研究の紹介ページです。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap">
@@ -75,7 +75,7 @@
           <li><a href="index.html" data-en="Home">ホーム</a></li>
           <li><a href="research.html" data-en="Research">研究紹介</a></li>
           <li><a href="research.html#vision" data-en="Image &amp; Video Recognition">画像・映像識別</a></li>
-          <li aria-current="page" data-en="AI-based surgical skill assessment">AIによる手術手技スキルの推定</li>
+          <li aria-current="page" data-en="Surgical video understanding">手術映像理解による外科手技の定量化</li>
         </ol>
       </div>
     </nav>
@@ -83,39 +83,52 @@
     <section class="hero page-hero">
       <div class="container">
         <span class="label" data-en="Medicine × AI">医療 × AI</span>
-        <h1 data-en="AI-based surgical skill assessment">AIによる手術手技スキルの推定</h1>
-        <p data-en="Lead: 江藤 遥香">担当：江藤 遥香</p>
+        <h1 data-en="Surgical Video Understanding for Quantifying Surgical Skill">手術映像理解による外科手技の定量化</h1>
+        <p lang="en">Surgical Video Understanding toward Objective Assessment of Surgical Skill</p>
+        <p data-en="Researcher: Haruka Eto">担当：江藤 遥香</p>
       </div>
     </section>
 
     <section class="section">
       <div class="container article">
+        <div class="lead-box" data-en="We are building AI that watches laparoscopic surgery videos and recognizes, frame by frame, which operation the surgeon is performing.">腹腔鏡手術の映像から、医師がいまどの操作をしているかを、AIで1コマずつ見分ける研究です。</div>
 
-        <div class="lead-box">
-          <span class="todo">【原稿待ち】この研究を一言で言うと？（例：「〇〇を△△で自動判定する」）</span>
-        </div>
+        <p><strong>Keywords：</strong>Surgical Data Science／Temporal Action Segmentation／Self-Supervised Video Representation Learning／Transformer</p>
 
-        <h2 data-en="What problem does it solve?">どんな問題を解決するの？</h2>
-        <p><span class="todo">【原稿待ち】研究の背景。今どんな困りごとがあるのかを、専門外の学部生にも分かる言葉で3〜4文。</span></p>
+        <h2 data-en="Overview">研究概要</h2>
+        <p data-en="A surgeon’s skill is tacit knowledge built up over many years of experience, and its assessment has relied on the subjective judgement of expert surgeons and on reviewing hours of video. This research aims to establish a foundational technology for describing surgical skill objectively and quantitatively, through Temporal Action Segmentation (TAS), which recognizes the surgeon’s operations frame by frame in laparoscopic surgery videos.">外科医の技術は、長年の経験によって培われる「暗黙知」であり、その評価は熟練医の主観と膨大な映像確認に依存してきた。本研究は、腹腔鏡下手術映像から術者の操作をフレーム単位で認識する時系列行動セグメンテーション（Temporal Action Segmentation; TAS）を通じて、手術手技を客観的かつ定量的に記述する基盤技術の確立を目指す。</p>
 
-        <h2 data-en="How do we solve it?">どうやって解決するの？</h2>
-        <figure>
-          <div class="placeholder">研究の全体像の図<br>（既存の発表資料から流用・掲載許可後に差し替え）</div>
-          <figcaption><span data-en="Figure 1: ">図1：</span><span class="todo">【原稿待ち】図の説明</span></figcaption>
-        </figure>
-        <p><span class="todo">【原稿待ち】手法を図に沿って3〜4文で。専門用語には一言説明を添える。</span></p>
-
-        <h2 data-en="What makes it interesting">この研究のここが面白い！</h2>
+        <h2 data-en="Background and challenges">背景と課題</h2>
+        <p data-en="Recognizing actions in surgical video is fundamentally harder than recognizing everyday actions.">手術映像における行動認識は、日常動作の認識とは本質的に異なる難しさを持つ。</p>
         <ul class="point-list">
-          <li><span class="todo">【原稿待ち】面白さ・やりがい①</span></li>
-          <li><span class="todo">【原稿待ち】面白さ・やりがい②</span></li>
-          <li><span class="todo">【原稿待ち】身につくスキル（例：Python、機械学習 など）</span></li>
+          <li data-en="&lt;strong&gt;Fine granularity:&lt;/strong&gt; many actions, such as blunt and sharp dissection, differ only in subtle movements of the instruments."><strong>細粒度性：</strong>「鈍的剥離」と「鋭的剥離」のように、器具のわずかな動きの違いでしか区別できない行動が多い。</li>
+          <li data-en="&lt;strong&gt;Domain gap:&lt;/strong&gt; conventional feature extractors trained on everyday-action data such as Kinetics are optimized for coarse action classification and cannot fully represent fine instrument manipulation."><strong>ドメインの隔たり：</strong>Kinetics などの日常動作データで学習された従来の特徴抽出器は、行動の大まかな分類に最適化されており、微細な器具操作を十分に表現できない。</li>
+          <li data-en="&lt;strong&gt;Mismatched temporal resolution:&lt;/strong&gt; it is not obvious how to align features, which a video model outputs per time window, with ground-truth labels annotated per frame."><strong>時間解像度の不一致：</strong>映像AIが時間窓単位で出力する特徴と、フレーム単位で付与された正解ラベルを、どう対応させるかが自明でない。</li>
         </ul>
 
-        <div class="profile">
-          <div class="profile-icon">江</div>
-          <p><strong>江藤 遥香</strong><br><span class="todo">【原稿待ち】研究室に入った理由や、後輩へのひとこと。</span></p>
-        </div>
+        <h2 data-en="Approach">アプローチ</h2>
+        <figure>
+          <div class="placeholder">図1：提案手法の概要図<br>（あとで差し替え）</div>
+          <figcaption data-en="Figure 1: Overview of the proposed method. The surgical video is encoded per time window with VideoMAE V2, and CETNet estimates the action at each time step.">図1：提案手法の概要。手術映像を時間窓ごとに VideoMAE V2 で特徴化し、CETNet で各時刻の行動を推定する。</figcaption>
+        </figure>
+        <ol class="point-list">
+          <li data-en="&lt;strong&gt;Self-supervised video representations:&lt;/strong&gt; we apply features from VideoMAE V2, which retains local and fine-grained spatio-temporal information through masked-autoencoder pre-training that reconstructs masked video, to TAS of surgical video."><strong>自己教師あり映像表現の導入：</strong>マスクした映像を復元する事前学習（Masked Autoencoder）によって、局所的かつ微細な時空間情報を保持する VideoMAE V2 の特徴を、手術映像の TAS に適用する。</li>
+          <li data-en="&lt;strong&gt;Temporal estimation with a Transformer:&lt;/strong&gt; using CETNet, which captures long-range context with self-attention, we estimate the action at each time step while taking the surrounding operations into account."><strong>Transformer による時系列推定：</strong>Self-Attention で長時間の文脈を捉える CETNet を用い、操作の前後関係を踏まえて各時刻の行動を推定する。</li>
+          <li data-en="&lt;strong&gt;Systematic design of supervision labels:&lt;/strong&gt; we formulate which frames in a time window to refer to, over what width, and by which rule, when assigning a supervision label, and clarify how this design affects recognition performance."><strong>教師ラベル決定法の体系化：</strong>時間窓内のどのフレームを、どれだけの幅で、どの方式で参照して教師ラベルを決めるかを定式化し、その設計が認識性能に与える影響を明らかにする。</li>
+        </ol>
+        <figure>
+          <div class="placeholder">図2：時系列行動セグメンテーションの例<br>（あとで差し替え）</div>
+          <figcaption data-en="Figure 2: An example of temporal action segmentation. Each colour band represents an action class (top: ground truth, bottom: prediction).">図2：時系列行動セグメンテーションの例。色の帯が行動の種類を表す（上段：正解、下段：推定）。</figcaption>
+        </figure>
+
+        <h2 data-en="Future work">今後の展望</h2>
+        <p data-en="We aim to obtain video representations specialized for the surgical domain by continually pre-training VideoMAE V2 on large amounts of unlabeled surgical video. We will further extend this work toward a framework that automatically assesses surgeon skill, using the recognized action sequences as cues.">ラベルのない大量の手術映像を用いて VideoMAE V2 を継続事前学習し、手術ドメインに特化した映像表現の獲得を目指す。さらに、認識した行動系列を手がかりに、術者のスキルを自動評価する枠組みへの展開を図る。</p>
+
+        <h2 data-en="Publications">研究業績</h2>
+        <ol>
+          <li lang="en">H. Eto et al., “Improving CETNet-Based Temporal Action Segmentation through Downsampling-Based Data Augmentation in Laparoscopic Surgery Videos,” <i>Proc. International Symposium on Artificial Life and Robotics (AROB)</i>, pp. 100–105, 2026.</li>
+          <li>江藤 遥香 他，「腹腔鏡下外科手術映像の時系列行動セグメンテーションにおける VideoMAE V2 特徴の有効性の検証」，<span class="todo">第XX回</span>ファジィシステムシンポジウム，2026．</li>
+        </ol>
 
         <div class="btn-row">
           <a class="btn btn--outline" href="index.html" data-en="← Back to home">← ホームへ戻る</a>
