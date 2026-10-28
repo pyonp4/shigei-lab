@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title data-en="Surgical Video Understanding toward Objective Assessment of Surgical Skill | Shigei Lab">手術映像理解による外科手技の定量化 | 重井研究室</title>
-  <meta name="description" content="腹腔鏡下手術映像の時系列行動セグメンテーションにより、外科手技を客観的・定量的に記述する研究の紹介ページです。">
+  <meta name="description" content="手術映像から医師の操作を AI で見分ける時系列行動セグメンテーション（TAS）により、手術技術の客観的で効率的な評価を目指す研究の紹介ページです。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap">
@@ -91,38 +91,42 @@
 
     <section class="section">
       <div class="container article">
-        <div class="lead-box" data-en="We are building AI that watches laparoscopic surgery videos and recognizes, frame by frame, which operation the surgeon is performing.">腹腔鏡手術の映像から、医師がいまどの操作をしているかを、AIで1コマずつ見分ける研究です。</div>
+        <div class="lead-box" data-en="We aim to realize objective and efficient assessment of surgical skill by automatically recognizing the surgeon’s operations in laparoscopic surgery videos with AI.">腹腔鏡下手術の映像から術者の操作を AI で自動認識し，手術技術の客観的かつ効率的な評価の実現を目指す</div>
 
-        <p><strong>Keywords：</strong>Surgical Data Science／Temporal Action Segmentation／Self-Supervised Video Representation Learning／Transformer</p>
+        <p><strong>Keywords：</strong>Surgical Data Science／Temporal Action Segmentation／Feature Extraction／Deep Learning</p>
 
-        <h2 data-en="Overview">研究概要</h2>
-        <p data-en="A surgeon’s skill is tacit knowledge built up over many years of experience, and its assessment has relied on the subjective judgement of expert surgeons and on reviewing hours of video. This research aims to establish a foundational technology for describing surgical skill objectively and quantitatively, through Temporal Action Segmentation (TAS), which recognizes the surgeon’s operations frame by frame in laparoscopic surgery videos.">外科医の技術は、長年の経験によって培われる「暗黙知」であり、その評価は熟練医の主観と膨大な映像確認に依存してきた。本研究は、腹腔鏡下手術映像から術者の操作をフレーム単位で認識する時系列行動セグメンテーション（Temporal Action Segmentation; TAS）を通じて、手術手技を客観的かつ定量的に記述する基盤技術の確立を目指す。</p>
-
-        <h2 data-en="Background and challenges">背景と課題</h2>
-        <p data-en="Recognizing actions in surgical video is fundamentally harder than recognizing everyday actions.">手術映像における行動認識は、日常動作の認識とは本質的に異なる難しさを持つ。</p>
+        <h2 data-en="Introduction">はじめに</h2>
+        <p data-en="A surgeon’s skill directly affects patient safety and surgical outcomes. To improve it, surgeons need to look back on their operations and receive appropriate feedback. Today, however, surgical skill is mainly assessed by expert surgeons who review recorded surgical videos and score them.">外科医の手術技術は，患者の安全や術後の経過に直結する．技術を高めるには，自らの手術を振り返り，適切なフィードバックを受けることが欠かせない．しかし現在，手術技術の評価は主に，熟練医が録画された手術映像を見返して採点することで行われている．</p>
+        <p data-en="This approach has two major problems:">この方法には，大きく2つの問題がある．</p>
         <ul class="point-list">
-          <li data-en="&lt;strong&gt;Fine granularity:&lt;/strong&gt; many actions, such as blunt and sharp dissection, differ only in subtle movements of the instruments."><strong>細粒度性：</strong>「鈍的剥離」と「鋭的剥離」のように、器具のわずかな動きの違いでしか区別できない行動が多い。</li>
-          <li data-en="&lt;strong&gt;Domain gap:&lt;/strong&gt; conventional feature extractors trained on everyday-action data such as Kinetics are optimized for coarse action classification and cannot fully represent fine instrument manipulation."><strong>ドメインの隔たり：</strong>Kinetics などの日常動作データで学習された従来の特徴抽出器は、行動の大まかな分類に最適化されており、微細な器具操作を十分に表現できない。</li>
-          <li data-en="&lt;strong&gt;Mismatched temporal resolution:&lt;/strong&gt; it is not obvious how to align features, which a video model outputs per time window, with ground-truth labels annotated per frame."><strong>時間解像度の不一致：</strong>映像AIが時間窓単位で出力する特徴と、フレーム単位で付与された正解ラベルを、どう対応させるかが自明でない。</li>
+          <li data-en="&lt;strong&gt;Subjectivity:&lt;/strong&gt; scores depend on the experience and viewpoint of each evaluator, so the same operation can be rated differently by different people."><strong>主観的である：</strong>評価が評価者の経験や観点に左右され，同じ手術でも人によって点数が変わりうる．</li>
+          <li data-en="&lt;strong&gt;Heavy workload:&lt;/strong&gt; surgeons routinely carry out operations and clinical duties, leaving limited time for assessment. Meanwhile, a single surgical video can last several hours, and reviewing it takes considerable time. It is therefore difficult to assess every operation."><strong>労力が大きい：</strong>外科医は日常的に手術や診療業務を担っており，評価に充てられる時間は限られる．一方，手術映像は1件あたり数時間に及ぶこともあり，その確認には多くの時間を要する．そのため，すべての手術を評価することは難しい．</li>
         </ul>
+        <p data-en="If AI could assess surgical skill automatically from video, every operation could be evaluated by the same criteria, objectively and efficiently. Young surgeons would also be able to get feedback quickly after each operation.">もし AI が手術映像から技術を自動で評価できれば，すべての手術を同じ基準で，客観的かつ効率的に評価できるようになる．若手医師も，手術のたびにすばやくフィードバックを得られる．</p>
 
-        <h2 data-en="Approach">アプローチ</h2>
+        <h2 data-en="Action Recognition in Surgical Video: Temporal Action Segmentation">手術映像の行動認識：時系列行動セグメンテーション</h2>
+        <p data-en="To assess skill, the AI first needs to know what the surgeon is doing, and when. Skill shows up in each operation — how carefully tissue is dissected, how smoothly a vessel is clipped. This research therefore tackles &lt;strong&gt;Temporal Action Segmentation (TAS)&lt;/strong&gt;: the task of estimating, for every frame of a surgical video, which operation (such as dissecting tissue, clipping or cutting a vessel, or stopping bleeding) is being performed.">技術を評価するには，まず AI が「医師が，いつ，何をしているか」を把握できなければならない．技術の良し悪しは，組織をどう丁寧に剥がすか，血管をどう手際よく処理するかといった，一つひとつの操作に表れるからである．そこで本研究では，手術映像の各フレームについて，「組織を剥がす」「血管をクリップで留める」「血管を切る」「止血する」といった操作のうち，どれを行っているかを推定する<strong>時系列行動セグメンテーション（Temporal Action Segmentation; TAS）</strong>に取り組んでいる．</p>
+        <p data-en="TAS on surgical video is difficult because many operations look alike: the difference often lies only in subtle movements of the instruments.">手術映像の TAS が難しいのは，見た目の似た操作が多く，その違いが器具のわずかな動きにしか表れない点にある．</p>
         <figure>
-          <div class="placeholder">図1：提案手法の概要図<br>（あとで差し替え）</div>
-          <figcaption data-en="Figure 1: Overview of the proposed method. The surgical video is encoded per time window with VideoMAE V2, and CETNet estimates the action at each time step.">図1：提案手法の概要。手術映像を時間窓ごとに VideoMAE V2 で特徴化し、CETNet で各時刻の行動を推定する。</figcaption>
+          <div class="placeholder">図1：時系列行動セグメンテーションの例<br>（あとで差し替え）</div>
+          <figcaption data-en="Figure 1: An example of temporal action segmentation. Each colour band represents an operation, along the timeline of the video.">図1：時系列行動セグメンテーションの例．映像の時間の流れに沿って，色の帯で操作の種類を表す．</figcaption>
         </figure>
+
+        <h2 data-en="Research">研究内容</h2>
+        <p data-en="TAS proceeds in two steps.">TAS は，大きく2つの段階で行う．</p>
         <ol class="point-list">
-          <li data-en="&lt;strong&gt;Self-supervised video representations:&lt;/strong&gt; we apply features from VideoMAE V2, which retains local and fine-grained spatio-temporal information through masked-autoencoder pre-training that reconstructs masked video, to TAS of surgical video."><strong>自己教師あり映像表現の導入：</strong>マスクした映像を復元する事前学習（Masked Autoencoder）によって、局所的かつ微細な時空間情報を保持する VideoMAE V2 の特徴を、手術映像の TAS に適用する。</li>
-          <li data-en="&lt;strong&gt;Temporal estimation with a Transformer:&lt;/strong&gt; using CETNet, which captures long-range context with self-attention, we estimate the action at each time step while taking the surrounding operations into account."><strong>Transformer による時系列推定：</strong>Self-Attention で長時間の文脈を捉える CETNet を用い、操作の前後関係を踏まえて各時刻の行動を推定する。</li>
-          <li data-en="&lt;strong&gt;Systematic design of supervision labels:&lt;/strong&gt; we formulate which frames in a time window to refer to, over what width, and by which rule, when assigning a supervision label, and clarify how this design affects recognition performance."><strong>教師ラベル決定法の体系化：</strong>時間窓内のどのフレームを、どれだけの幅で、どの方式で参照して教師ラベルを決めるかを定式化し、その設計が認識性能に与える影響を明らかにする。</li>
+          <li data-en="&lt;strong&gt;Feature extraction:&lt;/strong&gt; a video is just a sequence of images, and AI cannot interpret it as it is. The video is therefore divided into short clips, and each clip is converted into a sequence of numbers (a feature vector) that summarizes how the instruments move and how the scene looks. Turning images into numbers that capture their essential characteristics is called feature extraction."><strong>特徴量抽出：</strong>映像は画像の連続にすぎず，そのままでは AI が意味を読み取れない．そこで映像を短い区間に区切り，各区間の「器具がどう動いているか」「何が映っているか」を要約した数値の並び（特徴ベクトル）に変換する．画像を，その本質的な特徴を表す数値に置き換えるこの処理を，特徴量抽出と呼ぶ．</li>
+          <li data-en="&lt;strong&gt;Action estimation:&lt;/strong&gt; the sequence of feature vectors is fed into a deep-learning model, which estimates the operation at each moment while also taking into account what happened before and after."><strong>行動の推定：</strong>得られた特徴ベクトルの並びを深層学習モデルに入力し，前後の流れも踏まえて，各時刻の操作を推定する．</li>
         </ol>
+        <p data-en="Because the differences between operations are so subtle, how well the feature extraction captures fine instrument movements is key. This research focuses on what kind of feature extraction is best suited to surgical video, and on how to train the model accurately.">操作の違いはごくわずかであるため，特徴量抽出の段階で，器具の細かな動きをどれだけ捉えられるかが鍵となる．本研究では，手術映像に適した特徴量抽出の方法と，それを用いてモデルを正しく学習させる方法に着目している．</p>
         <figure>
-          <div class="placeholder">図2：時系列行動セグメンテーションの例<br>（あとで差し替え）</div>
-          <figcaption data-en="Figure 2: An example of temporal action segmentation. Each colour band represents an action class (top: ground truth, bottom: prediction).">図2：時系列行動セグメンテーションの例。色の帯が行動の種類を表す（上段：正解、下段：推定）。</figcaption>
+          <div class="placeholder">図2：研究の全体像<br>（あとで差し替え）</div>
+          <figcaption data-en="Figure 2: Overview of the research. Features are extracted from each short clip of the surgical video, and a deep-learning model estimates the operation at each moment.">図2：研究の全体像．手術映像を短い区間ごとに特徴量へ変換し，深層学習モデルで各時刻の操作を推定する．</figcaption>
         </figure>
 
         <h2 data-en="Future work">今後の展望</h2>
-        <p data-en="We aim to obtain video representations specialized for the surgical domain by continually pre-training VideoMAE V2 on large amounts of unlabeled surgical video. We will further extend this work toward a framework that automatically assesses surgeon skill, using the recognized action sequences as cues.">ラベルのない大量の手術映像を用いて VideoMAE V2 を継続事前学習し、手術ドメインに特化した映像表現の獲得を目指す。さらに、認識した行動系列を手がかりに、術者のスキルを自動評価する枠組みへの展開を図る。</p>
+        <p data-en="Going forward, we will work to improve recognition of operations that are currently hard to distinguish. For operations whose appearance and motion differ only slightly, such as blunt and sharp dissection, better feature representations and training methods are needed to capture those differences.">今後は，現状では見分けることが難しい操作の認識精度の向上に取り組む．例えば，鈍的剥離と鋭的剥離のように外観や動作の差が小さい操作については，その違いを捉えるための特徴表現や学習方法の改善が必要である．</p>
+        <p data-en="We will also connect the results of action recognition to the assessment of surgical skill. From the recognized sequence of operations, we can obtain information such as the order of operations, the time spent on each, and how often the surgeon switches between them. Using these as cues, we aim to build a framework that assesses surgeon skill automatically and objectively, and to apply it to supporting the training of young surgeons.">さらに，行動認識の結果を手術技術の評価へとつなげる．認識した操作の系列からは，各操作の順序や所要時間，操作の切り替わりの頻度といった情報が得られる．これらを手がかりに，術者の技術を自動かつ客観的に評価する枠組みの構築と，若手外科医の教育支援への応用を目指す．</p>
 
         <h2 data-en="Publications">研究業績</h2>
         <ol>
