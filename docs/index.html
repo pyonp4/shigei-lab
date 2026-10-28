@@ -12,6 +12,14 @@
   <link rel="stylesheet" href="css/lucian.css">
   <script>document.documentElement.classList.add("lx-js"); // Lucian の登場アニメーション用（JavaScript が動くときだけ最初に隠す）</script>
   <script>
+    // トップの写真を時間帯で切り替える（表示する前に決めて、写真が入れ替わって見えないようにする）
+    // 午前（5〜11時）は morning、昼（12〜16時）は day、夕方〜夜（17〜翌4時）は evening
+    (function () {
+      var h = new Date().getHours();
+      document.documentElement.dataset.heroTime = h >= 5 && h < 12 ? "morning" : h >= 12 && h < 17 ? "day" : "evening";
+    })();
+  </script>
+  <script>
     // 保存した文字サイズを、表示する前に反映する（ちらつき防止）
     try { var fs = localStorage.getItem("fontSize"); if (fs === "small" || fs === "large") document.documentElement.dataset.fontSize = fs; } catch (e) {}
   </script>
@@ -70,7 +78,8 @@
 
   <main id="main">
     <!-- ===== ヒーロー ===== -->
-    <!-- 背景写真：images/slab_rouka_sakurajima.jpg（同じファイル名で上書きすれば差し替え可能）
+    <!-- 背景写真は時間帯で切り替わる（午前：images/asa.jpg　昼：images/slab_rouka_sakurajima.jpg　夕方〜夜：images/yuugata.jpg）
+         同じファイル名で上書きすれば差し替え可能。時間の区切りは <head> のスクリプトで変えられる
          元の紺色グラデーションのデザインに戻したいときは、class から「hero--photo」を消す -->
     <!-- Lucian UX/UI Prompt #216・#226 を使用（動きは css/lucian.css と js/lucian.js）
          data-s を付けた要素が、style="--d:ミリ秒" だけ遅れて順に浮かび上がる -->
