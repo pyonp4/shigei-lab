@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title data-en="Research | Shigei Lab">研究紹介 | 重井研究室</title>
-  <meta name="description" content="重井研究室の研究を「自然言語処理」「IoT」「画像・映像識別」「電気・電子」の4分野に分けて紹介するページです。">
+  <meta name="description" content="重井研究室の研究を「画像・映像識別」「IoT」「自然言語処理」「電気・電子」の4分野に分けて紹介するページです。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap">
@@ -82,7 +82,7 @@
       <div class="container">
         <span class="label">RESEARCH</span>
         <h1 data-en="Research">研究紹介</h1>
-        <p data-en="Our research spans four areas: natural language processing, IoT, image &amp; video recognition, and electrical &amp; electronic engineering.">重井研究室では「自然言語処理」「IoT」「画像・映像識別」「電気・電子」の4つの分野で研究を行っています。</p>
+        <p data-en="Our research spans four areas: image &amp; video recognition, IoT, natural language processing, and electrical &amp; electronic engineering.">重井研究室では「画像・映像識別」「IoT」「自然言語処理」「電気・電子」の4つの分野で研究を行っています。</p>
       </div>
     </section>
 
@@ -90,33 +90,43 @@
     <nav class="category-nav" aria-label="研究分野">
       <div class="container">
         <ul>
-          <li><a href="#nlp"><span class="category-nav__en">NLP</span><span data-en="Natural Language Processing">自然言語処理</span></a></li>
-          <li><a href="#iot"><span class="category-nav__en">IoT</span><span data-en="Internet of Things">IoT</span></a></li>
           <li><a href="#vision"><span class="category-nav__en">IMAGE &amp; VIDEO</span><span data-en="Image &amp; Video Recognition">画像・映像識別</span></a></li>
+          <li><a href="#iot"><span class="category-nav__en">IoT</span><span data-en="Internet of Things">IoT</span></a></li>
+          <li><a href="#nlp"><span class="category-nav__en">NLP</span><span data-en="Natural Language Processing">自然言語処理</span></a></li>
           <li><a href="#ee"><span class="category-nav__en">ELECTRICAL &amp; ELECTRONIC</span><span data-en="Electrical &amp; Electronic Engineering">電気・電子</span></a></li>
         </ul>
       </div>
     </nav>
 
-    <!-- ===== 自然言語処理 ===== -->
-    <section class="section research-category" id="nlp" aria-labelledby="nlp-title">
+    <!-- ===== 画像・映像識別 ===== -->
+    <section class="section research-category" id="vision" aria-labelledby="vision-title">
       <div class="container">
-        <span class="category-label">NLP</span>
-        <h2 class="section-title" id="nlp-title" data-en="Natural Language Processing">自然言語処理</h2>
-        <p class="section-lead"><span class="todo">【原稿待ち】自然言語処理の分野でどんな研究をしているかを2〜3行で。</span></p>
+        <span class="category-label">IMAGE &amp; VIDEO</span>
+        <h2 class="section-title" id="vision-title" data-en="Image &amp; Video Recognition">画像・映像識別</h2>
+        <p class="section-lead"><span class="todo">【原稿待ち】画像・映像識別の分野でどんな研究をしているかを2〜3行で。</span></p>
         <div class="card-grid card-grid--3">
-          <article class="card">
-            <div class="placeholder">研究のイメージ画像<br>（16:9）</div>
+          <a class="card" href="research1.html">
+            <div class="placeholder">手術手技スキル推定のイメージ画像<br>（16:9）</div>
             <div class="card-body">
-              <span class="card-tag">NLP</span>
-              <h3><span class="todo">【原稿待ち】研究テーマ名</span></h3>
-              <p><span class="todo">【原稿待ち】研究の概要を2行程度で。</span></p>
+              <span class="card-tag">IMAGE &amp; VIDEO</span>
+              <h3 data-en="AI-based surgical skill assessment">AIによる手術手技スキルの推定</h3>
+              <p data-en="We use AI to automatically recognize the surgeon’s operations in surgical videos, aiming for objective and efficient assessment of surgical skill.">手術映像から術者の操作をAIで自動認識し、手術技術の客観的で効率的な評価を目指します。</p>
+              <span class="card-more" data-en="Read more →">詳しく見る →</span>
             </div>
-          </article>
+          </a>
+          <a class="card" href="research2.html">
+            <div class="placeholder">災害危険個所推定のイメージ画像<br>（16:9）</div>
+            <div class="card-body">
+              <span class="card-tag">IMAGE &amp; VIDEO</span>
+              <h3 data-en="AI-based disaster risk mapping">AIによる災害危険個所の推定</h3>
+              <p><span class="todo">【原稿待ち】研究の概要を2行程度で。</span></p>
+              <span class="card-more" data-en="Read more →">詳しく見る →</span>
+            </div>
+          </a>
           <article class="card">
             <div class="placeholder">研究のイメージ画像<br>（16:9）</div>
             <div class="card-body">
-              <span class="card-tag">NLP</span>
+              <span class="card-tag">IMAGE &amp; VIDEO</span>
               <h3><span class="todo">【原稿待ち】研究テーマ名</span></h3>
               <p><span class="todo">【原稿待ち】研究の概要を2行程度で。</span></p>
             </div>
@@ -152,35 +162,25 @@
       </div>
     </section>
 
-    <!-- ===== 画像・映像識別 ===== -->
-    <section class="section research-category" id="vision" aria-labelledby="vision-title">
+    <!-- ===== 自然言語処理 ===== -->
+    <section class="section research-category" id="nlp" aria-labelledby="nlp-title">
       <div class="container">
-        <span class="category-label">IMAGE &amp; VIDEO</span>
-        <h2 class="section-title" id="vision-title" data-en="Image &amp; Video Recognition">画像・映像識別</h2>
-        <p class="section-lead"><span class="todo">【原稿待ち】画像・映像識別の分野でどんな研究をしているかを2〜3行で。</span></p>
+        <span class="category-label">NLP</span>
+        <h2 class="section-title" id="nlp-title" data-en="Natural Language Processing">自然言語処理</h2>
+        <p class="section-lead"><span class="todo">【原稿待ち】自然言語処理の分野でどんな研究をしているかを2〜3行で。</span></p>
         <div class="card-grid card-grid--3">
-          <a class="card" href="research1.html">
-            <div class="placeholder">手術手技スキル推定のイメージ画像<br>（16:9）</div>
-            <div class="card-body">
-              <span class="card-tag">IMAGE &amp; VIDEO</span>
-              <h3 data-en="AI-based surgical skill assessment">AIによる手術手技スキルの推定</h3>
-              <p><span class="todo">【原稿待ち】研究の概要を2行程度で。</span></p>
-              <span class="card-more" data-en="Read more →">詳しく見る →</span>
-            </div>
-          </a>
-          <a class="card" href="research2.html">
-            <div class="placeholder">災害危険個所推定のイメージ画像<br>（16:9）</div>
-            <div class="card-body">
-              <span class="card-tag">IMAGE &amp; VIDEO</span>
-              <h3 data-en="AI-based disaster risk mapping">AIによる災害危険個所の推定</h3>
-              <p><span class="todo">【原稿待ち】研究の概要を2行程度で。</span></p>
-              <span class="card-more" data-en="Read more →">詳しく見る →</span>
-            </div>
-          </a>
           <article class="card">
             <div class="placeholder">研究のイメージ画像<br>（16:9）</div>
             <div class="card-body">
-              <span class="card-tag">IMAGE &amp; VIDEO</span>
+              <span class="card-tag">NLP</span>
+              <h3><span class="todo">【原稿待ち】研究テーマ名</span></h3>
+              <p><span class="todo">【原稿待ち】研究の概要を2行程度で。</span></p>
+            </div>
+          </article>
+          <article class="card">
+            <div class="placeholder">研究のイメージ画像<br>（16:9）</div>
+            <div class="card-body">
+              <span class="card-tag">NLP</span>
               <h3><span class="todo">【原稿待ち】研究テーマ名</span></h3>
               <p><span class="todo">【原稿待ち】研究の概要を2行程度で。</span></p>
             </div>
@@ -188,6 +188,7 @@
         </div>
       </div>
     </section>
+
     <!-- ===== 電気・電子 ===== -->
     <section class="section section--sub research-category" id="ee" aria-labelledby="ee-title">
       <div class="container">

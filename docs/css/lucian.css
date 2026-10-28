@@ -827,4 +827,9 @@ li.u370-ev:nth-of-type(even) .u370-cd {
     bottom: 20px;
     width: calc(100% - 40px);
   }
+
+  /* 幅が狭いので、説明は3行まで表示する */
+  .u389-ds > span {
+    -webkit-line-clamp: 3;
+  }
 }
