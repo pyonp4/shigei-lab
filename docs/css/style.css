@@ -751,6 +751,92 @@ figcaption {
   font-size: 0.95rem;
 }
 
+/* 研究の詳細ページ：左に本文、右に他の研究へのリンク（1024px以下では本文の下に並ぶ） */
+.research-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 64px;
+  align-items: start;
+}
+
+/* 右側はスクロールしても画面内に残す（ヘッダーの高さ分あける） */
+.research-side {
+  position: sticky;
+  top: 96px;
+}
+
+.research-side__title {
+  font-size: 1rem;
+  color: var(--color-main);
+  margin: 0;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--color-main);
+}
+
+.research-side__list + .research-side__title {
+  margin-top: 40px;
+}
+
+.research-side__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.research-side__list li {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.research-side__list a {
+  display: flex;
+  flex-direction: column;
+  padding: 14px 28px 14px 4px;
+  position: relative;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.research-side__list a::after {
+  content: "→" / "";
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: transform 0.25s;
+}
+
+.research-side__list a:hover {
+  text-decoration: underline;
+}
+
+.research-side__list a:hover::after {
+  transform: translate(4px, -50%);
+}
+
+.research-side__tag {
+  font-family: var(--font-en);
+  font-size: 0.875rem;
+  letter-spacing: 0.12em;
+  color: var(--color-accent);
+  margin-bottom: 2px;
+}
+
+.research-side .view-more {
+  display: inline-block;
+  margin-top: 24px;
+}
+
+@media (max-width: 1024px) {
+  .research-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 72px;
+  }
+
+  .research-side {
+    position: static;
+  }
+}
+
 /* ---------- 行事紹介（タイムライン） ---------- */
 .timeline {
   list-style: none;
