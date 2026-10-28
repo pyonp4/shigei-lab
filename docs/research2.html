@@ -89,37 +89,60 @@
     </section>
 
     <section class="section">
-      <div class="container article">
+      <div class="container research-layout">
+        <div class="article">
 
-        <div class="lead-box">
-          <span class="todo">【原稿待ち】この研究を一言で言うと？（例：「〇〇を△△で自動判定する」）</span>
+          <div class="lead-box">
+            <span class="todo">【原稿待ち】この研究を一言で言うと？（例：「〇〇を△△で自動判定する」）</span>
+          </div>
+
+          <h2 data-en="What problem does it solve?">どんな問題を解決するの？</h2>
+          <p><span class="todo">【原稿待ち】研究の背景。今どんな困りごとがあるのかを、専門外の学部生にも分かる言葉で3〜4文。</span></p>
+
+          <h2 data-en="How do we solve it?">どうやって解決するの？</h2>
+          <figure>
+            <div class="placeholder">研究の全体像の図<br>（既存の発表資料から流用・掲載許可後に差し替え）</div>
+            <figcaption><span data-en="Figure 1: ">図1：</span><span class="todo">【原稿待ち】図の説明</span></figcaption>
+          </figure>
+          <p><span class="todo">【原稿待ち】手法を図に沿って3〜4文で。専門用語には一言説明を添える。</span></p>
+
+          <h2 data-en="What makes it interesting">この研究のここが面白い！</h2>
+          <ul class="point-list">
+            <li><span class="todo">【原稿待ち】面白さ・やりがい①</span></li>
+            <li><span class="todo">【原稿待ち】面白さ・やりがい②</span></li>
+            <li><span class="todo">【原稿待ち】身につくスキル（例：Python、機械学習 など）</span></li>
+          </ul>
+
+          <div class="profile">
+            <div class="profile-icon">山</div>
+            <p><strong>山下 旺亮</strong><br><span class="todo">【原稿待ち】研究室に入った理由や、後輩へのひとこと。</span></p>
+          </div>
+
+          <div class="btn-row">
+            <a class="btn btn--outline" href="index.html" data-en="← Back to home">← ホームへ戻る</a>
+          </div>
         </div>
 
-        <h2 data-en="What problem does it solve?">どんな問題を解決するの？</h2>
-        <p><span class="todo">【原稿待ち】研究の背景。今どんな困りごとがあるのかを、専門外の学部生にも分かる言葉で3〜4文。</span></p>
-
-        <h2 data-en="How do we solve it?">どうやって解決するの？</h2>
-        <figure>
-          <div class="placeholder">研究の全体像の図<br>（既存の発表資料から流用・掲載許可後に差し替え）</div>
-          <figcaption><span data-en="Figure 1: ">図1：</span><span class="todo">【原稿待ち】図の説明</span></figcaption>
-        </figure>
-        <p><span class="todo">【原稿待ち】手法を図に沿って3〜4文で。専門用語には一言説明を添える。</span></p>
-
-        <h2 data-en="What makes it interesting">この研究のここが面白い！</h2>
-        <ul class="point-list">
-          <li><span class="todo">【原稿待ち】面白さ・やりがい①</span></li>
-          <li><span class="todo">【原稿待ち】面白さ・やりがい②</span></li>
-          <li><span class="todo">【原稿待ち】身につくスキル（例：Python、機械学習 など）</span></li>
-        </ul>
-
-        <div class="profile">
-          <div class="profile-icon">山</div>
-          <p><strong>山下 旺亮</strong><br><span class="todo">【原稿待ち】研究室に入った理由や、後輩へのひとこと。</span></p>
-        </div>
-
-        <div class="btn-row">
-          <a class="btn btn--outline" href="index.html" data-en="← Back to home">← ホームへ戻る</a>
-        </div>
+        <!-- ===== 右側：他の研究へのリンク（スマホ・タブレットでは本文の下に並ぶ） ===== -->
+        <aside class="research-side" aria-labelledby="research-side-title">
+          <h2 class="research-side__title" id="research-side-title" data-en="Other research">他の研究</h2>
+          <ul class="research-side__list">
+            <li>
+              <a href="research1.html">
+                <span class="research-side__tag" data-en="Medicine × AI">医療 × AI</span>
+                <span data-en="Surgical Video Understanding for Quantifying Surgical Skill">手術映像理解による外科手技の定量化</span>
+              </a>
+            </li>
+          </ul>
+          <h2 class="research-side__title" data-en="Browse by area">研究分野から探す</h2>
+          <ul class="research-side__list">
+            <li><a href="research.html#vision" data-en="Image &amp; Video Recognition">画像・映像識別</a></li>
+            <li><a href="research.html#iot">IoT</a></li>
+            <li><a href="research.html#nlp" data-en="Natural Language Processing">自然言語処理</a></li>
+            <li><a href="research.html#ee" data-en="Electrical &amp; Electronic Engineering">電気・電子</a></li>
+          </ul>
+          <a class="view-more" href="research.html" data-en="All research">研究紹介の一覧へ</a>
+        </aside>
       </div>
     </section>
   </main>
