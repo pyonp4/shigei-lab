@@ -1505,7 +1505,7 @@ figcaption {
   font-family: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
   /* 右側に焼酎グラスの水墨画。白地は乗算で和紙の色になじませる */
   background:
-    url("../images/nondadon_glass.jpg") right 8px top 10px / auto 52% no-repeat,
+    url("../images/nondadon_glass.jpg") right 16px top 16px / auto 60% no-repeat,
     radial-gradient(70% 35% at 75% 70%, rgba(0, 0, 0, 0.16), transparent 70%),
     radial-gradient(45% 25% at 25% 90%, rgba(0, 0, 0, 0.10), transparent 70%),
     #f4f2ee;
