@@ -1086,6 +1086,29 @@ figcaption {
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
+/* ホームのメンバー欄：教員紹介と研究室データ（背景が灰色なので、教員の枠は白にする） */
+.home-members {
+  max-width: 860px;
+}
+
+.home-members__title {
+  font-size: clamp(1.25rem, 2.8vw, 1.6rem);
+  color: var(--color-main);
+  margin: 56px 0 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-main);
+}
+
+.home-members .profile {
+  margin-top: 24px;
+  background: var(--color-bg);
+}
+
+/* 見出しの下線を表の上線として使う */
+.home-members__title + .info-table {
+  border-top: none;
+}
+
 /* ---------- ニュース一覧 ---------- */
 .news-list {
   list-style: none;
