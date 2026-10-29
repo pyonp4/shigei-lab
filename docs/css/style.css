@@ -1086,6 +1086,12 @@ figcaption {
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
+/* ホームの研究室の概要：紹介文の下に所在地の表 */
+.home-about__table {
+  max-width: 860px;
+  margin-top: 40px;
+}
+
 /* ホームのメンバー欄：教員紹介と研究室データ（背景が灰色なので、教員の枠は白にする） */
 .home-members {
   max-width: 860px;
