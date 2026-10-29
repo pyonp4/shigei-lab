@@ -1701,15 +1701,19 @@ figcaption {
     linear-gradient(90deg, rgba(10, 31, 68, 0.09) 1px, transparent 1px);
   background-size: 26px 26px;
   background-position: center;
-  -webkit-mask: radial-gradient(28% 50% at 75% 60%, #000, transparent 75%);
-  mask: radial-gradient(28% 50% at 75% 60%, #000, transparent 75%);
+  /* 右半分だけに均一な濃さで敷く */
+  -webkit-mask: linear-gradient(90deg, transparent 50%, #000 50%);
+  mask: linear-gradient(90deg, transparent 50%, #000 50%);
   pointer-events: none;
 }
 
 .contact-cta--split .u211-bm--side {
   left: 75%;
   top: 58%;
-  opacity: 0.8;
+  /* 淡い背景では左と同じ色だと見えにくいので、色を少し深く濃くする */
+  background: conic-gradient(from var(--u211-b), transparent 0 70%, rgba(70, 140, 245, 0.6) 80%,
+    rgba(40, 195, 145, 0.55) 86%, transparent 92%);
+  opacity: 0.9;
 }
 
 /* 1024px以下：上に紺の Contact、下に淡い色のバナー（タブレット2列・スマホ1列） */
