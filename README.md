@@ -19,6 +19,10 @@
 | docs/js/main.js | スマホ用メニュー | - | - |
 | docs/images/ | 画像置き場 | - | - |
 
+## 研究紹介ページの書き方
+
+研究紹介ページを新しく作るときは [RESEARCH_GUIDE.md](RESEARCH_GUIDE.md) を見る。お手本（research1.html）と同じ構成・文体で書くための質問リスト、文章のルール、AI に下書きを頼むときのプロンプトがある。Claude Code を使う場合は `/research-page` でも同じ手順で作れる。
+
 ## 作業ルール
 
 - 自分の担当ページのファイルだけを編集する
