@@ -93,8 +93,7 @@
         <h1 data-en='<span class="u216-w"><span style="--d:300">Shigei</span></span> <span class="u216-w"><span style="--d:370">Lab</span></span>'><span class="u216-w"><span style="--d:300">重井</span></span><span class="u216-w"><span style="--d:370">研究室</span></span></h1>
         <p class="u216-p" data-s style="--d:620" data-en="Our research spans four areas: natural language processing, IoT, image &amp; video recognition, and electrical &amp; electronic engineering.">「自然言語処理」「IoT」「画像・映像識別」「電気・電子」の4つの分野で研究を行っています。</p>
         <div class="btn-row" data-s style="--d:760">
-          <a class="btn" href="#research" data-en="Our research">研究を見る</a>
-          <a class="btn btn--light" href="#about" data-en="About the lab">研究室の概要</a>
+          <a class="btn" href="research.html" data-en="Our research">研究を見る</a>
         </div>
       </div>
     </section>
@@ -268,12 +267,49 @@
 
   <!-- ===== お問い合わせ（全ページ共通・フッターの直前） ===== -->
   <!-- 背景写真は images/contact.jpg に置くと表示されます（無い場合はネイビー一色） -->
-  <section class="contact-cta" aria-labelledby="contact-cta-title">
-    <div class="container">
-      <h2 class="contact-cta__title" id="contact-cta-title">Contact</h2>
-      <p class="contact-cta__sub" data-en="Get in touch">お問い合わせ</p>
-      <p class="contact-cta__text" data-en="For enquiries about joining the lab,&lt;br&gt;joint research, or media coverage,&lt;br&gt;please contact us below.">当研究室への配属・進学のご希望、<br>共同研究や取材のご相談は<br>下記よりお問い合わせください。</p>
-      <a class="btn btn--ghost" href="contact.html">Contact us</a>
+  <section class="contact-cta contact-cta--split" aria-labelledby="contact-cta-title">
+    <div class="container contact-cta__inner">
+      <div class="contact-cta__main">
+        <h2 class="contact-cta__title" id="contact-cta-title">Contact</h2>
+        <p class="contact-cta__sub" data-en="Get in touch">お問い合わせ</p>
+        <p class="contact-cta__text" data-en="For enquiries about joining the lab,&lt;br&gt;joint research, or media coverage,&lt;br&gt;please contact us below.">当研究室への配属・進学のご希望、<br>共同研究や取材のご相談は<br>下記よりお問い合わせください。</p>
+        <a class="btn btn--ghost" href="contact.html">Contact us</a>
+      </div>
+      <!-- 関連リンクのバナー：1つの <li> が1枚（色や模様は css/style.css の .link-banner--名前 で指定）
+           左半分（紺）に Contact、右半分（淡い色）にバナーを 2×2 で並べる -->
+      <nav class="link-banners" aria-labelledby="link-banners-title">
+        <h2 class="link-banners__title" id="link-banners-title">Links<span data-en="Related links">関連リンク</span></h2>
+        <ul class="link-banners__list">
+          <li><a class="link-banner link-banner--kadai" href="https://www.kagoshima-u.ac.jp/" target="_blank" rel="noopener">
+            <span class="link-banner__kicker" data-en="National University Corporation">国立大学法人</span>
+            <span class="link-banner__name" data-en="Kagoshima University">鹿児島大学</span>
+            <span class="link-banner__sub" aria-hidden="true">KAGOSHIMA UNIVERSITY</span>
+            <span class="link-banner__more" aria-hidden="true" data-en="Visit site">サイトを見る</span>
+            <span class="visually-hidden" data-en="(opens in a new tab)">（新しいタブで開きます）</span>
+          </a></li>
+          <li><a class="link-banner link-banner--eng" href="https://www.eng.kagoshima-u.ac.jp/" target="_blank" rel="noopener">
+            <span class="link-banner__kicker" data-en="Kagoshima University">鹿児島大学</span>
+            <span class="link-banner__name" data-en="Faculty of Engineering">工学部</span>
+            <span class="link-banner__sub" aria-hidden="true">FACULTY OF ENGINEERING</span>
+            <span class="link-banner__more" aria-hidden="true" data-en="Visit site">サイトを見る</span>
+            <span class="visually-hidden" data-en="(opens in a new tab)">（新しいタブで開きます）</span>
+          </a></li>
+          <li><a class="link-banner link-banner--grad" href="https://grad.eng.kagoshima-u.ac.jp/" target="_blank" rel="noopener">
+            <span class="link-banner__kicker" data-en="Kagoshima University">鹿児島大学大学院</span>
+            <span class="link-banner__name" data-en="Graduate School of Science and Engineering">理工学研究科</span>
+            <span class="link-banner__sub" aria-hidden="true">GRADUATE SCHOOL OF SCIENCE AND ENGINEERING</span>
+            <span class="link-banner__more" aria-hidden="true" data-en="Visit site">サイトを見る</span>
+            <span class="visually-hidden" data-en="(opens in a new tab)">（新しいタブで開きます）</span>
+          </a></li>
+          <li><a class="link-banner link-banner--nondadon" href="https://main.d1z06gvf79o0ov.amplifyapp.com/" target="_blank" rel="noopener">
+            <span class="link-banner__kicker" data-en="Spreading shochu, digitally.">デジタルで、焼酎を広げる。</span>
+            <span class="link-banner__name" data-en="Nondadon">のんだどん</span>
+            <span class="link-banner__sub" aria-hidden="true">NONDADON</span>
+            <span class="link-banner__more" aria-hidden="true" data-en="Visit site">サイトを見る</span>
+            <span class="visually-hidden" data-en="(opens in a new tab)">（新しいタブで開きます）</span>
+          </a></li>
+        </ul>
+      </nav>
     </div>
   </section>
 

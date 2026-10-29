@@ -1381,6 +1381,186 @@ figcaption {
 }
 
 /* ---------- お問い合わせ（全ページ下部） ---------- */
+/* ---------- 関連リンクのバナー（お問い合わせの直前）：PC 3列・タブレット 2列・スマホ 1列 ---------- */
+.link-banners {
+  padding: 56px 0;
+  background: var(--color-bg);
+}
+
+.link-banners__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+/* 1枚のバナー（横長・枠線つき） */
+.link-banner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  aspect-ratio: 366 / 150;
+  min-height: 150px;
+  padding: 12px 24px 44px;   /* 下は「サイトを見る」ボタンの分をあける */
+  overflow: hidden;
+  color: var(--color-main);
+  text-decoration: none;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.link-banner__kicker {
+  position: relative;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.link-banner__name {
+  position: relative;
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.04em;
+  word-break: keep-all;
+}
+
+.link-banner__sub {
+  position: relative;
+  margin-top: 2px;
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  opacity: 0.75;
+}
+
+/* 右下の「サイトを見る」ボタン */
+.link-banner__more {
+  position: absolute;
+  right: 14px;
+  bottom: 12px;
+  padding: 3px 12px 3px 14px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border: 1.5px solid currentColor;
+  border-radius: 999px;
+  background: var(--color-bg);
+  color: var(--color-main);
+}
+
+.link-banner__more::after {
+  content: " ↗";
+}
+
+.link-banner:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(10, 31, 68, 0.18);
+}
+
+/* 鹿児島大学：白地に緑のライン */
+.link-banner--kadai {
+  color: #0a6b3a;
+  background:
+    linear-gradient(115deg, transparent 62%, rgba(0, 135, 60, 0.12) 62%, rgba(0, 135, 60, 0.12) 74%, transparent 74%),
+    linear-gradient(115deg, transparent 78%, #00873c 78%),
+    #fff;
+}
+
+.link-banner--kadai .link-banner__more {
+  color: #0a6b3a;
+}
+
+/* 工学部：淡い水色と細い方眼 */
+.link-banner--eng {
+  color: #0d3b4f;
+  background:
+    repeating-linear-gradient(0deg, rgba(13, 59, 79, 0.06) 0 1px, transparent 1px 18px),
+    repeating-linear-gradient(90deg, rgba(13, 59, 79, 0.06) 0 1px, transparent 1px 18px),
+    #dceeee;
+}
+
+.link-banner--eng .link-banner__more {
+  color: #0d3b4f;
+}
+
+/* 理工学研究科：青の多角形 */
+.link-banner--grad {
+  color: #fff;
+  background:
+    linear-gradient(150deg, transparent 55%, rgba(255, 255, 255, 0.10) 55% 70%, transparent 70%),
+    linear-gradient(30deg, rgba(125, 180, 255, 0.25) 0 35%, transparent 35%),
+    linear-gradient(135deg, #2a5bb8, #0b2a6b);
+}
+
+.link-banner--grad .link-banner__sub {
+  opacity: 0.85;
+}
+
+/* のんだどん：和紙のような白地に墨のにじみ */
+.link-banner--nondadon {
+  color: #222;
+  font-family: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  /* 右側に焼酎グラスの水墨画。白地は乗算で和紙の色になじませる */
+  background:
+    url("../images/nondadon_glass.jpg") right 16px top 16px / auto 60% no-repeat,
+    radial-gradient(70% 35% at 75% 70%, rgba(0, 0, 0, 0.16), transparent 70%),
+    radial-gradient(45% 25% at 25% 90%, rgba(0, 0, 0, 0.10), transparent 70%),
+    #f4f2ee;
+  background-blend-mode: multiply, normal, normal;
+}
+
+.link-banner--nondadon .link-banner__more {
+  color: #222;
+  font-family: inherit;
+}
+
+/* 一度開いたサイトでも、共通の a:visited の紫にならず各バナーの文字色を保つ */
+.link-banner--kadai:visited {
+  color: #0a6b3a;
+}
+
+.link-banner--eng:visited {
+  color: #0d3b4f;
+}
+
+.link-banner--grad:visited {
+  color: #fff;
+}
+
+.link-banner--nondadon:visited {
+  color: #222;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link-banner {
+    transition: none;
+  }
+
+  .link-banner:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .link-banners__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .link-banners {
+    padding: 40px 0;
+  }
+
+  .link-banners__list {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
 .contact-cta {
   position: relative;
   padding: 112px 0;
@@ -1436,6 +1616,184 @@ figcaption {
 
 .btn--ghost:visited:hover {
   color: var(--color-main);
+}
+
+/* ---------- お問い合わせ＋関連リンク：左半分が紺の Contact、右半分が淡い色のバナー 2×2 ----------
+   画面の真ん中で背景色を分け、container の左右の列をそれぞれの色の中に置く */
+.contact-cta--split {
+  --cta-side: #e8eef7;   /* 右半分の背景（紺を薄めた青みのグレー） */
+  padding: 0;
+  background:
+    linear-gradient(90deg, transparent 50%, var(--cta-side) 50%),
+    linear-gradient(rgba(10, 31, 68, 0.78), rgba(10, 31, 68, 0.78)),
+    url("../images/contact.jpg") center / cover no-repeat,
+    var(--color-main);
+}
+
+/* 画面の左右半分をそのまま列にして（幅の上限なし）、それぞれの中で上下左右の真ん中に置く */
+.contact-cta--split .contact-cta__inner {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  max-width: none;
+  padding: 0;
+}
+
+.contact-cta--split .contact-cta__main {
+  padding: 112px 48px;
+  text-align: center;
+}
+
+.contact-cta--split .link-banners {
+  width: 100%;
+  max-width: 696px;   /* バナー 2枚分（600px）＋左右の余白。右半分の真ん中に置く */
+  margin: 0 auto;
+  padding: 96px 48px;
+  background: none;
+  color: var(--color-main);
+}
+
+/* 右半分の見出し（Contact の見出しと形をそろえて小さく） */
+.link-banners__title {
+  margin: 0 0 24px;
+  font-size: 1.75rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  color: var(--color-main);
+}
+
+.link-banners__title span {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+
+.contact-cta--split .link-banners__list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+/* 列の幅に合わせて横幅が決まるよう、縦横比ではなく高さで大きさをそろえる */
+.contact-cta--split .link-banner {
+  aspect-ratio: auto;
+  min-height: 152px;   /* 英語名が2行になる理工学研究科に高さをそろえる */
+  text-align: left;
+}
+
+.contact-cta--split .link-banner__name {
+  font-size: 1.5rem;
+}
+
+/* 1025〜1279px はバナーが細くなるので、左右の余白を詰めて上の一言を1行に収める */
+@media (min-width: 1025px) and (max-width: 1279px) {
+  .contact-cta--split .link-banner {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  /* この幅では文字の右に水墨画を置く余地がないので出さない */
+  .contact-cta--split .link-banner--nondadon {
+    background-image: none, radial-gradient(70% 35% at 75% 70%, rgba(0, 0, 0, 0.16), transparent 70%),
+      radial-gradient(45% 25% at 25% 90%, rgba(0, 0, 0, 0.10), transparent 70%);
+  }
+}
+
+/* のんだどんは上の一言を少し小さくして、右の水墨画と重ならないようにする */
+.contact-cta--split .link-banner--nondadon .link-banner__kicker {
+  font-size: 0.75rem;
+}
+
+.contact-cta--split .link-banner__kicker {
+  white-space: nowrap;
+}
+
+/* 後ろの光と方眼を、左半分の Contact の下だけに出す */
+.contact-cta--split .u211-bm {
+  left: 25%;
+  top: 62%;
+}
+
+.contact-cta--split.u211::before {
+  -webkit-mask: radial-gradient(28% 50% at 25% 65%, #000, transparent 75%);
+  mask: radial-gradient(28% 50% at 25% 65%, #000, transparent 75%);
+}
+
+/* 右半分にも同じ方眼と回る光の帯を出す（淡い背景なので、方眼の線は紺にする）
+   光の帯の要素は js/lucian.js の setupGlowCta で足す */
+.contact-cta--split.u211::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: linear-gradient(rgba(10, 31, 68, 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10, 31, 68, 0.09) 1px, transparent 1px);
+  background-size: 26px 26px;
+  background-position: center;
+  /* 右半分だけに均一な濃さで敷く */
+  -webkit-mask: linear-gradient(90deg, transparent 50%, #000 50%);
+  mask: linear-gradient(90deg, transparent 50%, #000 50%);
+  pointer-events: none;
+}
+
+.contact-cta--split .u211-bm--side {
+  left: 75%;
+  top: 58%;
+  /* 淡い背景では左と同じ色だと見えにくいので、色を少し深くする */
+  background: conic-gradient(from var(--u211-b), transparent 0 70%, rgba(70, 140, 245, 0.5) 80%,
+    rgba(40, 195, 145, 0.45) 86%, transparent 92%);
+  opacity: 0.75;
+}
+
+/* 1024px以下：上に紺の Contact、下に淡い色のバナー（タブレット2列・スマホ1列） */
+@media (max-width: 1024px) {
+  .contact-cta.contact-cta--split {
+    padding: 0;   /* スマホ用の .contact-cta の上下の余白を打ち消す（余白は中の要素で取る） */
+    background: var(--cta-side);
+  }
+
+  .contact-cta--split .contact-cta__inner {
+    display: block;
+    padding: 0 32px;
+  }
+
+  /* 紺の背景を画面の端まで広げる */
+  .contact-cta--split .contact-cta__main {
+    position: relative;
+    margin: 0 calc(50% - 50vw);
+    padding: 80px 20px;
+    background:
+      linear-gradient(rgba(10, 31, 68, 0.78), rgba(10, 31, 68, 0.78)),
+      url("../images/contact.jpg") center / cover no-repeat,
+      var(--color-main);
+  }
+
+  .contact-cta--split .link-banners {
+    width: auto;
+    max-width: 600px;
+    padding: 56px 0 64px;
+  }
+
+  .contact-cta--split .u211-bm,
+  .contact-cta--split.u211::before,
+  .contact-cta--split.u211::after {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-cta--split .contact-cta__inner {
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 560px) {
+  .contact-cta--split .link-banners__list {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
 }
 
 /* =========================================================

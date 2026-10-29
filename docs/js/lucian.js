@@ -309,6 +309,13 @@
     bm.setAttribute("aria-hidden", "true");
     root.prepend(bm);
 
+    // 左右に分けたお問い合わせ欄では、右半分（関連リンク）にも光の帯を置く
+    if (root.classList.contains("contact-cta--split")) {
+      const side = bm.cloneNode();
+      side.classList.add("u211-bm--side");
+      bm.after(side);
+    }
+
     if (title) title.classList.add("u211-gr");
 
     if (button) {
