@@ -1710,10 +1710,10 @@ figcaption {
 .contact-cta--split .u211-bm--side {
   left: 75%;
   top: 58%;
-  /* 淡い背景では左と同じ色だと見えにくいので、色を少し深く濃くする */
-  background: conic-gradient(from var(--u211-b), transparent 0 70%, rgba(70, 140, 245, 0.6) 80%,
-    rgba(40, 195, 145, 0.55) 86%, transparent 92%);
-  opacity: 0.9;
+  /* 淡い背景では左と同じ色だと見えにくいので、色を少し深くする */
+  background: conic-gradient(from var(--u211-b), transparent 0 70%, rgba(70, 140, 245, 0.5) 80%,
+    rgba(40, 195, 145, 0.45) 86%, transparent 92%);
+  opacity: 0.75;
 }
 
 /* 1024px以下：上に紺の Contact、下に淡い色のバナー（タブレット2列・スマホ1列） */
