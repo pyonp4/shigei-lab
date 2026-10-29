@@ -1610,19 +1610,25 @@ figcaption {
     var(--color-main);
 }
 
+/* 画面の左右半分をそのまま列にして（幅の上限なし）、それぞれの中で上下左右の真ん中に置く */
 .contact-cta--split .contact-cta__inner {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: center;
+  max-width: none;
+  padding: 0;
 }
 
 .contact-cta--split .contact-cta__main {
-  padding: 112px 48px 112px 0;
+  padding: 112px 48px;
   text-align: center;
 }
 
 .contact-cta--split .link-banners {
-  padding: 96px 0 96px 48px;
+  width: 100%;
+  max-width: 696px;   /* バナー 2枚分（600px）＋左右の余白。右半分の真ん中に置く */
+  margin: 0 auto;
+  padding: 96px 48px;
   background: none;
   color: var(--color-main);
 }
@@ -1661,6 +1667,18 @@ figcaption {
   font-size: 1.5rem;
 }
 
+/* 1025〜1279px はバナーが細くなるので、左右の余白を詰めて上の一言を1行に収める */
+@media (min-width: 1025px) and (max-width: 1279px) {
+  .contact-cta--split .link-banner {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+}
+
+.contact-cta--split .link-banner__kicker {
+  white-space: nowrap;
+}
+
 /* 後ろの光と方眼を、左半分の Contact の下だけに出す */
 .contact-cta--split .u211-bm {
   left: 25%;
@@ -1681,6 +1699,7 @@ figcaption {
 
   .contact-cta--split .contact-cta__inner {
     display: block;
+    padding: 0 32px;
   }
 
   /* 紺の背景を画面の端まで広げる */
@@ -1695,12 +1714,20 @@ figcaption {
   }
 
   .contact-cta--split .link-banners {
+    width: auto;
+    max-width: 600px;
     padding: 56px 0 64px;
   }
 
   .contact-cta--split .u211-bm,
   .contact-cta--split.u211::before {
     display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-cta--split .contact-cta__inner {
+    padding: 0 20px;
   }
 }
 
