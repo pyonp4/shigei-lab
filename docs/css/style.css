@@ -1690,6 +1690,28 @@ figcaption {
   mask: radial-gradient(28% 50% at 25% 65%, #000, transparent 75%);
 }
 
+/* 右半分にも同じ方眼と回る光の帯を出す（淡い背景なので、方眼の線は紺にする）
+   光の帯の要素は js/lucian.js の setupGlowCta で足す */
+.contact-cta--split.u211::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: linear-gradient(rgba(10, 31, 68, 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10, 31, 68, 0.09) 1px, transparent 1px);
+  background-size: 26px 26px;
+  background-position: center;
+  -webkit-mask: radial-gradient(28% 50% at 75% 60%, #000, transparent 75%);
+  mask: radial-gradient(28% 50% at 75% 60%, #000, transparent 75%);
+  pointer-events: none;
+}
+
+.contact-cta--split .u211-bm--side {
+  left: 75%;
+  top: 58%;
+  opacity: 0.8;
+}
+
 /* 1024px以下：上に紺の Contact、下に淡い色のバナー（タブレット2列・スマホ1列） */
 @media (max-width: 1024px) {
   .contact-cta.contact-cta--split {
@@ -1720,7 +1742,8 @@ figcaption {
   }
 
   .contact-cta--split .u211-bm,
-  .contact-cta--split.u211::before {
+  .contact-cta--split.u211::before,
+  .contact-cta--split.u211::after {
     display: none;
   }
 }
