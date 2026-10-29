@@ -309,6 +309,36 @@
     </section>
   </main>
 
+  <!-- ===== 関連リンクのバナー（全ページ共通・お問い合わせの直前） ===== -->
+  <!-- 1つの <li> が1枚のバナー。画像のバナーにしたいときは、<a> の中身を <img src="images/ファイル名.png" alt="サイト名"> に置き換える -->
+  <nav class="link-banners" aria-label="関連リンク / Related links">
+    <div class="container">
+      <ul class="link-banners__list">
+        <li><a class="link-banner" href="https://www.kagoshima-u.ac.jp/" target="_blank" rel="noopener">
+          <span class="link-banner__sub">Kagoshima University</span>
+          <span class="link-banner__name" data-en="Kagoshima University">鹿児島大学</span>
+          <span class="visually-hidden" data-en="(opens in a new tab)">（新しいタブで開きます）</span>
+        </a></li>
+        <li><a class="link-banner" href="https://www.eng.kagoshima-u.ac.jp/" target="_blank" rel="noopener">
+          <span class="link-banner__sub">Faculty of Engineering</span>
+          <span class="link-banner__name" data-en="Faculty of Engineering">鹿児島大学 工学部</span>
+          <span class="visually-hidden" data-en="(opens in a new tab)">（新しいタブで開きます）</span>
+        </a></li>
+        <li><a class="link-banner" href="https://grad.eng.kagoshima-u.ac.jp/" target="_blank" rel="noopener">
+          <span class="link-banner__sub">Graduate School of Science and Engineering</span>
+          <span class="link-banner__name" data-en="Graduate School of Science and Engineering">鹿児島大学大学院 理工学研究科</span>
+          <span class="visually-hidden" data-en="(opens in a new tab)">（新しいタブで開きます）</span>
+        </a></li>
+        <!-- 【URL待ち】のんだどんのURLを href に入れる -->
+        <li><a class="link-banner" href="#" target="_blank" rel="noopener">
+          <span class="link-banner__sub">Nondadon</span>
+          <span class="link-banner__name" data-en="Nondadon">のんだどん</span>
+          <span class="visually-hidden" data-en="(opens in a new tab)">（新しいタブで開きます）</span>
+        </a></li>
+      </ul>
+    </div>
+  </nav>
+
   <!-- ===== お問い合わせ（全ページ共通・フッターの直前） ===== -->
   <!-- 背景写真は images/contact.jpg に置くと表示されます（無い場合はネイビー一色） -->
   <section class="contact-cta" aria-labelledby="contact-cta-title">

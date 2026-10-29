@@ -1381,6 +1381,101 @@ figcaption {
 }
 
 /* ---------- お問い合わせ（全ページ下部） ---------- */
+/* ---------- 関連リンクのバナー（お問い合わせの直前）：PC 4列・タブレット 2列・スマホ 1列 ---------- */
+.link-banners {
+  padding: 56px 0;
+  background: var(--color-bg);
+}
+
+.link-banners__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.link-banner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  min-height: 132px;
+  height: 100%;
+  padding: 20px 44px 20px 22px;
+  color: #fff;
+  text-decoration: none;
+  background: linear-gradient(135deg, #1d4185, var(--color-main));
+  border-left: 6px solid var(--color-accent);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* バナーごとに色味を少し変える */
+.link-banners__list li:nth-child(2) .link-banner { background: linear-gradient(135deg, #2c6e9e, #0f2c55); }
+.link-banners__list li:nth-child(3) .link-banner { background: linear-gradient(135deg, #33307a, #0a1f44); }
+.link-banners__list li:nth-child(4) .link-banner { background: linear-gradient(135deg, #1f7a68, #0a2e3a); }
+
+.link-banner__sub {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  opacity: 0.8;
+}
+
+.link-banner__name {
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.5;
+  word-break: keep-all;   /* 「理工学研究科」などの途中で折り返さず、空白の位置で改行する */
+}
+
+/* 右上の「別タブで開く」印 */
+.link-banner::after {
+  content: "↗";
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-size: 1rem;
+  opacity: 0.85;
+}
+
+.link-banner:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(10, 31, 68, 0.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link-banner {
+    transition: none;
+  }
+
+  .link-banner:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .link-banners__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .link-banners {
+    padding: 40px 0;
+  }
+
+  .link-banners__list {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .link-banner {
+    min-height: 96px;
+  }
+}
+
 .contact-cta {
   position: relative;
   padding: 112px 0;
