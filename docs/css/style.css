@@ -1514,6 +1514,23 @@ figcaption {
   font-family: inherit;
 }
 
+/* 一度開いたサイトでも、共通の a:visited の紫にならず各バナーの文字色を保つ */
+.link-banner--kadai:visited {
+  color: #0a6b3a;
+}
+
+.link-banner--eng:visited {
+  color: #0d3b4f;
+}
+
+.link-banner--grad:visited {
+  color: #fff;
+}
+
+.link-banner--nondadon:visited {
+  color: #222;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .link-banner {
     transition: none;
