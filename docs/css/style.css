@@ -1082,6 +1082,11 @@ figcaption {
   margin: 0;
 }
 
+/* リード文を複数の段落に分けたときの段落間の余白 */
+.section-lead + .section-lead {
+  margin-top: 1em;
+}
+
 .card-grid--3 {
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
