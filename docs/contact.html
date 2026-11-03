@@ -94,39 +94,35 @@
           <tr><th scope="row" data-en="Email">メール</th><td><a href="mailto:shigei@ibe.kagoshima-u.ac.jp">shigei@ibe.kagoshima-u.ac.jp</a></td></tr>
         </table>
 
-        <!-- ===== お問い合わせフォーム =====
-             送信は FormSubmit（https://formsubmit.co/）を使う。サーバーがなくてもメールで届く
-             届け先は data-to のメールアドレス。今は動作確認用のアドレスなので，確認が済んだら先生のアドレスに変える
-             アドレスを変えたら，最初の1通目で FormSubmit から「有効化（Activate）」のメールが届くので，リンクを押して有効にする
-             送信の処理は js/main.js の setupContactForm -->
+        <!-- ===== お問い合わせフォーム（準備中） =====
+             今は見た目だけで，入力・送信はできない（fieldset の disabled で止めている）
+             送信の仕組み（Web3Forms などのメール転送サービス）が決まったら，
+             disabled と「準備中」の文を消し，送信の処理を js/main.js に追加する -->
         <h2 id="form" data-en="Contact form">フォームで問い合わせる</h2>
-        <p data-en="Fill in the form below and press Send. Your message will be delivered to Prof. Shigei by email.&lt;br&gt;All fields are required.">下のフォームに入力して「送信する」を押すと，重井先生にメールで届きます．<br>すべての項目が必須です．</p>
-        <form class="contact-form" id="contact-form" data-to="ethrk2457@gmail.com" novalidate>
-          <div class="form-field">
-            <label for="cf-name" data-en="Name">お名前</label>
-            <input type="text" id="cf-name" name="name" autocomplete="name" required>
-          </div>
-          <div class="form-field">
-            <label for="cf-email" data-en="Email address (for our reply)">メールアドレス（返信先）</label>
-            <input type="email" id="cf-email" name="email" autocomplete="email" inputmode="email" required>
-          </div>
-          <div class="form-field">
-            <label for="cf-subject" data-en="Subject">件名</label>
-            <input type="text" id="cf-subject" name="subject" maxlength="100" required>
-          </div>
-          <div class="form-field">
-            <label for="cf-message" data-en="Message">お問い合わせ内容</label>
-            <textarea id="cf-message" name="message" rows="8" required></textarea>
-          </div>
-          <!-- 迷惑メール対策：人には見えない欄。ここに入力があれば送らない -->
-          <div class="form-honey" aria-hidden="true">
-            <label for="cf-honey">この欄は空のままにしてください</label>
-            <input type="text" id="cf-honey" name="_honey" tabindex="-1" autocomplete="off">
-          </div>
-          <div class="btn-row">
-            <button type="submit" class="btn" data-en="Send">送信する</button>
-          </div>
-          <p class="form-status" role="status" aria-live="polite"></p>
+        <p data-en="The contact form is being prepared and cannot be used yet.&lt;br&gt;Please send your enquiry to the email address above.">お問い合わせフォームは準備中のため，まだご利用いただけません．<br>お問い合わせは，上のメールアドレスへお送りください．</p>
+        <form class="contact-form" id="contact-form" novalidate>
+          <fieldset class="contact-form__fields" disabled>
+            <legend class="visually-hidden" data-en="Contact form (being prepared)">お問い合わせフォーム（準備中）</legend>
+            <div class="form-field">
+              <label for="cf-name" data-en="Name">お名前</label>
+              <input type="text" id="cf-name" name="name" autocomplete="name" required>
+            </div>
+            <div class="form-field">
+              <label for="cf-email" data-en="Email address (for our reply)">メールアドレス（返信先）</label>
+              <input type="email" id="cf-email" name="email" autocomplete="email" inputmode="email" required>
+            </div>
+            <div class="form-field">
+              <label for="cf-subject" data-en="Subject">件名</label>
+              <input type="text" id="cf-subject" name="subject" maxlength="100" required>
+            </div>
+            <div class="form-field">
+              <label for="cf-message" data-en="Message">お問い合わせ内容</label>
+              <textarea id="cf-message" name="message" rows="8" required></textarea>
+            </div>
+            <div class="btn-row">
+              <button type="submit" class="btn" data-en="Send (coming soon)">送信する（準備中）</button>
+            </div>
+          </fieldset>
         </form>
 
         <h2 id="access" data-en="Access">アクセス</h2>

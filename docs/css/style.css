@@ -2685,11 +2685,19 @@ figcaption {
 }
 
 /* ---------- お問い合わせフォーム（contact.html） ---------- */
+/* 今は準備中で入力できない（fieldset の disabled）。使えるようにしたら，下の「準備中の見た目」を消す */
 .contact-form {
-  display: grid;
-  gap: 20px;
   max-width: 720px;
   margin-top: 24px;
+}
+
+.contact-form__fields {
+  display: grid;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
 }
 
 .form-field {
@@ -2718,26 +2726,6 @@ figcaption {
   line-height: 1.7;
 }
 
-.form-field input:focus-visible,
-.form-field textarea:focus-visible {
-  outline: 3px solid var(--color-accent-light);
-  outline-offset: 0;
-  border-color: var(--color-accent);
-}
-
-.form-field [aria-invalid="true"] {
-  border: 2px solid #c62828;
-}
-
-/* 迷惑メール対策の欄は画面の外に出して見せない */
-.form-honey {
-  position: absolute;
-  left: -9999px;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-}
-
 .contact-form .btn-row {
   margin-top: 4px;
 }
@@ -2745,27 +2733,16 @@ figcaption {
 .contact-form button.btn {
   font: inherit;
   font-weight: 700;
-  cursor: pointer;
 }
 
-.contact-form button.btn:disabled {
-  opacity: 0.6;
-  cursor: wait;
+/* 準備中の見た目：入力欄は灰色，ボタンは押せない */
+.contact-form__fields:disabled input,
+.contact-form__fields:disabled textarea {
+  background: var(--color-bg-sub);
+  cursor: not-allowed;
 }
 
-.form-status {
-  margin: 0;
-  font-weight: 700;
-}
-
-.form-status:empty {
-  display: none;
-}
-
-.form-status[data-type="success"] {
-  color: #1b6e3a;
-}
-
-.form-status[data-type="error"] {
-  color: #c62828;
+.contact-form__fields:disabled button.btn {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

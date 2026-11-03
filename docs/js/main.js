@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
   setupFontSize();
   setupMenu();
   setupDialogs();
-  setupContactForm();
 });
 
 const isEnglish = () => document.documentElement.lang === "en";
@@ -304,74 +303,5 @@ function setupFontSize() {
   });
   menu.addEventListener("focusout", (event) => {
     if (!menu.contains(event.relatedTarget)) setOpen(false);
-  });
-}
-
-// お問い合わせフォーム（contact.html）
-// FormSubmit の送信窓口に送ると，form の data-to のアドレスにメールが届く
-function setupContactForm() {
-  const form = document.getElementById("contact-form");
-  if (!form) return;
-  const status = form.querySelector(".form-status");
-  const button = form.querySelector('button[type="submit"]');
-  const say = (ja, en, type) => {
-    status.textContent = isEnglish() ? en : ja;
-    status.dataset.type = type;
-  };
-
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
-
-    // 未入力・形式の誤りがあれば，最初の欄に移動して知らせる
-    const fields = [...form.querySelectorAll("input[required], textarea[required]")];
-    fields.forEach((field) => {
-      field.value = field.value.trim();
-      field.setAttribute("aria-invalid", String(!field.checkValidity()));
-    });
-    const invalid = fields.find((field) => !field.checkValidity());
-    if (invalid) {
-      say("未入力の項目か，形式が正しくない項目があります．赤い枠の欄を確認してください．",
-        "Some fields are empty or not in the right format. Please check the fields outlined in red.", "error");
-      invalid.focus();
-      return;
-    }
-    if (form.elements._honey.value) return;
-
-    const data = {
-      name: form.elements.name.value,
-      email: form.elements.email.value,
-      件名: form.elements.subject.value,
-      お問い合わせ内容: form.elements.message.value,
-      _subject: `【重井研究室サイト】${form.elements.subject.value}`,
-      _template: "table",
-    };
-
-    button.disabled = true;
-    say("送信しています…", "Sending…", "info");
-    try {
-      const response = await fetch(`https://formsubmit.co/ajax/${form.dataset.to}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify(data),
-      });
-      const result = await response.json().catch(() => ({}));
-      if (response.ok && String(result.success) === "true") {
-        form.reset();
-        fields.forEach((field) => field.removeAttribute("aria-invalid"));
-        say("送信しました．内容を確認のうえ，入力いただいたメールアドレスに返信します．",
-          "Your message has been sent. We will reply to the email address you entered.", "success");
-      } else if (/activat/i.test(result.message || "")) {
-        // 届け先を変えた直後は，届け先に有効化のメールが届くまで送れない
-        say("フォームの準備中のため，まだ送信できません．お手数ですが，上のメールアドレスに直接お送りください．",
-          "The form is not ready yet. Please send your message directly to the email address above.", "error");
-      } else {
-        throw new Error(result.message || response.status);
-      }
-    } catch (e) {
-      say("送信できませんでした．時間をおいてもう一度お試しいただくか，上のメールアドレスに直接お送りください．",
-        "Your message could not be sent. Please try again later, or send it directly to the email address above.", "error");
-    } finally {
-      button.disabled = false;
-    }
   });
 }
