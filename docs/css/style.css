@@ -1082,6 +1082,11 @@ figcaption {
   margin: 0;
 }
 
+/* リード文を複数の段落に分けたときの段落間の余白 */
+.section-lead + .section-lead {
+  margin-top: 1em;
+}
+
 .card-grid--3 {
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
@@ -1108,6 +1113,16 @@ figcaption {
 .home-members .profile {
   margin-top: 24px;
   background: var(--color-bg);
+}
+
+/* 教員紹介の中身（名前・所属などの表）を枠の幅いっぱいに広げる */
+.home-profile__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.home-profile__body .faculty-data {
+  margin: 12px 0 0;
 }
 
 /* 見出しの下線を表の上線として使う */
