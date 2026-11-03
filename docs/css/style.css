@@ -2683,3 +2683,89 @@ figcaption {
     scroll-margin-top: 128px;
   }
 }
+
+/* ---------- お問い合わせフォーム（contact.html） ---------- */
+.contact-form {
+  display: grid;
+  gap: 20px;
+  max-width: 720px;
+  margin-top: 24px;
+}
+
+.form-field {
+  display: grid;
+  gap: 6px;
+}
+
+.form-field label {
+  font-weight: 700;
+  color: var(--color-main);
+}
+
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  font: inherit;
+  color: var(--color-text);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  padding: 12px 14px;
+}
+
+.form-field textarea {
+  resize: vertical;
+  min-height: 10em;
+  line-height: 1.7;
+}
+
+.form-field input:focus-visible,
+.form-field textarea:focus-visible {
+  outline: 3px solid var(--color-accent-light);
+  outline-offset: 0;
+  border-color: var(--color-accent);
+}
+
+.form-field [aria-invalid="true"] {
+  border: 2px solid #c62828;
+}
+
+/* 迷惑メール対策の欄は画面の外に出して見せない */
+.form-honey {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.contact-form .btn-row {
+  margin-top: 4px;
+}
+
+.contact-form button.btn {
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.contact-form button.btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.form-status {
+  margin: 0;
+  font-weight: 700;
+}
+
+.form-status:empty {
+  display: none;
+}
+
+.form-status[data-type="success"] {
+  color: #1b6e3a;
+}
+
+.form-status[data-type="error"] {
+  color: #c62828;
+}
