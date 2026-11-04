@@ -2874,3 +2874,33 @@ main .container {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+/* ---------- 文章の横に小さめの写真を並べる（ゼミ紹介の OB・OG 講演会など） ---------- */
+.media-row {
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 280px);
+  gap: 32px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.media-row p {
+  margin: 0;
+}
+
+.media-row__photo {
+  margin: 0;
+}
+
+.media-row__photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .media-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
