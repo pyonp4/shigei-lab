@@ -524,16 +524,16 @@
 .pin {
   position: relative;
   height: calc(var(--n) * 70vh);
+  margin-bottom: 56px;   /* 最後の行事のあと、下の見出しとの間をあける */
 }
 
+/* 中身の高さのまま、画面のほぼ縦中央で貼りつく（貼りつく前は見出しのすぐ下に並ぶ）
+   上はヘッダー（戻ってきたとき）に隠れないよう 88px 以上あける */
 .pin-sticky {
   position: sticky;
-  top: 0;
-  height: 100vh;
-  padding: 88px 0 32px;   /* 上はヘッダー（戻ってきたとき）に隠れない分 */
+  top: max(88px, calc(50vh - 230px));
   display: flex;
   flex-direction: column;
-  justify-content: center;
   gap: 24px;
   overflow: hidden;
 }
@@ -671,7 +671,7 @@
 /* スマートフォン：写真を上、カードを下に重ねる。目次は今の行事の名前だけ出し、ほかは点にする */
 @media (max-width: 768px) {
   .pin-sticky {
-    padding: 72px 0 20px;
+    top: max(72px, calc(50vh - 260px));
     gap: 14px;
   }
 

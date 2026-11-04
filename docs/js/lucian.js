@@ -464,12 +464,14 @@
       const t = Math.min(1, Math.max(0, (pos - k - 0.3) / 0.4));
       return k + t * t * (3 - 2 * t);
     };
+    // 貼りついている間に進める距離と、貼りつく位置（CSS の top）
     const run = () => pin.offsetHeight - sticky.offsetHeight;
+    const stickTop = () => parseFloat(getComputedStyle(sticky).top) || 0;
 
     let raf = 0;
     const draw = () => {
       raf = 0;
-      const p = Math.max(0, Math.min(1, -pin.getBoundingClientRect().top / Math.max(1, run())));
+      const p = Math.max(0, Math.min(1, (stickTop() - pin.getBoundingClientRect().top) / Math.max(1, run())));
       const pos = settle(p * (n - 1));
       tl.style.transform = `translateX(${(-pos * 100).toFixed(3)}%)`;
       bar.style.setProperty("--p", p.toFixed(4));
@@ -486,7 +488,7 @@
 
     // 行事名を押すと、その行事が止まって見える位置までスクロールする
     btns.forEach((b, i) => b.addEventListener("click", () => {
-      const top = pin.getBoundingClientRect().top + window.scrollY;
+      const top = pin.getBoundingClientRect().top + window.scrollY - stickTop();
       window.scrollTo({ top: top + (run() * i) / (n - 1) + 1, behavior: "smooth" });
     }));
 
