@@ -403,59 +403,93 @@
     draw();
   }
 
-  // Lucian UX/UI Prompt #370 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#370
-  // 行事紹介の「1年の流れ」：画面の上から6割の位置まで、中央の線が光で満ちていく
-  // 線の先が届いた月の点が点灯し、その月のカードが左右交互に滑り込む。上へ戻すと逆の順に消える
-  // HTML の <ol class="timeline"> はそのままにして、ここで線・点・カードの枠を足す
+  // 行事紹介の「1年の流れ」：この部分が画面に貼りつき、下へスクロールすると行事が1つずつ横へ送られる
+  // 上の行事名を押すとその行事まで移動し、下のバーは進み具合を表す
+  // HTML の <ol class="timeline"> はそのままにして、ここで枠・目次・バーを足す
+  // （JavaScript が動かないときや、動きを減らす設定のときは style.css の縦の一覧のまま）
   function setupTimeline() {
     const tl = document.querySelector(".timeline");
-    if (!tl) return;
-    tl.classList.add("ux", "u370");
-    const ln = document.createElement("span");
-    ln.className = "u370-ln";
-    ln.setAttribute("aria-hidden", "true");
-    ln.appendChild(document.createElement("i"));
-    tl.prepend(ln);
-
+    if (!tl || reduceMotion) return;
     const evs = Array.from(tl.querySelectorAll(":scope > li"));
-    evs.forEach((li) => {
-      li.classList.add("u370-ev");
-      // 行事の写真（.timeline-photos）はカードに入れず、線をはさんだ反対側の空いているところに置く
+    const n = evs.length;
+    if (n < 2) return;
+
+    const pin = document.createElement("div");
+    pin.className = "pin";
+    pin.style.setProperty("--n", n);
+    const sticky = document.createElement("div");
+    sticky.className = "pin-sticky";
+    const nav = document.createElement("ol");
+    nav.className = "pin-nav";
+    const view = document.createElement("div");
+    view.className = "pin-view";
+    const bar = document.createElement("div");
+    bar.className = "pin-bar";
+    bar.setAttribute("aria-hidden", "true");
+    bar.appendChild(document.createElement("i"));
+    tl.before(pin);
+    view.append(tl);
+    sticky.append(nav, view, bar);
+    pin.append(sticky);
+    tl.classList.add("pin-track");
+
+    const btns = evs.map((li) => {
+      li.classList.add("pin-panel");
+      // 写真（.timeline-photos）はカードに入れず、カードの横に置く
       const ph = li.querySelector(":scope > .timeline-photos");
       const cd = document.createElement("div");
-      cd.className = "u370-cd";
+      cd.className = "pin-card";
       cd.append(...li.childNodes);
-      const dot = document.createElement("span");
-      dot.className = "u370-dot";
-      dot.setAttribute("aria-hidden", "true");
-      li.append(dot, cd);
+      li.append(cd);
       if (ph) {
-        ph.classList.add("u370-ph");
+        ph.classList.add("pin-photos");
         li.append(ph);
+      } else {
+        li.classList.add("pin-panel--text");
       }
+      const h3 = cd.querySelector("h3");
+      const item = document.createElement("li");
+      const b = document.createElement("button");
+      b.type = "button";
+      b.textContent = h3.textContent;
+      if (h3.dataset.en) b.dataset.en = h3.dataset.en;
+      item.append(b);
+      nav.append(item);
+      return b;
     });
 
-    // 動きを減らす設定のときは、最初からすべて点灯した状態で表示する
-    if (reduceMotion) {
-      ln.style.setProperty("--p", "1");
-      evs.forEach((li) => li.classList.add("on"));
-      return;
-    }
+    // 行事ごとに、送られている途中より「止まって読める」区間を長くする
+    const settle = (pos) => {
+      const k = Math.floor(pos);
+      const t = Math.min(1, Math.max(0, (pos - k - 0.3) / 0.4));
+      return k + t * t * (3 - 2 * t);
+    };
+    const run = () => pin.offsetHeight - sticky.offsetHeight;
 
     let raf = 0;
     const draw = () => {
       raf = 0;
-      const top = ln.getBoundingClientRect().top;
-      const tip = window.innerHeight * 0.6 - top;
-      const p = Math.max(0, Math.min(1, tip / ln.offsetHeight));
-      ln.style.setProperty("--p", p.toFixed(4));
-      evs.forEach((li) => {
-        li.classList.toggle("on", li.getBoundingClientRect().top - top + 18 <= tip);
+      const p = Math.max(0, Math.min(1, -pin.getBoundingClientRect().top / Math.max(1, run())));
+      const pos = settle(p * (n - 1));
+      tl.style.transform = `translateX(${(-pos * 100).toFixed(3)}%)`;
+      bar.style.setProperty("--p", p.toFixed(4));
+      const cur = Math.round(pos);
+      btns.forEach((b, i) => {
+        b.classList.toggle("on", i === cur);
+        if (i === cur) b.setAttribute("aria-current", "step");
+        else b.removeAttribute("aria-current");
       });
     };
     const request = () => {
       if (!raf) raf = requestAnimationFrame(draw);
     };
+
+    // 行事名を押すと、その行事が止まって見える位置までスクロールする
+    btns.forEach((b, i) => b.addEventListener("click", () => {
+      const top = pin.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top: top + (run() * i) / (n - 1) + 1, behavior: "smooth" });
+    }));
+
     window.addEventListener("scroll", request, { passive: true });
     window.addEventListener("resize", request);
     requestAnimationFrame(draw);

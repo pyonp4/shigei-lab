@@ -517,189 +517,214 @@
   }
 }
 
-/* ---------- 行事紹介：スクロールで光るタイムライン ---------- */
-/* Lucian UX/UI Prompt #370 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#370
-   下へスクロールすると中央の線が上から光で満ちていき、線の先が届いた月の点が弾んで点灯する
-   その月のカードは左右交互に滑り込み、上へ戻すと逆の順に消えていく
-   左右は li だけを数える（先頭に足す線の <span> を数えないよう nth-of-type を使う）
-   JavaScript が動くときだけ .u370 が付く（動かない環境では style.css の縦線のタイムラインのまま） */
-.timeline.u370::before,
-.timeline.u370 li::before {
+/* ---------- 行事紹介：画面に貼りついて横に進むタイムライン ---------- */
+/* 「1年の流れ」が画面に貼りつき、下へスクロールすると行事が1つずつ横へ送られる（lucian.js の setupTimeline）
+   ページ上の高さは「行事の数 × 画面の7割」。上に行事名の目次、下に進み具合のバー
+   JavaScript が動くときだけ .pin が付く（動かない環境・動きを減らす設定では style.css の縦の一覧のまま） */
+.pin {
+  position: relative;
+  height: calc(var(--n) * 70vh);
+}
+
+.pin-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  padding: 88px 0 32px;   /* 上はヘッダー（戻ってきたとき）に隠れない分 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+  overflow: hidden;
+}
+
+/* 行事名の目次（線でつないだボタン） */
+.pin-nav {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pin-nav::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 2px;
+  background: var(--color-accent-light);
+}
+
+.pin-nav li {
+  position: relative;
+}
+
+.pin-nav button {
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--color-text-sub);
+  background: var(--color-bg);
+  border: 2px solid var(--color-accent-light);
+  border-radius: 999px;
+  padding: 4px 14px;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.pin-nav button:hover {
+  border-color: var(--ux-accent);
+}
+
+.pin-nav button.on {
+  background: var(--ux-accent);
+  border-color: var(--ux-accent);
+  color: #fff;
+}
+
+.pin-view {
+  overflow: hidden;
+}
+
+.timeline.pin-track {
+  display: flex;
+  padding: 0;
+  will-change: transform;
+}
+
+.timeline.pin-track::before,
+.timeline.pin-track li::before {
   content: none;
 }
 
-.u370 {
-  padding: 20px 0 40px;
-  overflow-x: clip;   /* 滑り込む前のカード（横に24pxずれている）で横スクロールさせない */
+/* 1つの行事：左にカード、右に写真 */
+.timeline.pin-track li.pin-panel {
+  flex: 0 0 100%;
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 32px;
+  align-items: center;
+  padding: 0 2px;
 }
 
-.u370-ln {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 40px;
-  width: 3px;
-  margin-left: -1.5px;
-  border-radius: 3px;
-  background: var(--ux-line);
+.timeline.pin-track li.pin-panel--text {
+  grid-template-columns: minmax(0, 560px);
+  justify-content: center;
 }
 
-.u370-ln i {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 3px;
-  background: linear-gradient(var(--ux-accent), #7db4ff);
-  transform-origin: 50% 0;
-  transform: scaleY(var(--p, 0));
-}
-
-/* 線の先の光る玉（線と一緒に縦に伸びないよう、逆の倍率で打ち消す） */
-.u370-ln i::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -6px;
-  width: 12px;
-  height: 12px;
-  margin-left: -6px;
-  border-radius: 50%;
-  background: #7db4ff;
-  box-shadow: 0 0 14px #7db4ff;
-  transform: scaleY(calc(1 / max(var(--p, 0), 0.02)));
-}
-
-.timeline.u370 li.u370-ev {
-  position: relative;
-  display: flex;
-  align-items: flex-start;
-  min-height: 150px;
-  padding: 0 0 32px;
-}
-
-.u370-dot {
-  position: absolute;
-  left: 50%;
-  top: 10px;
-  width: 18px;
-  height: 18px;
-  margin-left: -9px;
-  border-radius: 50%;
-  background: var(--ux-surface);
-  box-shadow: 0 0 0 3px var(--ux-line-2);
-  transition: box-shadow 0.3s, transform 0.45s var(--ux-spring), background-color 0.3s;
-}
-
-.u370-ev.on .u370-dot {
-  background: var(--ux-accent);
-  box-shadow: 0 0 0 4px rgba(46, 90, 168, 0.25);
-  transform: scale(1.15);
-}
-
-.u370-cd {
-  position: relative;
-  width: calc(50% - 40px);
-  padding: 20px 24px;
+.pin-card {
+  padding: 32px;
   border-radius: 20px;
   background: var(--ux-surface-2);
 }
 
-li.u370-ev:nth-of-type(odd) .u370-cd {
-  margin-right: auto;
-}
-
-li.u370-ev:nth-of-type(even) .u370-cd {
-  margin-left: auto;
-}
-
-.lx-js .u370-cd {
-  opacity: 0;
-  transition: opacity 0.4s, transform 0.6s var(--ux-spring);
-}
-
-.lx-js li.u370-ev:nth-of-type(odd) .u370-cd {
-  transform: translateX(-24px);
-}
-
-.lx-js li.u370-ev:nth-of-type(even) .u370-cd {
-  transform: translateX(24px);
-}
-
-.lx-js li.u370-ev.on:nth-of-type(n) .u370-cd {
-  opacity: 1;
-  transform: none;
-}
-
-/* 行事の写真：カードと線をはさんだ反対側に置き、カードと一緒に外側から滑り込む */
-.u370-ph.timeline-photos {
-  flex: none;
-  width: calc(50% - 40px);
-  margin: 0 0 0 auto;
-}
-
-li.u370-ev:nth-of-type(even) .u370-ph {
-  order: -1;
-  margin: 0 auto 0 0;
-}
-
-.lx-js .u370-ph {
-  opacity: 0;
-  transform: translateX(24px);
-  transition: opacity 0.4s 0.1s, transform 0.6s 0.1s var(--ux-spring);
-}
-
-.lx-js li.u370-ev:nth-of-type(even) .u370-ph {
-  transform: translateX(-24px);
-}
-
-.lx-js li.u370-ev.on:nth-of-type(n) .u370-ph {
-  opacity: 1;
-  transform: none;
-}
-
-.u370 .timeline-month {
+.pin-card .timeline-month {
   display: block;
   font-size: 1.4rem;
   line-height: 1.2;
-  letter-spacing: 0.02em;
 }
 
-.u370 .timeline-month + h3 {
-  margin-top: 8px;
+.pin-card h3 {
+  font-size: 1.8rem;
+  margin: 8px 0 12px;
 }
 
-/* スマートフォンでは線を左に寄せ、カードはすべて右側から滑り込む */
+/* 写真：1枚は大きく、2枚は横に並べ、3枚は1枚目を上に大きく出す */
+.pin-photos.timeline-photos {
+  margin: 0;
+  gap: 10px;
+}
+
+.pin-photos.timeline-photos img {
+  border-radius: 14px;
+}
+
+.pin-photos img:only-child {
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.pin-photos img:first-child:nth-last-child(3) {
+  aspect-ratio: 16 / 8;
+}
+
+/* 進み具合のバー */
+.pin-bar {
+  height: 4px;
+  border-radius: 4px;
+  background: var(--color-accent-light);
+  overflow: hidden;
+}
+
+.pin-bar i {
+  display: block;
+  height: 100%;
+  background: var(--ux-accent);
+  transform-origin: 0 50%;
+  transform: scaleX(var(--p, 0));
+}
+
+/* スマートフォン：写真を上、カードを下に重ねる。目次は今の行事の名前だけ出し、ほかは点にする */
 @media (max-width: 768px) {
-  .u370-ln,
-  .u370-dot {
-    left: 13px;   /* 点の外側の輪（4px）が左端で切れない位置 */
+  .pin-sticky {
+    padding: 72px 0 20px;
+    gap: 14px;
   }
 
-  li.u370-ev:nth-of-type(n) .u370-cd {
-    width: auto;
-    margin: 0 0 0 44px;
+  .pin-nav button {
+    font-size: 0.75rem;
+    padding: 2px 10px;
   }
 
-  .lx-js li.u370-ev:nth-of-type(n) .u370-cd {
-    transform: translateX(24px);
+  .pin-nav button:not(.on) {
+    width: 14px;
+    height: 14px;
+    padding: 0;
+    overflow: hidden;
+    color: transparent;
   }
 
-  .timeline.u370 li.u370-ev {
-    display: block;
-    min-height: 0;
-    padding-bottom: 24px;
+  .timeline.pin-track li.pin-panel {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
   }
 
-  /* 写真はカードの下に並べる */
-  li.u370-ev:nth-of-type(n) .u370-ph {
-    width: auto;
-    margin: 12px 0 0 44px;
+  .pin-photos.timeline-photos {
+    order: -1;
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    gap: 6px;
   }
 
-  .lx-js li.u370-ev:nth-of-type(n) .u370-ph {
-    transform: translateX(24px);
+  .pin .pin-photos img:nth-child(n) {
+    grid-column: auto;
+    aspect-ratio: 4 / 3;
+    border-radius: 10px;
+  }
+
+  .pin .pin-photos img:only-child {
+    aspect-ratio: 16 / 9;
+  }
+
+  .pin-card {
+    padding: 18px 20px;
+  }
+
+  .pin-card .timeline-month {
+    font-size: 1.1rem;
+  }
+
+  .pin-card h3 {
+    font-size: 1.3rem;
+    margin: 4px 0 6px;
+  }
+
+  .pin-card p {
+    font-size: 0.9rem;
   }
 }
 
