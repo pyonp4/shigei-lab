@@ -122,22 +122,33 @@
           <h2 class="section-title" data-en="News">ニュース</h2>
           <a class="view-more" href="news.html">View more</a>
         </div>
-        <!-- ニュース一覧（news.html）の新しいものから3件を載せる -->
-        <ul class="news-list">
+        <!-- ニュース一覧（news.html）の上から5件を、ページを開くたびに読み込んで表示する（js/main.js の setupLatestNews）
+             下の5件は読み込めなかったとき用の予備。ニュースを足すときは news.html だけ更新すればよい -->
+        <ul class="news-list" data-latest="5" data-src="news.html">
+          <li class="news-item" data-category="presentation">
+            <time class="news-date" datetime="2026-10-25">2026.10.25</time>
+            <span class="news-cat" data-en="Presentation">発表</span>
+            <p class="news-title" data-en="A D2 student and a research student gave poster presentations at the Kyushu Chapter Workshop of the Japan Society for Fuzzy Theory and Intelligent Informatics, held in Aso.">D2李君，研究生 索君が，阿蘇で開催された日本知能情報ファジィ学会九州支部ワークショップにおいて，ポスター発表を行いました</p>
+          </li>
           <li class="news-item" data-category="news">
             <time class="news-date" datetime="2026-10-11">2026.10.11</time>
             <span class="news-cat" data-en="News">お知らせ</span>
             <p class="news-title"><a href="news-lab-visit.html" data-en="Lab visits to Shigei Lab (for FY2026 3rd-year undergraduates)">重井研究室の研究室訪問について（2026年度B3対象）</a></p>
           </li>
-          <li class="news-item" data-category="presentation">
-            <time class="news-date" datetime="2024-09-27">2024.09.27</time>
-            <span class="news-cat" data-en="Presentation">発表</span>
-            <p class="news-title" data-en="Three M2 students presented at the Joint Conference of Electrical, Electronics and Information Engineers in Kyushu, held at Kagoshima University.">M2三輪君，M2元松君，M2濱島君が，鹿児島大で開催された電気・情報関連学会九州支部連合大会で発表しました</p>
+          <li class="news-item" data-category="award">
+            <time class="news-date" datetime="2026-09">2026.09</time>
+            <span class="news-cat" data-en="Award">受賞</span>
+            <p class="news-title" data-en="Two M2 students &lt;a class=&quot;ext-link&quot; href=&quot;https://grad.eng.kagoshima-u.ac.jp/info/20261023topic/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;received the FSS Excellent Presentation Award&lt;/a&gt; at the Fuzzy System Symposium 2026 (FSS2026).">M2江藤さん，M2山下君が，ファジィシステムシンポジウム2026において，<a class="ext-link" href="https://grad.eng.kagoshima-u.ac.jp/info/20261023topic/" target="_blank" rel="noopener">FSS優秀発表賞を受賞</a>しました</p>
           </li>
           <li class="news-item" data-category="presentation">
-            <time class="news-date" datetime="2024-09-25">2024.09.25</time>
+            <time class="news-date" datetime="2026-09-18">2026.09.18</time>
             <span class="news-cat" data-en="Presentation">発表</span>
-            <p class="news-title" data-en="Seven M2 and M1 students presented at the IEICE Kyushu Section Student Conference, held at Kagoshima University. An M2 student also reported on the activities of the Kagoshima University Student Branch at the student branch exchange meeting.">M2呉君，M2堀田君，M2 Li君，M1 Liangさん，M1川畑君，M1野崎君，M1永山君が，鹿児島大で開催された電子情報通信学会学生会講演会で発表しました．また，M2 三輪君が学生ブランチ交流会で鹿児島大学ブランチの活動報告を行いました</p>
+            <p class="news-title" data-en="An M2 student presented at the Joint Conference of Electrical, Electronics and Information Engineers in Kyushu, held at Oita University.">M2川崎さんが，大分大学で開催された電気・情報関係学会九州支部連合大会において発表しました</p>
+          </li>
+          <li class="news-item" data-category="award">
+            <time class="news-date" datetime="2026-09-16">2026.09.16</time>
+            <span class="news-cat" data-en="Award">受賞</span>
+            <p class="news-title" data-en="An M2 student and an M1 student gave a poster presentation on the activities of the Kagoshima University Student Branch at the IEICE Kyushu Section student branch exchange meeting, held at Oita University, and &lt;a class=&quot;ext-link&quot; href=&quot;https://grad.eng.kagoshima-u.ac.jp/info/20261023topic-2/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;received the 2026 Student Branch Award&lt;/a&gt;.">M2江藤さん，M1山田君が，大分大学で開催された電子情報通信学会九州支部学生会学生ブランチ交流会において鹿児島大学学生ブランチの活動についてポスター発表を行い，<a class="ext-link" href="https://grad.eng.kagoshima-u.ac.jp/info/20261023topic-2/" target="_blank" rel="noopener">2026 Student Branch Award を受賞</a>しました</p>
           </li>
         </ul>
       </div>
