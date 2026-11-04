@@ -23,7 +23,7 @@
   --color-focus: #ffd43d;     /* フォーカス（DADS Yellow-300。変更しないこと） */
 
   --max-width: 1200px;
-  --text-width: 860px;        /* 文章の段落の1行の長さの上限（表や一覧は --max-width まで広げる） */
+  --text-width: 860px;        /* 文章を読ませるページ・節の中身の幅（画面の真ん中に置く） */
   --radius: 0;                /* 角丸なし */
   --shadow: none;
   --font-en: "Noto Sans JP", sans-serif;
@@ -666,19 +666,27 @@ figcaption {
 }
 
 /* 幅のルール（全ページ共通）
-   ・表・一覧・カード・地図・見出しの線などのブロックは，コンテナの幅（最大1200px）いっぱいに広げる
-   ・文章の段落だけは読みやすさのため1行を --text-width（860px）までにする（.section-lead も同じ） */
+   ・文章を読ませるページ・節は，見出しから表までを画面の真ん中の細い列（中身の幅 --text-width）に入れる
+     → ページ全体は .container.article，ホームの節などは .container--narrow を付ける
+   ・ニュース一覧・研究パネル・カード・メンバー一覧など横に広がる部品は，コンテナの幅（最大1200px）いっぱい
+   どちらも画面の真ん中を中心にそろう */
 .article {
   max-width: none;
 }
 
-.article p {
-  max-width: var(--text-width);
+.container.article,
+.container--narrow {
+  max-width: calc(var(--text-width) + 64px);   /* 64px はコンテナの左右の余白（32px×2） */
 }
 
-/* 以前は就職先だけ全幅にしていた。今は全ページが全幅なので，付いていても何も変わらない */
-.article--wide {
+/* 細い列の中では，段落も列の幅いっぱいに使う */
+.container--narrow .section-lead {
   max-width: none;
+}
+
+/* 一覧が多いページ（就職先など）は全幅で表示する */
+.container.article.article--wide {
+  max-width: var(--max-width);
 }
 
 .article h2 {
