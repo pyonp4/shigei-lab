@@ -23,6 +23,7 @@
   --color-focus: #ffd43d;     /* フォーカス（DADS Yellow-300。変更しないこと） */
 
   --max-width: 1200px;
+  --text-width: 860px;        /* 文章の段落の1行の長さの上限（表や一覧は --max-width まで広げる） */
   --radius: 0;                /* 角丸なし */
   --shadow: none;
   --font-en: "Noto Sans JP", sans-serif;
@@ -664,13 +665,20 @@ figcaption {
   margin-bottom: 56px;
 }
 
+/* 幅のルール（全ページ共通）
+   ・表・一覧・カード・地図・見出しの線などのブロックは，コンテナの幅（最大1200px）いっぱいに広げる
+   ・文章の段落だけは読みやすさのため1行を --text-width（860px）までにする（.section-lead も同じ） */
 .article {
-  max-width: 860px;
+  max-width: none;
 }
 
-/* 一覧が多いページ（就職先など）は全幅で表示する */
+.article p {
+  max-width: var(--text-width);
+}
+
+/* 以前は就職先だけ全幅にしていた。今は全ページが全幅なので，付いていても何も変わらない */
 .article--wide {
-  max-width: var(--max-width);
+  max-width: none;
 }
 
 .article h2 {
@@ -1115,7 +1123,7 @@ figcaption {
 
 .section-lead {
   font-size: 1.1rem;
-  max-width: 860px;
+  max-width: var(--text-width);
   margin: 0;
 }
 
@@ -1128,15 +1136,14 @@ figcaption {
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
-/* ホームの研究室の概要：紹介文の下に所在地の表 */
+/* ホームの研究室の概要：紹介文の下に所在地の表（表はほかのページと同じく全幅） */
 .home-about__table {
-  max-width: 860px;
   margin-top: 40px;
 }
 
-/* ホームのメンバー欄：教員紹介と研究室データ（背景が灰色なので、教員の枠は白にする） */
+/* ホームのメンバー欄：教員紹介と研究室データ（背景が灰色なので、教員の枠は白にする。幅は全幅） */
 .home-members {
-  max-width: 860px;
+  max-width: none;
 }
 
 .home-members__title {
@@ -2761,7 +2768,7 @@ figcaption {
 /* ---------- お問い合わせフォーム（contact.html） ---------- */
 /* 今は準備中で入力できない（fieldset の disabled）。使えるようにしたら，下の「準備中の見た目」を消す */
 .contact-form {
-  max-width: 720px;
+  max-width: var(--text-width);
   margin-top: 24px;
 }
 
