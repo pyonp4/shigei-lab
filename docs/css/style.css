@@ -2698,7 +2698,7 @@ main .container {
   margin: 0;
 }
 
-/* プロフィールの小窓では、項目名（出身校・出身地など）を折り返さず1行で出す */
+/* プロフィールの小窓では、項目名（出身地・出身校など）を折り返さず1行で出す */
 .profile-dialog .faculty-data > div {
   grid-template-columns: 8.5em 1fr;
 }
