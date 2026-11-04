@@ -91,17 +91,14 @@
       <div class="container">
         <h2 class="section-title" data-en="Faculty &amp; Staff">教員・スタッフ</h2>
         <!-- 写真を用意したら .member-photo の中を <img src="images/xxx.jpg" alt=""> に差し替える
-             写真・名前を押すと下の <dialog>（id は aria-controls と同じ）が開く -->
+             名前を押すと下の <dialog>（id は aria-controls と同じ）が開く -->
         <ul class="member-grid">
           <li class="member-card">
-            <button type="button" class="member-card__button" aria-haspopup="dialog" aria-controls="profile-shigei">
-              <span class="member-photo" aria-hidden="true">重</span>
-              <span class="member-body">
-                <span class="member-name">重井 徳貴</span>
-                <span class="member-role" data-en="Professor">教授</span>
-                <span class="member-more" data-en="View profile">プロフィールを見る</span>
-              </span>
-            </button>
+            <div class="member-photo" aria-hidden="true">重</div>
+            <div class="member-body">
+              <button type="button" class="member-name member-name--button" aria-haspopup="dialog" aria-controls="profile-shigei">重井 徳貴</button>
+              <span class="member-role" data-en="Professor">教授</span>
+            </div>
           </li>
           <li class="member-card">
             <div class="member-photo" aria-hidden="true">中</div>
@@ -112,7 +109,7 @@
           </li>
         </ul>
 
-        <!-- 重井先生のプロフィール（写真・名前を押すと開く） -->
+        <!-- 重井先生のプロフィール（名前を押すと開く） -->
         <dialog class="profile-dialog" id="profile-shigei" aria-labelledby="profile-shigei-name">
           <div class="profile-dialog__inner">
             <button type="button" class="profile-dialog__close" data-dialog-close><span data-en="Close">閉じる</span></button>
@@ -159,7 +156,7 @@
               <li class="member-card">
                 <div class="member-photo" aria-hidden="true">L</div>
                 <div class="member-body">
-                  <p class="member-name">LI SHIJIA</p>
+                  <button type="button" class="member-name member-name--button" aria-haspopup="dialog" aria-controls="profile-student-1">LI SHIJIA</button>
                   <span class="member-role">D3</span>
                 </div>
               </li>
@@ -171,7 +168,7 @@
               <li class="member-card">
                 <div class="member-photo" aria-hidden="true">S</div>
                 <div class="member-body">
-                  <p class="member-name">SUO TIANZHANG</p>
+                  <button type="button" class="member-name member-name--button" aria-haspopup="dialog" aria-controls="profile-student-2">SUO TIANZHANG</button>
                   <span class="member-role" data-en="Research Student">研究生</span>
                 </div>
               </li>
@@ -184,31 +181,29 @@
           <li class="member-card">
             <div class="member-photo" aria-hidden="true">江</div>
             <div class="member-body">
-              <p class="member-name">江藤 遥香</p>
+              <button type="button" class="member-name member-name--button" aria-haspopup="dialog" aria-controls="profile-student-3">江藤 遥香</button>
               <span class="member-role">M2</span>
-              <p class="member-theme"><a href="research1.html" data-en="Surgical skill assessment">手術手技スキル推定</a></p>
             </div>
           </li>
           <li class="member-card">
             <div class="member-photo" aria-hidden="true">川</div>
             <div class="member-body">
-              <p class="member-name">川崎 はな</p>
+              <button type="button" class="member-name member-name--button" aria-haspopup="dialog" aria-controls="profile-student-4">川崎 はな</button>
               <span class="member-role">M2</span>
             </div>
           </li>
           <li class="member-card">
             <div class="member-photo" aria-hidden="true">日</div>
             <div class="member-body">
-              <p class="member-name">日向 洸太</p>
+              <button type="button" class="member-name member-name--button" aria-haspopup="dialog" aria-controls="profile-student-5">日向 洸太</button>
               <span class="member-role">M2</span>
             </div>
           </li>
           <li class="member-card">
             <div class="member-photo" aria-hidden="true">山</div>
             <div class="member-body">
-              <p class="member-name">山下 旺亮</p>
+              <button type="button" class="member-name member-name--button" aria-haspopup="dialog" aria-controls="profile-student-6">山下 旺亮</button>
               <span class="member-role">M2</span>
-              <p class="member-theme"><a href="research2.html" data-en="Disaster risk mapping">災害危険個所推定</a></p>
             </div>
           </li>
         </ul>
@@ -218,28 +213,28 @@
           <li class="member-card">
             <div class="member-photo" aria-hidden="true">石</div>
             <div class="member-body">
-              <p class="member-name">石丸 隆稀</p>
+              <button type="button" class="member-name member-name--button" aria-haspopup="dialog" aria-controls="profile-student-7">石丸 隆稀</button>
               <span class="member-role">M1</span>
             </div>
           </li>
           <li class="member-card">
             <div class="member-photo" aria-hidden="true">尾</div>
             <div class="member-body">
-              <p class="member-name">尾曲 軍将</p>
+              <button type="button" class="member-name member-name--button" aria-haspopup="dialog" aria-controls="profile-student-8">尾曲 軍将</button>
               <span class="member-role">M1</span>
             </div>
           </li>
           <li class="member-card">
             <div class="member-photo" aria-hidden="true">川</div>
             <div class="member-body">
-              <p class="member-name">川越 悠世</p>
+              <button type="button" class="member-name member-name--button" aria-haspopup="dialog" aria-controls="profile-student-9">川越 悠世</button>
               <span class="member-role">M1</span>
             </div>
           </li>
           <li class="member-card">
             <div class="member-photo" aria-hidden="true">山</div>
             <div class="member-body">
-              <p class="member-name">山田 智輝</p>
+              <button type="button" class="member-name member-name--button" aria-haspopup="dialog" aria-controls="profile-student-10">山田 智輝</button>
               <span class="member-role">M1</span>
             </div>
           </li>
@@ -250,39 +245,298 @@
           <li class="member-card">
             <div class="member-photo" aria-hidden="true">出</div>
             <div class="member-body">
-              <p class="member-name">出永 貴之</p>
+              <button type="button" class="member-name member-name--button" aria-haspopup="dialog" aria-controls="profile-student-11">出永 貴之</button>
               <span class="member-role">B4</span>
             </div>
           </li>
           <li class="member-card">
             <div class="member-photo" aria-hidden="true">石</div>
             <div class="member-body">
-              <p class="member-name">石井 幸多</p>
+              <button type="button" class="member-name member-name--button" aria-haspopup="dialog" aria-controls="profile-student-12">石井 幸多</button>
               <span class="member-role">B4</span>
             </div>
           </li>
           <li class="member-card">
             <div class="member-photo" aria-hidden="true">川</div>
             <div class="member-body">
-              <p class="member-name">川上 生吹</p>
+              <button type="button" class="member-name member-name--button" aria-haspopup="dialog" aria-controls="profile-student-13">川上 生吹</button>
               <span class="member-role">B4</span>
             </div>
           </li>
           <li class="member-card">
             <div class="member-photo" aria-hidden="true">黒</div>
             <div class="member-body">
-              <p class="member-name">黒木 勘太郎</p>
+              <button type="button" class="member-name member-name--button" aria-haspopup="dialog" aria-controls="profile-student-14">黒木 勘太郎</button>
               <span class="member-role">B4</span>
             </div>
           </li>
           <li class="member-card">
             <div class="member-photo" aria-hidden="true">山</div>
             <div class="member-body">
-              <p class="member-name">山田 滉</p>
+              <button type="button" class="member-name member-name--button" aria-haspopup="dialog" aria-controls="profile-student-15">山田 滉</button>
               <span class="member-role">B4</span>
             </div>
           </li>
         </ul>
+      </div>
+
+        <!-- 学生のプロフィール（名前を押すと開く。id は各カードの aria-controls と同じ）
+             出身地・出身校は本人の了承を得てから書く。書かない人はその <div> ごと消してよい -->
+        <dialog class="profile-dialog" id="profile-student-1" aria-labelledby="profile-student-1-name">
+          <div class="profile-dialog__inner">
+            <button type="button" class="profile-dialog__close" data-dialog-close><span data-en="Close">閉じる</span></button>
+            <span class="member-role">D3</span>
+            <h3 class="faculty-name" id="profile-student-1-name">LI SHIJIA</h3>
+            <dl class="faculty-data">
+              <div>
+                <dt data-en="Research theme">研究テーマ</dt>
+                <dd><span class="todo">【原稿待ち】研究テーマ</span></dd>
+              </div>
+              <div>
+                <dt data-en="Hometown / Previous school">出身地・出身校</dt>
+                <dd><span class="todo">【原稿待ち】出身地・出身校（本人の了承を得てから）</span></dd>
+              </div>
+            </dl>
+          </div>
+        </dialog>
+        <dialog class="profile-dialog" id="profile-student-2" aria-labelledby="profile-student-2-name">
+          <div class="profile-dialog__inner">
+            <button type="button" class="profile-dialog__close" data-dialog-close><span data-en="Close">閉じる</span></button>
+            <span class="member-role" data-en="Research Student">研究生</span>
+            <h3 class="faculty-name" id="profile-student-2-name">SUO TIANZHANG</h3>
+            <dl class="faculty-data">
+              <div>
+                <dt data-en="Research theme">研究テーマ</dt>
+                <dd><span class="todo">【原稿待ち】研究テーマ</span></dd>
+              </div>
+              <div>
+                <dt data-en="Hometown / Previous school">出身地・出身校</dt>
+                <dd><span class="todo">【原稿待ち】出身地・出身校（本人の了承を得てから）</span></dd>
+              </div>
+            </dl>
+          </div>
+        </dialog>
+        <dialog class="profile-dialog" id="profile-student-3" aria-labelledby="profile-student-3-name">
+          <div class="profile-dialog__inner">
+            <button type="button" class="profile-dialog__close" data-dialog-close><span data-en="Close">閉じる</span></button>
+            <span class="member-role">M2</span>
+            <h3 class="faculty-name" id="profile-student-3-name">江藤 遥香</h3>
+            <dl class="faculty-data">
+              <div>
+                <dt data-en="Research theme">研究テーマ</dt>
+                <dd><a href="research1.html" data-en="Surgical skill assessment">手術手技スキル推定</a></dd>
+              </div>
+              <div>
+                <dt data-en="Hometown / Previous school">出身地・出身校</dt>
+                <dd data-en="Kanoya Chuo High School, Kagoshima">鹿児島県 鹿屋中央高校</dd>
+              </div>
+            </dl>
+          </div>
+        </dialog>
+        <dialog class="profile-dialog" id="profile-student-4" aria-labelledby="profile-student-4-name">
+          <div class="profile-dialog__inner">
+            <button type="button" class="profile-dialog__close" data-dialog-close><span data-en="Close">閉じる</span></button>
+            <span class="member-role">M2</span>
+            <h3 class="faculty-name" id="profile-student-4-name">川崎 はな</h3>
+            <dl class="faculty-data">
+              <div>
+                <dt data-en="Research theme">研究テーマ</dt>
+                <dd><span class="todo">【原稿待ち】研究テーマ</span></dd>
+              </div>
+              <div>
+                <dt data-en="Hometown / Previous school">出身地・出身校</dt>
+                <dd><span class="todo">【原稿待ち】出身地・出身校（本人の了承を得てから）</span></dd>
+              </div>
+            </dl>
+          </div>
+        </dialog>
+        <dialog class="profile-dialog" id="profile-student-5" aria-labelledby="profile-student-5-name">
+          <div class="profile-dialog__inner">
+            <button type="button" class="profile-dialog__close" data-dialog-close><span data-en="Close">閉じる</span></button>
+            <span class="member-role">M2</span>
+            <h3 class="faculty-name" id="profile-student-5-name">日向 洸太</h3>
+            <dl class="faculty-data">
+              <div>
+                <dt data-en="Research theme">研究テーマ</dt>
+                <dd><span class="todo">【原稿待ち】研究テーマ</span></dd>
+              </div>
+              <div>
+                <dt data-en="Hometown / Previous school">出身地・出身校</dt>
+                <dd><span class="todo">【原稿待ち】出身地・出身校（本人の了承を得てから）</span></dd>
+              </div>
+            </dl>
+          </div>
+        </dialog>
+        <dialog class="profile-dialog" id="profile-student-6" aria-labelledby="profile-student-6-name">
+          <div class="profile-dialog__inner">
+            <button type="button" class="profile-dialog__close" data-dialog-close><span data-en="Close">閉じる</span></button>
+            <span class="member-role">M2</span>
+            <h3 class="faculty-name" id="profile-student-6-name">山下 旺亮</h3>
+            <dl class="faculty-data">
+              <div>
+                <dt data-en="Research theme">研究テーマ</dt>
+                <dd><a href="research2.html" data-en="Disaster risk mapping">災害危険個所推定</a></dd>
+              </div>
+              <div>
+                <dt data-en="Hometown / Previous school">出身地・出身校</dt>
+                <dd data-en="Kagoshima Chuo High School, Kagoshima">鹿児島県 鹿児島中央高校</dd>
+              </div>
+            </dl>
+          </div>
+        </dialog>
+        <dialog class="profile-dialog" id="profile-student-7" aria-labelledby="profile-student-7-name">
+          <div class="profile-dialog__inner">
+            <button type="button" class="profile-dialog__close" data-dialog-close><span data-en="Close">閉じる</span></button>
+            <span class="member-role">M1</span>
+            <h3 class="faculty-name" id="profile-student-7-name">石丸 隆稀</h3>
+            <dl class="faculty-data">
+              <div>
+                <dt data-en="Research theme">研究テーマ</dt>
+                <dd><span class="todo">【原稿待ち】研究テーマ</span></dd>
+              </div>
+              <div>
+                <dt data-en="Hometown / Previous school">出身地・出身校</dt>
+                <dd><span class="todo">【原稿待ち】出身地・出身校（本人の了承を得てから）</span></dd>
+              </div>
+            </dl>
+          </div>
+        </dialog>
+        <dialog class="profile-dialog" id="profile-student-8" aria-labelledby="profile-student-8-name">
+          <div class="profile-dialog__inner">
+            <button type="button" class="profile-dialog__close" data-dialog-close><span data-en="Close">閉じる</span></button>
+            <span class="member-role">M1</span>
+            <h3 class="faculty-name" id="profile-student-8-name">尾曲 軍将</h3>
+            <dl class="faculty-data">
+              <div>
+                <dt data-en="Research theme">研究テーマ</dt>
+                <dd><span class="todo">【原稿待ち】研究テーマ</span></dd>
+              </div>
+              <div>
+                <dt data-en="Hometown / Previous school">出身地・出身校</dt>
+                <dd><span class="todo">【原稿待ち】出身地・出身校（本人の了承を得てから）</span></dd>
+              </div>
+            </dl>
+          </div>
+        </dialog>
+        <dialog class="profile-dialog" id="profile-student-9" aria-labelledby="profile-student-9-name">
+          <div class="profile-dialog__inner">
+            <button type="button" class="profile-dialog__close" data-dialog-close><span data-en="Close">閉じる</span></button>
+            <span class="member-role">M1</span>
+            <h3 class="faculty-name" id="profile-student-9-name">川越 悠世</h3>
+            <dl class="faculty-data">
+              <div>
+                <dt data-en="Research theme">研究テーマ</dt>
+                <dd><span class="todo">【原稿待ち】研究テーマ</span></dd>
+              </div>
+              <div>
+                <dt data-en="Hometown / Previous school">出身地・出身校</dt>
+                <dd><span class="todo">【原稿待ち】出身地・出身校（本人の了承を得てから）</span></dd>
+              </div>
+            </dl>
+          </div>
+        </dialog>
+        <dialog class="profile-dialog" id="profile-student-10" aria-labelledby="profile-student-10-name">
+          <div class="profile-dialog__inner">
+            <button type="button" class="profile-dialog__close" data-dialog-close><span data-en="Close">閉じる</span></button>
+            <span class="member-role">M1</span>
+            <h3 class="faculty-name" id="profile-student-10-name">山田 智輝</h3>
+            <dl class="faculty-data">
+              <div>
+                <dt data-en="Research theme">研究テーマ</dt>
+                <dd><span class="todo">【原稿待ち】研究テーマ</span></dd>
+              </div>
+              <div>
+                <dt data-en="Hometown / Previous school">出身地・出身校</dt>
+                <dd><span class="todo">【原稿待ち】出身地・出身校（本人の了承を得てから）</span></dd>
+              </div>
+            </dl>
+          </div>
+        </dialog>
+        <dialog class="profile-dialog" id="profile-student-11" aria-labelledby="profile-student-11-name">
+          <div class="profile-dialog__inner">
+            <button type="button" class="profile-dialog__close" data-dialog-close><span data-en="Close">閉じる</span></button>
+            <span class="member-role">B4</span>
+            <h3 class="faculty-name" id="profile-student-11-name">出永 貴之</h3>
+            <dl class="faculty-data">
+              <div>
+                <dt data-en="Research theme">研究テーマ</dt>
+                <dd><span class="todo">【原稿待ち】研究テーマ</span></dd>
+              </div>
+              <div>
+                <dt data-en="Hometown / Previous school">出身地・出身校</dt>
+                <dd><span class="todo">【原稿待ち】出身地・出身校（本人の了承を得てから）</span></dd>
+              </div>
+            </dl>
+          </div>
+        </dialog>
+        <dialog class="profile-dialog" id="profile-student-12" aria-labelledby="profile-student-12-name">
+          <div class="profile-dialog__inner">
+            <button type="button" class="profile-dialog__close" data-dialog-close><span data-en="Close">閉じる</span></button>
+            <span class="member-role">B4</span>
+            <h3 class="faculty-name" id="profile-student-12-name">石井 幸多</h3>
+            <dl class="faculty-data">
+              <div>
+                <dt data-en="Research theme">研究テーマ</dt>
+                <dd><span class="todo">【原稿待ち】研究テーマ</span></dd>
+              </div>
+              <div>
+                <dt data-en="Hometown / Previous school">出身地・出身校</dt>
+                <dd><span class="todo">【原稿待ち】出身地・出身校（本人の了承を得てから）</span></dd>
+              </div>
+            </dl>
+          </div>
+        </dialog>
+        <dialog class="profile-dialog" id="profile-student-13" aria-labelledby="profile-student-13-name">
+          <div class="profile-dialog__inner">
+            <button type="button" class="profile-dialog__close" data-dialog-close><span data-en="Close">閉じる</span></button>
+            <span class="member-role">B4</span>
+            <h3 class="faculty-name" id="profile-student-13-name">川上 生吹</h3>
+            <dl class="faculty-data">
+              <div>
+                <dt data-en="Research theme">研究テーマ</dt>
+                <dd><span class="todo">【原稿待ち】研究テーマ</span></dd>
+              </div>
+              <div>
+                <dt data-en="Hometown / Previous school">出身地・出身校</dt>
+                <dd><span class="todo">【原稿待ち】出身地・出身校（本人の了承を得てから）</span></dd>
+              </div>
+            </dl>
+          </div>
+        </dialog>
+        <dialog class="profile-dialog" id="profile-student-14" aria-labelledby="profile-student-14-name">
+          <div class="profile-dialog__inner">
+            <button type="button" class="profile-dialog__close" data-dialog-close><span data-en="Close">閉じる</span></button>
+            <span class="member-role">B4</span>
+            <h3 class="faculty-name" id="profile-student-14-name">黒木 勘太郎</h3>
+            <dl class="faculty-data">
+              <div>
+                <dt data-en="Research theme">研究テーマ</dt>
+                <dd><span class="todo">【原稿待ち】研究テーマ</span></dd>
+              </div>
+              <div>
+                <dt data-en="Hometown / Previous school">出身地・出身校</dt>
+                <dd><span class="todo">【原稿待ち】出身地・出身校（本人の了承を得てから）</span></dd>
+              </div>
+            </dl>
+          </div>
+        </dialog>
+        <dialog class="profile-dialog" id="profile-student-15" aria-labelledby="profile-student-15-name">
+          <div class="profile-dialog__inner">
+            <button type="button" class="profile-dialog__close" data-dialog-close><span data-en="Close">閉じる</span></button>
+            <span class="member-role">B4</span>
+            <h3 class="faculty-name" id="profile-student-15-name">山田 滉</h3>
+            <dl class="faculty-data">
+              <div>
+                <dt data-en="Research theme">研究テーマ</dt>
+                <dd><span class="todo">【原稿待ち】研究テーマ</span></dd>
+              </div>
+              <div>
+                <dt data-en="Hometown / Previous school">出身地・出身校</dt>
+                <dd><span class="todo">【原稿待ち】出身地・出身校（本人の了承を得てから）</span></dd>
+              </div>
+            </dl>
+          </div>
+        </dialog>
       </div>
     </section>
   </main>

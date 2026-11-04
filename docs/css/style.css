@@ -2418,42 +2418,25 @@ main .container {
   margin: 0;
 }
 
-/* 押すとプロフィールが開くカード（重井先生） */
-.member-card__button {
-  display: block;
-  width: 100%;
+/* 押すとプロフィールが開く名前（ボタンだが見た目はリンクのように下線を付ける） */
+.member-name--button {
+  -webkit-appearance: none;
+  appearance: none;
   padding: 0;
-  border: none;
-  background: none;
-  color: inherit;
-  font: inherit;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--color-text);
+  font-family: inherit;
   text-align: left;
   cursor: pointer;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
 }
 
-.member-card__button:hover .member-name,
-.member-card__button:hover .member-more {
+.member-name--button:hover {
   text-decoration-thickness: 3px;
-}
-
-.member-card__button .member-body {
-  display: block;
-}
-
-.member-card__button .member-name {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.2em;
-}
-
-.member-more {
-  display: block;
-  margin-top: 4px;
-  font-size: 0.875rem;
-  color: var(--color-link);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.2em;
 }
 
 /* 博士課程と研究生のように、少人数のグループを横に並べる（列の幅は .member-grid と同じ） */
@@ -2713,6 +2696,21 @@ main .container {
 
 .faculty-data dd {
   margin: 0;
+}
+
+/* プロフィールの小窓では、項目名（出身地・出身校など）を折り返さず1行で出す */
+.profile-dialog .faculty-data > div {
+  grid-template-columns: 8.5em 1fr;
+}
+
+.profile-dialog .faculty-data dt {
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .profile-dialog .faculty-data > div {
+    grid-template-columns: 1fr;
+  }
 }
 
 .faculty-links,
