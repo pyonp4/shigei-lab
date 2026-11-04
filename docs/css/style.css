@@ -893,6 +893,59 @@ main .container {
   margin: 0;
 }
 
+/* 題目の隣の（全員参加）（参加自由） */
+.timeline h3 {
+  display: inline-block;
+}
+
+.timeline-join {
+  margin-left: 6px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text-sub);
+}
+
+/* 行事ごとの写真（2列。1枚だけのときは元の比率で大きく、3枚のときは1枚目を上に大きく出す）
+   JavaScript が動くときは lucian.css でカードの反対側に移る */
+.timeline-photos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.timeline-photos img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.timeline-photos img:only-child {
+  grid-column: 1 / -1;
+  aspect-ratio: auto;
+}
+
+.timeline-photos img:first-child:nth-last-child(3) {
+  grid-column: 1 / -1;
+}
+
+/* 研究室ギャラリー（写真の比率はそのまま、段組みで並べる） */
+.event-gallery {
+  columns: 3 240px;   /* 広い画面では3列、狭くなると2列・1列 */
+  column-gap: 16px;
+  margin-bottom: 48px;
+}
+
+.event-gallery img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-bottom: 16px;
+  break-inside: avoid;
+}
+
 /* ---------- ゼミ紹介（表） ---------- */
 .info-table {
   width: 100%;
