@@ -925,6 +925,22 @@ figcaption {
   background: var(--color-accent);
 }
 
+/* ゼミ紹介：ゼミ名の下に対象（全員・B4 など）を小さなラベルで添える */
+.seminar-table th {
+  width: 32%;
+}
+
+.seminar-target {
+  display: block;
+  width: fit-content;
+  margin-top: 6px;
+  padding: 1px 10px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-accent-dark);
+  background: var(--color-accent-light);
+}
+
 /* ---------- ボタン ---------- */
 .btn {
   display: inline-flex;
