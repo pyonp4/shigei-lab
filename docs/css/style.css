@@ -893,6 +893,18 @@ main .container {
   margin: 0;
 }
 
+/* 題目の隣の（全員参加）（参加自由） */
+.timeline h3 {
+  display: inline-block;
+}
+
+.timeline-join {
+  margin-left: 6px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text-sub);
+}
+
 /* 行事ごとの写真（2列。1枚だけのときは元の比率で大きく、3枚のときは1枚目を上に大きく出す）
    JavaScript が動くときは lucian.css でカードの反対側に移る */
 .timeline-photos {
