@@ -1749,7 +1749,7 @@ figcaption {
   /* この幅ではバナーが細いので，水墨画を小さくして右の真ん中に置き，上の一言や「サイトを見る」と重ならないようにする */
   .contact-cta--split .link-banner--nondadon {
     background-position: right 28px center, 0 0, 0 0;
-    background-size: auto 42%, auto, auto;
+    background-size: auto 50%, auto, auto;
   }
 }
 
