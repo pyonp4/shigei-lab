@@ -89,34 +89,21 @@
     <section class="section">
       <div class="container article">
         <!-- ===== ゼミの種類 =====
-             1行が1つのゼミ。見出し（th）にゼミ名と対象（.seminar-target），td に内容を書く -->
+             1行が1つのゼミ。左から ゼミ名・対象・内容 の順に書く -->
         <h2 class="section-title" data-en="Types of seminars">ゼミの種類</h2>
         <p data-en="The lab runs six seminars, each suited to a different year or purpose.">研究室では，学年や目的に合わせて6つのゼミを行っています．</p>
-        <table class="info-table seminar-table">
-          <tr>
-            <th scope="row"><span data-en="Progress report seminar">経過報告ゼミ</span><span class="seminar-target" data-en="For: all members">対象：全員</span></th>
-            <td data-en="Each member reports on their research progress and works out the next steps. We also ask questions and share opinions on each other’s research.">研究の進み具合を報告し，次のステップを検討します．ほかのメンバーの研究にも質問や意見を出し合います．</td>
-          </tr>
-          <tr>
-            <th scope="row"><span data-en="Unix seminar">Unixゼミ</span><span class="seminar-target" data-en="For: B4">対象：B4</span></th>
-            <td data-en="Learn how to use Unix, the operating system used in our research, and build the basics for starting research.">研究で使うOS（Unix）の使い方を学び，研究を始めるための基礎を身につけます．</td>
-          </tr>
-          <tr>
-            <th scope="row"><span data-en="Machine learning seminar">機械学習ゼミ</span><span class="seminar-target" data-en="For: B4">対象：B4</span></th>
-            <td data-en="Before choosing a research topic, learn the main areas of machine learning broadly, such as large language models (LLMs) and image recognition.">研究テーマを決めるために，大規模言語モデル（LLM）や画像認識など，機械学習の主な分野を幅広く学びます．</td>
-          </tr>
-          <tr>
-            <th scope="row"><span data-en="English paper reading seminar">英語論文購読ゼミ</span><span class="seminar-target" data-en="For: M1">対象：M1</span></th>
-            <td data-en="Find English papers related to your own research and present them. This builds the ability to understand papers, English skills, the ability to explain ideas to others, and technical understanding.">自分の研究に関連する英語論文を調べて報告します．論文を読み解く力，英語力，人に伝える力，技術への理解を養います．</td>
-          </tr>
-          <tr>
-            <th scope="row"><span data-en="Job-hunting seminar">就活ゼミ</span><span class="seminar-target" data-en="For: all members">対象：全員</span></th>
-            <td data-en="Hear about the experiences of senior students who have finished job hunting, and use them in your own job search.">就職活動を終えた先輩から経験談を聞き，自分の就職活動に活かします．</td>
-          </tr>
-          <tr>
-            <th scope="row"><span data-en="Independent seminar">自主ゼミ</span><span class="seminar-target" data-en="For: all members">対象：全員</span></th>
-            <td data-en="Choose a topic you want to work on and present it at the seminar.">自分が取り組みたいテーマを選び，その内容をゼミで報告します．</td>
-          </tr>
+        <table class="seminar-table">
+          <thead>
+            <tr><th scope="col" data-en="Seminar">ゼミ名</th><th scope="col" data-en="For">対象</th><th scope="col" data-en="What we do">内容</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row" data-en="Progress report seminar">経過報告ゼミ</th><td class="seminar-table__target" data-en="All members">全員</td><td data-en="Each member reports on their research progress and works out the next steps. We also ask questions and share opinions on each other’s research.">研究の進み具合を報告し，次のステップを検討します．ほかのメンバーの研究にも質問や意見を出し合います．</td></tr>
+            <tr><th scope="row" data-en="Unix seminar">Unixゼミ</th><td class="seminar-table__target">B4</td><td data-en="Learn how to use Unix, the operating system used in our research, and build the basics for starting research.">研究で使うOS（Unix）の使い方を学び，研究を始めるための基礎を身につけます．</td></tr>
+            <tr><th scope="row" data-en="Machine learning seminar">機械学習ゼミ</th><td class="seminar-table__target">B4</td><td data-en="Before choosing a research topic, learn the main areas of machine learning broadly, such as large language models (LLMs) and image recognition.">研究テーマを決めるために，大規模言語モデル（LLM）や画像認識など，機械学習の主な分野を幅広く学びます．</td></tr>
+            <tr><th scope="row" data-en="English paper reading seminar">英語論文購読ゼミ</th><td class="seminar-table__target">M1</td><td data-en="Find English papers related to your own research and present them. This builds the ability to understand papers, English skills, the ability to explain ideas to others, and technical understanding.">自分の研究に関連する英語論文を調べて報告します．論文を読み解く力，英語力，人に伝える力，技術への理解を養います．</td></tr>
+            <tr><th scope="row" data-en="Job-hunting seminar">就活ゼミ</th><td class="seminar-table__target" data-en="All members">全員</td><td data-en="Hear about the experiences of senior students who have finished job hunting, and use them in your own job search.">就職活動を終えた先輩から経験談を聞き，自分の就職活動に活かします．</td></tr>
+            <tr><th scope="row" data-en="Independent seminar">自主ゼミ</th><td class="seminar-table__target" data-en="All members">全員</td><td data-en="Choose a topic you want to work on and present it at the seminar.">自分が取り組みたいテーマを選び，その内容をゼミで報告します．</td></tr>
+          </tbody>
         </table>
 
         <!-- ===== 経過報告ゼミ ===== -->

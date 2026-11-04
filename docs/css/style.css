@@ -925,20 +925,41 @@ figcaption {
   background: var(--color-accent);
 }
 
-/* ゼミ紹介：ゼミ名の下に対象（全員・B4 など）を小さなラベルで添える */
-.seminar-table th {
-  width: 32%;
+/* ゼミ紹介：ゼミの種類の表（ゼミ名・対象・内容の3列。上に見出しの行） */
+.seminar-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-bg);
+  border-top: 2px solid var(--color-main);
 }
 
-.seminar-target {
-  display: block;
-  width: fit-content;
-  margin-top: 6px;
-  padding: 1px 10px;
-  font-size: 0.8rem;
+.seminar-table th,
+.seminar-table td {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.seminar-table thead th {
+  padding-block: 12px;
+  font-size: 0.9rem;
+  color: var(--color-text-sub);
+  background: var(--color-bg-sub);
+  border-bottom: 1px solid var(--color-main);
+}
+
+.seminar-table tbody th {
+  width: 26%;
+  color: var(--color-main);
+  font-weight: 700;
+}
+
+.seminar-table__target {
+  width: 12%;
+  white-space: nowrap;
   font-weight: 700;
   color: var(--color-accent-dark);
-  background: var(--color-accent-light);
 }
 
 /* ---------- ボタン ---------- */
@@ -1987,6 +2008,43 @@ figcaption {
 
   .info-table td {
     padding-left: 32px;
+  }
+
+  .seminar-table thead {
+    display: none;
+  }
+
+  .seminar-table tr {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .seminar-table th,
+  .seminar-table td {
+    border-bottom: none;
+    width: auto;
+  }
+
+  .seminar-table tbody th {
+    padding: 16px 0 4px 12px;
+  }
+
+  .seminar-table__target {
+    padding: 16px 12px 4px 0;
+  }
+
+  .seminar-table__target::before {
+    content: "対象：";
+  }
+
+  html[lang="en"] .seminar-table__target::before {
+    content: "For: ";
+  }
+
+  .seminar-table td:last-child {
+    grid-column: 1 / -1;
+    padding: 0 12px 16px;
   }
 
   .footer-top {
