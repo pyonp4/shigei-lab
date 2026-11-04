@@ -22,8 +22,10 @@
   --color-link-visited: #6b2c91; /* リンク（訪問済み） */
   --color-focus: #ffd43d;     /* フォーカス（DADS Yellow-300。変更しないこと） */
 
-  --max-width: 1200px;
-  --content-width: 1000px;    /* ページの中身（<main> の中）の幅。全ページ・全節でこの幅にそろえる */
+  /* 幅は画面の大きさに合わせて変わる。画面幅 1440px までは今までどおり（1200px / 1000px）で、
+     それより広い画面では広がった分の 3/4 だけ一緒に広がる（上限 1600px / 1440px） */
+  --max-width: clamp(1200px, calc(1200px + (100vw - 1440px) * 0.75), 1600px);
+  --content-width: clamp(1000px, calc(1000px + (100vw - 1440px) * 0.75), 1440px);    /* ページの中身（<main> の中）の幅。全ページ・全節でこの幅にそろえる */
   --radius: 0;                /* 角丸なし */
   --shadow: none;
   --font-en: "Noto Sans JP", sans-serif;
@@ -666,8 +668,8 @@ figcaption {
 }
 
 /* 幅のルール（全ページ共通）
-   ページの中身は，文章・表・一覧・カードなど何でも --content-width（1000px）の幅にそろえ，画面の真ん中に置く
-   ヘッダー・フッター・お問い合わせ欄は今までどおり --max-width（1200px） */
+   ページの中身は，文章・表・一覧・カードなど何でも --content-width（1000〜1440px）の幅にそろえ，画面の真ん中に置く
+   ヘッダー・フッター・お問い合わせ欄は今までどおり --max-width（1200〜1600px） */
 main .container {
   max-width: var(--content-width);
 }
