@@ -12,8 +12,8 @@
   <link rel="stylesheet" href="css/lucian.css">
   <script>document.documentElement.classList.add("lx-js"); // Lucian の登場アニメーション用（JavaScript が動くときだけ最初に隠す）</script>
   <script>
-    // 保存した文字サイズを、表示する前に反映する（ちらつき防止）
-    try { var fs = localStorage.getItem("fontSize"); if (fs === "small" || fs === "large") document.documentElement.dataset.fontSize = fs; } catch (e) {}
+    // 保存した文字サイズを、表示する前に反映する（ちらつき防止）。まだ選んでいない人は「小」で表示する
+    var fs = "small"; try { fs = localStorage.getItem("fontSize") || "small"; } catch (e) {} if (fs === "small" || fs === "large") document.documentElement.dataset.fontSize = fs;
   </script>
   <script src="js/lucian.js" defer></script>
   <script src="js/main.js" defer></script>
@@ -56,8 +56,8 @@
         <div class="font-menu">
           <button type="button" class="font-menu__toggle" aria-expanded="false" aria-controls="font-menu-list"><span data-en="Text size">文字サイズ</span></button>
           <ul class="font-menu__list" id="font-menu-list">
-            <li><button type="button" data-font-size="small" aria-pressed="false" data-en="Small">小</button></li>
-            <li><button type="button" data-font-size="medium" aria-pressed="true" data-en="Medium">中</button></li>
+            <li><button type="button" data-font-size="small" aria-pressed="true" data-en="Small">小</button></li>
+            <li><button type="button" data-font-size="medium" aria-pressed="false" data-en="Medium">中</button></li>
             <li><button type="button" data-font-size="large" aria-pressed="false" data-en="Large">大</button></li>
           </ul>
         </div>
