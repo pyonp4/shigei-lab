@@ -12,7 +12,7 @@
 |---|---|---|---|
 | docs/index.html | ホーム | 山下 | Must |
 | docs/research1.html | 手術手技スキルの推定 | 江藤 | Must |
-| docs/research2.html | 災害危険個所の推定 | 山下 | Must |
+| docs/research2.html | 土砂災害警戒区域の推定 | 山下 | Must |
 | docs/events.html | 行事紹介 | 江藤 | Must |
 | docs/seminar.html | ゼミ紹介 | 山下 | Should |
 | docs/css/style.css | 全ページ共通のデザイン | 変更時は相談 | - |
