@@ -2420,9 +2420,13 @@ main .container {
 
 /* 押すとプロフィールが開く名前（ボタンだが見た目はリンクのように下線を付ける） */
 .member-name--button {
+  -webkit-appearance: none;
+  appearance: none;
   padding: 0;
-  border: none;
-  background: none;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--color-text);
   font-family: inherit;
   text-align: left;
   cursor: pointer;
@@ -2692,6 +2696,21 @@ main .container {
 
 .faculty-data dd {
   margin: 0;
+}
+
+/* プロフィールの小窓では、項目名（出身校・出身地など）を折り返さず1行で出す */
+.profile-dialog .faculty-data > div {
+  grid-template-columns: 8.5em 1fr;
+}
+
+.profile-dialog .faculty-data dt {
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .profile-dialog .faculty-data > div {
+    grid-template-columns: 1fr;
+  }
 }
 
 .faculty-links,
