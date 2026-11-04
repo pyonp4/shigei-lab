@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   setupPagination(); // ページ番号にも data-en を付けるので、言語切り替えより先に作る
   setupLanguage();
+  setupLatestNews();
   setupFontSize();
   setupMenu();
   setupDialogs();
@@ -10,15 +11,18 @@ const isEnglish = () => document.documentElement.lang === "en";
 
 // JA / EN 切り替え
 // 英語にしたい要素には data-en="英語の文" を付ける（日本語はHTMLにそのまま書く）
+// 後から足した要素（トップの最新ニュースなど）にも効くよう、切り替えるたびに data-en の要素を探し直す
+let applyLanguage = () => {};
+
 function setupLanguage() {
   const buttons = document.querySelectorAll(".lang-switch button");
-  const targets = document.querySelectorAll("[data-en]");
-  targets.forEach((el) => {
+  document.querySelectorAll("[data-en]").forEach((el) => {
     el.dataset.ja = el.innerHTML;
   });
 
   const apply = (lang) => {
-    targets.forEach((el) => {
+    document.querySelectorAll("[data-en]").forEach((el) => {
+      if (el.dataset.ja === undefined) el.dataset.ja = el.innerHTML;
       el.innerHTML = lang === "en" ? el.dataset.en : el.dataset.ja;
     });
     document.documentElement.lang = lang;
@@ -34,6 +38,7 @@ function setupLanguage() {
   } catch (e) {
     // 何もしない
   }
+  applyLanguage = apply;
   if (saved === "en") apply("en");
 
   buttons.forEach((button) => {
@@ -47,6 +52,26 @@ function setupLanguage() {
       }
     });
   });
+}
+
+// トップのニュース：<ul class="news-list" data-latest="5" data-src="news.html"> に、
+// ニュース一覧の上から5件を読み込んで入れ替える（読み込めないときは HTML に書いた予備のまま）
+function setupLatestNews() {
+  const list = document.querySelector(".news-list[data-latest]");
+  if (!list) return;
+  const count = Number(list.dataset.latest) || 5;
+  fetch(list.dataset.src || "news.html")
+    .then((res) => (res.ok ? res.text() : Promise.reject(res.status)))
+    .then((html) => {
+      const doc = new DOMParser().parseFromString(html, "text/html");
+      const items = Array.from(doc.querySelectorAll(".news-list .news-item")).slice(0, count);
+      if (!items.length) return;
+      list.replaceChildren(...items.map((item) => document.importNode(item, true)));
+      applyLanguage(document.documentElement.lang === "en" ? "en" : "ja");
+    })
+    .catch(() => {
+      // 予備の5件をそのまま表示する
+    });
 }
 
 // スマホ用ハンバーガーメニューの開閉
