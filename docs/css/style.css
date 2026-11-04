@@ -2418,42 +2418,21 @@ main .container {
   margin: 0;
 }
 
-/* 押すとプロフィールが開くカード（重井先生） */
-.member-card__button {
-  display: block;
-  width: 100%;
+/* 押すとプロフィールが開く名前（ボタンだが見た目はリンクのように下線を付ける） */
+.member-name--button {
   padding: 0;
   border: none;
   background: none;
-  color: inherit;
-  font: inherit;
+  font-family: inherit;
   text-align: left;
   cursor: pointer;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
 }
 
-.member-card__button:hover .member-name,
-.member-card__button:hover .member-more {
+.member-name--button:hover {
   text-decoration-thickness: 3px;
-}
-
-.member-card__button .member-body {
-  display: block;
-}
-
-.member-card__button .member-name {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.2em;
-}
-
-.member-more {
-  display: block;
-  margin-top: 4px;
-  font-size: 0.875rem;
-  color: var(--color-link);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.2em;
 }
 
 /* 博士課程と研究生のように、少人数のグループを横に並べる（列の幅は .member-grid と同じ） */
