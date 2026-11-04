@@ -165,9 +165,10 @@
   display: inline-block;
 }
 
-.u216-p {
+/* 説明文はパソコンでは1行で表示する（スマホでは折り返してよい）。.hero p の幅の上限より優先させる */
+.hero .u216-p {
   font-size: 1.15rem;
-  max-width: 640px;
+  max-width: 46em;
   margin: 0;
 }
 
