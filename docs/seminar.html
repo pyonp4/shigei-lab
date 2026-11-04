@@ -88,28 +88,31 @@
 
     <section class="section">
       <div class="container article">
-        <h2 class="section-title" data-en="Basics">ゼミの基本情報</h2>
-        <table class="info-table">
-          <tr><th scope="row" data-en="Schedule">頻度・曜日</th><td><span class="todo">週1~2回 木・金曜日</span></td></tr>
-          <tr><th scope="row" data-en="Format">形式</th><td><span class="todo">進捗報告</span></td></tr>
-          <tr><th scope="row" data-en="Participants">参加メンバー</th><td><span class="todo">教員1名・学生全員</span></td></tr>
-          <tr><th scope="row" data-en="Atmosphere">雰囲気</th><td><span class="todo">活気あふれる九州男児</span></td></tr>
+        <!-- ===== ゼミの種類 =====
+             1行が1つのゼミ。左から ゼミ名・対象・内容 の順に書く -->
+        <h2 class="section-title" data-en="Types of seminars">ゼミの種類</h2>
+        <p data-en="The lab runs six seminars, each suited to a different year or purpose.">研究室では，学年や目的に合わせて6つのゼミを行っています．</p>
+        <table class="seminar-table">
+          <thead>
+            <tr><th scope="col" data-en="Seminar">ゼミ名</th><th scope="col" data-en="For">対象</th><th scope="col" data-en="What we do">内容</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row" data-en="Progress report seminar">経過報告ゼミ</th><td class="seminar-table__target" data-en="All members">全員</td><td data-en="Each member reports on their research progress and works out the next steps. We also ask questions and share opinions on each other’s research.">研究の進み具合を報告し，次のステップを検討します．ほかのメンバーの研究にも質問や意見を出し合います．</td></tr>
+            <tr><th scope="row" data-en="Unix seminar">Unixゼミ</th><td class="seminar-table__target">B4</td><td data-en="Learn how to use Unix, the operating system used in our research, and build the basics for starting research.">研究で使うOS（Unix）の使い方を学び，研究を始めるための基礎を身につけます．</td></tr>
+            <tr><th scope="row" data-en="Machine learning seminar">機械学習ゼミ</th><td class="seminar-table__target">B4</td><td data-en="Before choosing a research topic, learn the main areas of machine learning broadly, such as large language models (LLMs) and image recognition.">研究テーマを決めるために，大規模言語モデル（LLM）や画像認識など，機械学習の主な分野を幅広く学びます．</td></tr>
+            <tr><th scope="row" data-en="English paper reading seminar">英語論文購読ゼミ</th><td class="seminar-table__target">M1</td><td data-en="Find English papers related to your own research and present them. This builds the ability to understand papers, English skills, the ability to explain ideas to others, and technical understanding.">自分の研究に関連する英語論文を調べて報告します．論文を読み解く力，英語力，人に伝える力，技術への理解を養います．</td></tr>
+            <tr><th scope="row" data-en="Job-hunting seminar">就活ゼミ</th><td class="seminar-table__target" data-en="All members">全員</td><td data-en="Hear about the experiences of senior students who have finished job hunting, and use them in your own job search.">就職活動を終えた先輩から経験談を聞き，自分の就職活動に活かします．</td></tr>
+            <tr><th scope="row" data-en="Independent seminar">自主ゼミ</th><td class="seminar-table__target" data-en="All members">全員</td><td data-en="Choose a topic you want to work on and present it at the seminar.">自分が取り組みたいテーマを選び，その内容をゼミで報告します．</td></tr>
+          </tbody>
         </table>
 
-        <h2 data-en="Types of seminars">ゼミの種類と対象</h2>
+        <!-- ===== 経過報告ゼミ ===== -->
+        <h2 data-en="Progress report seminar">経過報告ゼミ</h2>
+        <p data-en="The progress report seminar is the core seminar of the lab. Each member reports on how their research is going and decides what to do next together with the professor and other members. By asking questions and sharing opinions on each other’s presentations, you also encounter viewpoints that your own research does not cover.">経過報告ゼミは，研究室の中心となるゼミです．一人ひとりが研究の進み具合を報告し，次に何をするかを先生やメンバーと一緒に考えます．ほかのメンバーの発表にも質問や意見を出し合うことで，自分の研究にない視点にも触れられます．</p>
         <table class="info-table">
-          <tr><th scope="row" data-en="Unix seminar">Unixゼミ</th><td>B4</td></tr>
-          <tr><th scope="row" data-en="Machine learning seminar">機械学習ゼミ</th><td>B4</td></tr>
-          <tr><th scope="row" data-en="English paper reading seminar">英語論文購読ゼミ</th><td>M1</td></tr>
-          <tr><th scope="row" data-en="Job-hunting seminar">就活ゼミ</th><td data-en="All members">全員</td></tr>
-          <tr><th scope="row" data-en="Progress report seminar">経過報告ゼミ</th><td data-en="All members">全員</td></tr>
+          <tr><th scope="row" data-en="Schedule">頻度・曜日</th><td data-en="Twice a week (Thursdays and Fridays)">週2回（木・金曜日）</td></tr>
+          <tr><th scope="row" data-en="Participants">参加メンバー</th><td data-en="The professor, all students and joint researchers">教員1名・学生全員・共同研究者</td></tr>
         </table>
-
-        <h2 data-en="What you will learn">ゼミで身につくこと</h2>
-        <ul class="point-list">
-          <li><span class="todo">【原稿待ち】例：研究内容を人に伝える力</span></li>
-          <li><span class="todo">【原稿待ち】例：論文を読む力</span></li>
-        </ul>
 
         <div class="btn-row">
           <a class="btn btn--outline" href="index.html" data-en="← Back to home">← ホームへ戻る</a>
