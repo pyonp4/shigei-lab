@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-en="Estimation of Sediment Disaster Prone Areas from Map Images Using YOLOv8 | Shigei Lab">YOLOv8 を用いた地図画像からの土砂災害警戒区域の推定 | 重井研究室</title>
-  <meta name="description" content="標高データから作った地図画像をもとに，YOLOv8 による画像セグメンテーションで土砂災害警戒区域を推定し，区域の指定にかかる労力と時間の削減を目指す研究の紹介ページです．">
+  <title data-en="Estimation of Sediment Disaster Prone Areas Using YOLOv8 from Map Images | Shigei Lab">YOLOv8 を用いた地図画像からの土砂災害警戒区域の推定 | 重井研究室</title>
+  <meta name="description" content="YOLOv8 による画像セグメンテーションで，地図画像から土砂災害警戒区域を推定する研究の紹介ページです．区域の指定にかかる専門家の労力と時間の削減が期待されます．">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap">
@@ -82,9 +82,9 @@
 
     <section class="hero page-hero">
       <div class="container">
-        <span class="label" data-en="Disaster prevention × AI">防災 × AI</span>
-        <h1 data-en="Estimation of Sediment Disaster Prone Areas from Map Images Using YOLOv8">YOLOv8 を用いた地図画像からの土砂災害警戒区域の推定</h1>
-        <p lang="en">Estimation of Sediment Disaster Prone Areas from Map Images Using YOLOv8</p>
+        <span class="label" data-en="Disaster × AI">災害 × AI</span>
+        <h1 data-en="Estimation of Sediment Disaster Prone Areas Using YOLOv8 from Map Images">YOLOv8 を用いた地図画像からの土砂災害警戒区域の推定</h1>
+        <p lang="en">Estimation of Sediment Disaster Prone Areas Using YOLOv8 from Map Images</p>
         <p data-en="Researcher: Osuke Yamashita">担当：山下 旺亮</p>
       </div>
     </section>
@@ -92,48 +92,28 @@
     <section class="section">
       <div class="container research-layout">
         <div class="article">
-          <div class="lead-box" data-en="We aim to reduce the effort and time needed to designate sediment disaster prone areas by detecting them with AI from map images generated from elevation data.">標高データから作った地図画像をもとに，土砂災害警戒区域を AI で検出し，区域の指定にかかる労力と時間の削減を目指す</div>
+          <div class="lead-box" data-en="We aim to improve the accuracy of AI-based estimation of sediment disaster prone areas by using AI to estimate, from map images, places where sediment disasters could occur.">YOLOv8 を用いて地図画像から土砂災害が起こりうる危険箇所を推定し，AI による土砂災害警戒区域の推定精度の向上を目指す</div>
 
-          <p><strong>Keywords：</strong><br>Machine Learning／YOLOv8／Sediment Disaster Prone (SDP) Area／DEM</p>
+          <p data-en="&lt;strong&gt;Keywords:&lt;/strong&gt;&lt;br&gt;Machine Learning／YOLOv8／Sediment Disaster Prone (SDP) Area／DEM"><strong>キーワード：</strong><br>機械学習／YOLOv8／土砂災害警戒区域／数値標高モデル（DEM）</p>
 
           <h2 data-en="Introduction">はじめに</h2>
-          <p data-en="Sediment disasters such as slope failures and debris flows can cause serious damage to lives and homes. To reduce the damage, it is important to know in advance which places are dangerous and to be prepared. In Japan, such places are designated as &lt;strong&gt;sediment disaster prone areas&lt;/strong&gt; and shown to residents on hazard maps. The designation is made by experts who examine the terrain of each place.">がけ崩れや土石流などの土砂災害は，人の命や住まいに大きな被害をもたらします．被害を減らすには，どこが危ないかをあらかじめ知り，備えておくことが大切です．そのため危険な場所は<strong>土砂災害警戒区域</strong>として指定され，ハザードマップなどで住民に知らされています．この指定は，専門家が場所ごとに地形などを調べて行っています．</p>
-          <p data-en="This approach has two major problems:">この方法には，大きく2つの問題があります．</p>
-          <ul class="point-list">
-            <li data-en="&lt;strong&gt;Heavy workload:&lt;/strong&gt; to designate an area, experts must examine the terrain of each slope and stream one by one. There are a great many places to check, so designation takes an enormous amount of effort and time."><strong>労力と時間がかかる：</strong>区域を指定するには，斜面や谷筋の地形を一つひとつ調べる必要があります．調べるべき場所は数多くあり，指定には膨大な労力と時間がかかります．</li>
-            <li data-en="&lt;strong&gt;Hidden risks remain:&lt;/strong&gt; outside the designated areas, there may still be dangerous places that have not yet been found (potential risk areas)."><strong>見つかっていない危険がある：</strong>指定された区域の外にも，まだ見つかっていない危険な場所（潜在的なリスクエリア）が残っている可能性があります．</li>
-          </ul>
-          <p data-en="If AI could find sediment disaster prone areas from map images, the designation process could be automated, greatly reducing the effort and time required of experts. It could also offer clues for finding dangerous places that have been overlooked.">もし AI が地図画像から土砂災害警戒区域を見つけ出せれば，区域の指定を自動化でき，専門家の労力と時間を大きく減らせます．見落とされていた危険な場所を見つける手がかりにもなります．</p>
+          <p data-en="Sediment disasters such as slope failures and debris flows can cause serious damage to lives and homes. In Japan, dangerous places are therefore designated as &lt;strong&gt;sediment disaster prone areas&lt;/strong&gt; and shown to residents on hazard maps. The designation is made by experts who examine the terrain of each place.">がけ崩れや土石流などの土砂災害は，人の命や住まいに大きな被害をもたらします．そのため危険な場所は<strong>土砂災害警戒区域</strong>として指定され，ハザードマップなどで住民に知らされています．この指定は，専門家が場所ごとに地形などを調べて行っています．</p>
+          <p data-en="However, there are a great many places to check, and designating the areas takes an enormous amount of effort and time. If AI could estimate sediment disaster prone areas from map images, it is expected to greatly reduce the effort and time required of experts.">しかし，調べるべき場所は数多くあり，区域の指定には膨大な労力と時間がかかります．もし AI が地図画像から土砂災害警戒区域を推定できれば，専門家の労力と時間を大きく減らせると期待されます．</p>
 
           <h2 data-en="Area Estimation in Map Images: Image Segmentation">地図画像の領域推定：画像セグメンテーション</h2>
-          <p data-en="Sediment disaster prone areas are designated as regions on a map. To find them with AI, we therefore need to show where an area starts and ends in the map image, rather than simply judge whether a place is dangerous. This research tackles &lt;strong&gt;image segmentation&lt;/strong&gt;: the task of examining a map image pixel by pixel and deciding whether each pixel belongs to a sediment disaster prone area. We use &lt;strong&gt;YOLOv8&lt;/strong&gt;, an AI model that can quickly find objects in images and outline their shapes.">土砂災害警戒区域は，地図の上で「面」として指定されます．そのため AI で区域を見つけるには，危険かどうかを判定するだけでなく，地図画像のどこからどこまでが区域かを示す必要があります．そこで本研究では，地図画像を細かな点（画素）の単位で見て，それぞれの画素が土砂災害警戒区域にあたるかどうかを判別する<strong>画像セグメンテーション（Image Segmentation）</strong>に取り組んでいます．AI のモデルには，画像の中の物体をすばやく見つけ，その形まで切り出せる <strong>YOLOv8</strong> を用います．</p>
-          <p data-en="This task is difficult for two reasons. First, sediment disaster prone areas have no regular shape or size, so the AI cannot rely on a fixed pattern. Second, even with an effective map image, accuracy drops when the image resolution is low.">この課題が難しい理由は2つあります．1つは，土砂災害警戒区域の形や大きさに規則性がないことです．決まった形を手がかりにできないため，AI は地形そのものの特徴から区域を見分けなければなりません．もう1つは，効果的な地図画像を使っても，解像度が低いと精度が下がってしまうことです．</p>
-          <figure>
-            <div class="placeholder">図1：使用している地図画像の例<br>（あとで差し替え）</div>
-            <figcaption data-en="Figure 1: An example of the map images used in this research. &lt;span class=&quot;todo&quot;&gt;[To be confirmed: how to read the figure]&lt;/span&gt;">図1：本研究で使用している地図画像の例．<span class="todo">【要確認：図の見方（色や濃淡が何を表すか）】</span></figcaption>
-          </figure>
+          <p data-en="Sediment disaster prone areas are designated as regions on a map. The AI therefore needs to show where an area starts and ends in the map image. This research tackles &lt;strong&gt;image segmentation&lt;/strong&gt;: the task of examining an image pixel by pixel and deciding what each pixel represents. Given a map image as input, the AI outputs whether each pixel belongs to a sediment disaster prone area.">土砂災害警戒区域は，地図の上で「面」として指定されます．そのため AI には，地図画像のどこからどこまでが区域かを示させる必要があります．そこで本研究では，<strong>画像セグメンテーション（Image Segmentation）</strong>に取り組んでいます．画像セグメンテーションは，画像を細かな点（画素）の単位で見て，それぞれの画素が何にあたるかを判別する処理です．本研究では地図画像を入力し，各画素が土砂災害警戒区域にあたるかどうかを答えとして出します．</p>
+          <p data-en="As the AI model, we use &lt;strong&gt;YOLOv8&lt;/strong&gt;, which can quickly find objects in an image and cut out their shapes. The map images are made from a &lt;strong&gt;Digital Elevation Model (DEM)&lt;/strong&gt;, data that records the height of the ground surface on a fine grid.">AI のモデルには，画像の中の物体をすばやく見つけ，その形まで切り出せる <strong>YOLOv8</strong> を用います．地図画像は，地面の高さを細かな格子ごとに記録した<strong>数値標高モデル（Digital Elevation Model; DEM）</strong>をもとに作ります．</p>
 
           <h2 data-en="Research">研究内容</h2>
-          <p data-en="The research proceeds in two steps.">本研究は，大きく2つの段階で行います．</p>
+          <p data-en="The aim of this research is to improve the accuracy of AI-based estimation of sediment disaster prone areas. The research proceeds in two steps.">本研究では，AI による土砂災害警戒区域の推定精度を向上させることを目的としています．本研究は，大きく2つの段階で行います．</p>
           <ol class="point-list">
-            <li data-en="&lt;strong&gt;Training and validation:&lt;/strong&gt; map images are paired with the extent of the sediment disaster prone areas and given to YOLOv8, which learns how to find the areas. During training, we check how well the model finds the areas on images not used for training (validation), and adjust it accordingly."><strong>学習と検証：</strong>地図画像と，そこに含まれる土砂災害警戒区域の範囲を組にして YOLOv8 に与え，区域の見つけ方を学ばせます．学習の途中では，学習に使っていない画像で区域を正しく見つけられるかを確かめ（検証），モデルを調整します．</li>
-            <li data-en="&lt;strong&gt;Testing and evaluation:&lt;/strong&gt; map images used for neither training nor validation are fed into the trained model, and we evaluate how accurately it estimates the areas."><strong>テストと評価：</strong>学習にも検証にも使っていない地図画像を，学習を終えたモデルに入力します．そして，区域をどれだけ正しく推定できるかを評価します．</li>
+            <li data-en="&lt;strong&gt;Training:&lt;/strong&gt; map images and the actual sediment disaster prone areas are given to the AI, which learns the features of the areas."><strong>学習：</strong>地図画像と，実際の土砂災害警戒区域を AI に与え，区域の特徴を学ばせます．</li>
+            <li data-en="&lt;strong&gt;Estimation and evaluation:&lt;/strong&gt; the trained AI estimates the areas on map images not used for training. We then evaluate its accuracy by how well the estimates match the actual areas."><strong>推定と評価：</strong>学習を終えた AI に，学習に使っていない地図画像から区域を推定させます．そして，推定した区域が実際の区域とどれだけ一致するかで，精度を評価します．</li>
           </ol>
-          <p data-en="Because the areas have no fixed shape, the key is how clearly the map image shows the terrain features the AI can use as clues. This research focuses on how to generate map images from a &lt;strong&gt;Digital Elevation Model (DEM)&lt;/strong&gt; — data that records the height of the ground surface on a fine grid — and on how to overlay those images. &lt;span class=&quot;todo&quot;&gt;[To be confirmed: what is overlaid]&lt;/span&gt;">区域の形に決まりがないため，AI が手がかりにできる地形の特徴を，地図画像の中にどれだけはっきり表せるかが鍵となります．本研究では，地面の高さを細かな格子ごとに記録した<strong>数値標高モデル（Digital Elevation Model; DEM）</strong>から地図画像を生成する方法と，画像の重ね合わせ方に着目しています．<span class="todo">【要確認：何と何を重ね合わせるか】</span></p>
           <figure>
-            <div class="placeholder">図2：研究の全体像<br>（あとで差し替え）</div>
-            <figcaption data-en="Figure 2: Overview of the research. Map images are fed into YOLOv8 for training, and the trained model is then evaluated on test images.">図2：研究の全体像．地図画像を YOLOv8 に入力して学習させ，学習を終えたモデルをテスト用の画像で評価します．</figcaption>
+            <div class="placeholder">図1：研究の流れ<br>（あとで差し替え）</div>
+            <figcaption data-en="Figure 1: The flow of the research. The AI first learns the features of sediment disaster prone areas, then estimates the areas, and its accuracy is evaluated.">図1：研究の流れ．AI に土砂災害警戒区域の特徴を学習させたあと，区域を推定させて精度を評価します．</figcaption>
           </figure>
-
-          <h2 data-en="Future work">今後の展望</h2>
-          <p data-en="Going forward, we will work on generating more effective map images from the DEM. By creating map images in which terrain features stand out more clearly, we aim to improve the accuracy of the estimation.">今後は，DEM から，より効果的な地図画像を生成する方法に取り組みます．地形の特徴がよりはっきり表れる地図画像を作ることで，推定の精度向上を目指します．</p>
-          <p data-en="We will also incorporate the conditions used to designate sediment disaster prone areas into the machine learning model. Areas are designated according to set conditions based on terrain and other factors. By building these conditions into the model, we aim for estimates that follow how areas are actually designated, leading to the automation of designation and the discovery of overlooked risk areas.">さらに，土砂災害警戒区域の指定条件を，機械学習モデルに取り入れます．区域の指定には，地形などにもとづく決められた条件があります．この条件をモデルに組み込むことで，実際の指定の考え方に沿った推定を可能にし，区域の指定の自動化と，見落とされた危険な場所の発見につなげることを目指します．</p>
-
-          <h2 data-en="Publications">研究業績</h2>
-          <ol>
-            <li>山下 旺亮 他，「<span class="todo">【要確認：論文タイトル】</span>」，<span class="todo">第XX回</span>ファジィシステムシンポジウム（FSS2026），2026．</li>
-            <li lang="en">O. Yamashita et al., “<span class="todo">【要確認：論文タイトル】</span>,” <i>Proc. International Conference on Innovative Computing, Information and Control (ICICIC)</i>, pp. <span class="todo">【要確認】</span>, 2025.</li>
-          </ol>
 
           <div class="btn-row">
             <a class="btn btn--outline" href="index.html" data-en="← Back to home">← ホームへ戻る</a>
