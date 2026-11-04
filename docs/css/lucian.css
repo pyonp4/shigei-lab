@@ -649,6 +649,7 @@
 
 .pin-photos img:first-child:nth-last-child(3) {
   aspect-ratio: 16 / 8;
+  object-position: 50% 0;   /* 横長に切るときは写真の上側（人の顔のある側）を残す */
 }
 
 /* 進み具合のバー */
