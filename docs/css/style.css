@@ -893,18 +893,13 @@ main .container {
   margin: 0;
 }
 
-/* 行事ごとの写真（枚数にかかわらず1列に等分して並べる。比率は 4:3 にそろえる） */
+/* 行事ごとの写真（2列。1枚だけのときは元の比率で大きく、3枚のときは1枚目を上に大きく出す）
+   JavaScript が動くときは lucian.css でカードの反対側に移る */
 .timeline-photos {
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(0, 1fr);
-  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
   margin-top: 16px;
-}
-
-.timeline-photos figure,
-.event-gallery figure {
-  margin: 0;
 }
 
 .timeline-photos img {
@@ -912,22 +907,16 @@ main .container {
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
+  border-radius: 12px;
 }
 
-.timeline-photos figcaption {
-  margin-top: 6px;
+.timeline-photos img:only-child {
+  grid-column: 1 / -1;
+  aspect-ratio: auto;
 }
 
-/* スマホでは2列にし、3枚のときは1枚目を上に大きく出す */
-@media (max-width: 560px) {
-  .timeline-photos {
-    grid-auto-flow: row;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .timeline-photos figure:first-child:nth-last-child(3) {
-    grid-column: 1 / -1;
-  }
+.timeline-photos img:first-child:nth-last-child(3) {
+  grid-column: 1 / -1;
 }
 
 /* 研究室のひとこま（写真の比率はそのまま、段組みで並べる） */
@@ -937,15 +926,12 @@ main .container {
   margin-bottom: 48px;
 }
 
-.event-gallery figure {
-  break-inside: avoid;
-  margin-bottom: 20px;
-}
-
 .event-gallery img {
   display: block;
   width: 100%;
   height: auto;
+  margin-bottom: 16px;
+  break-inside: avoid;
 }
 
 /* ---------- ゼミ紹介（表） ---------- */

@@ -420,6 +420,8 @@
     const evs = Array.from(tl.querySelectorAll(":scope > li"));
     evs.forEach((li) => {
       li.classList.add("u370-ev");
+      // 行事の写真（.timeline-photos）はカードに入れず、線をはさんだ反対側の空いているところに置く
+      const ph = li.querySelector(":scope > .timeline-photos");
       const cd = document.createElement("div");
       cd.className = "u370-cd";
       cd.append(...li.childNodes);
@@ -427,6 +429,10 @@
       dot.className = "u370-dot";
       dot.setAttribute("aria-hidden", "true");
       li.append(dot, cd);
+      if (ph) {
+        ph.classList.add("u370-ph");
+        li.append(ph);
+      }
     });
 
     // 動きを減らす設定のときは、最初からすべて点灯した状態で表示する

@@ -573,6 +573,8 @@
 
 .timeline.u370 li.u370-ev {
   position: relative;
+  display: flex;
+  align-items: flex-start;
   min-height: 150px;
   padding: 0 0 32px;
 }
@@ -630,6 +632,33 @@ li.u370-ev:nth-of-type(even) .u370-cd {
   transform: none;
 }
 
+/* 行事の写真：カードと線をはさんだ反対側に置き、カードと一緒に外側から滑り込む */
+.u370-ph.timeline-photos {
+  flex: none;
+  width: calc(50% - 40px);
+  margin: 0 0 0 auto;
+}
+
+li.u370-ev:nth-of-type(even) .u370-ph {
+  order: -1;
+  margin: 0 auto 0 0;
+}
+
+.lx-js .u370-ph {
+  opacity: 0;
+  transform: translateX(24px);
+  transition: opacity 0.4s 0.1s, transform 0.6s 0.1s var(--ux-spring);
+}
+
+.lx-js li.u370-ev:nth-of-type(even) .u370-ph {
+  transform: translateX(-24px);
+}
+
+.lx-js li.u370-ev.on:nth-of-type(n) .u370-ph {
+  opacity: 1;
+  transform: none;
+}
+
 .u370 .timeline-month {
   display: block;
   font-size: 1.4rem;
@@ -658,8 +687,19 @@ li.u370-ev:nth-of-type(even) .u370-cd {
   }
 
   .timeline.u370 li.u370-ev {
+    display: block;
     min-height: 0;
     padding-bottom: 24px;
+  }
+
+  /* 写真はカードの下に並べる */
+  li.u370-ev:nth-of-type(n) .u370-ph {
+    width: auto;
+    margin: 12px 0 0 44px;
+  }
+
+  .lx-js li.u370-ev:nth-of-type(n) .u370-ph {
+    transform: translateX(24px);
   }
 }
 
