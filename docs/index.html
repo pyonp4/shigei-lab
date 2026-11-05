@@ -163,9 +163,10 @@
         </div>
         <!-- Lucian UX/UI Prompt #389（横に開くパネル）：カーソルを合わせる・フォーカスする・タップすると、そのパネルが広がる
              ←/→ キーでも移動できる。パネル全体が各ページへのリンク（タップでは1回目で開き、2回目でページへ移動）
-             背景は --bg で指定。写真ができたら url("images/ファイル名.jpg") center / cover に差し替える -->
+             背景は --bg で指定。写真ができたら url("images/ファイル名.jpg") center / cover に差し替える
+             図を背景にする場合は，lucian.css の .u389-p--surgery のようにクラスで指定する（文字が図に重ならないよう，図は上側に置く） -->
         <div class="ux u389" role="group" aria-labelledby="research-title">
-          <a class="u389-p" href="research1.html" style="--bg:radial-gradient(60% 40% at 70% 20%,rgba(125,180,255,.45),transparent 70%),linear-gradient(#3d6fc4,#1d4185 50%,#0a1f44)">
+          <a class="u389-p u389-p--surgery" href="research1.html">
             <span class="u389-lb" data-en="AI-based surgical skill assessment">AIによる手術手技スキルの推定</span>
             <span class="u389-ds">
               <small data-en="Medicine × AI">医療 × AI</small>

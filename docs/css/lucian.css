@@ -766,6 +766,14 @@
   flex-grow: 5;
 }
 
+/* 「AIによる手術手技スキルの推定」：研究ページの図2を上側に置き，下側（文字の部分）は紺色にする */
+.u389-p--surgery {
+  background:
+    linear-gradient(transparent 45%, #0a1f44 68%),
+    url("../images/research1/fig2_overview.svg") center top / 100% auto no-repeat,
+    #0a1f44;
+}
+
 /* 下側を暗くして、白い文字を読みやすくする */
 .u389-p::after {
   content: "";
@@ -873,6 +881,14 @@
 
   .u389-p.on {
     height: 280px;
+  }
+
+  /* 開いても高さが低いので，図は小さくして上の部分だけに置く */
+  .u389-p--surgery {
+    background:
+      linear-gradient(transparent 26%, #0a1f44 36%),
+      url("../images/research1/fig2_overview.svg") center top / auto 34% no-repeat,
+      #0a1f44;
   }
 
   .u389-lb {
