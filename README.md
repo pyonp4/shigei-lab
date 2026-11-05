@@ -23,6 +23,8 @@
 
 研究紹介ページを新しく作るときは [RESEARCH_GUIDE.md](RESEARCH_GUIDE.md) を見る。お手本（research1.html）と同じ構成・文体で書くための質問リスト、文章のルール、AI に下書きを頼むときのプロンプトがある。Claude Code を使う場合は `/research-page` でも同じ手順で作れる。
 
+研究のイメージ画像を、研究紹介一覧のカードとトップの研究紹介パネルに入れるときは `/research-image` を使う（手順は [claude/skills/research-image/SKILL.md](claude/skills/research-image/SKILL.md)）。
+
 ## 作業ルール
 
 - 自分の担当ページのファイルだけを編集する
