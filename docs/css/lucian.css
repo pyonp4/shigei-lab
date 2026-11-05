@@ -766,12 +766,43 @@
   flex-grow: 5;
 }
 
-/* 「AIによる手術手技スキルの推定」：研究ページの図2を上側に置き，下側（文字の部分）は紺色にする */
+/* 「AIによる手術手技スキルの推定」：研究ページの図2を背景にする
+   図は ::before に置く（背景画像は回転できないため）。紺色の重ねは ::after（元の .u389-p::after より後ろに効くよう .u389-p を重ねて指定）。パネルの大きさは container-type で cqw・cqh として使う
+   ・閉じた細いパネル：図を90度回して横向きにし，帯いっぱいに広げる。縦書きの名前が読めるよう紺色を重ねる
+   ・開いたパネル：図を上側に置き，下側（文字の部分）は紺色にする */
 .u389-p--surgery {
-  background:
-    linear-gradient(transparent 45%, #0a1f44 68%),
-    url("../images/research1/fig2_overview.svg") center top / 100% auto no-repeat,
-    #0a1f44;
+  container-type: size;
+  background: #0a1f44;
+}
+
+.u389-p--surgery::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100cqh;
+  height: 100cqw;
+  background: url("../images/research1/fig2_overview.svg") center / cover no-repeat #fff;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  pointer-events: none;
+}
+
+.u389-p.u389-p--surgery::after {
+  background: rgba(10, 31, 68, 0.82);
+}
+
+.u389-p--surgery.on::before {
+  top: 0;
+  left: 0;
+  width: 100cqw;
+  height: calc(100cqw * 640 / 1120);   /* 図の縦横比（1120×640）のまま */
+  background-size: 100% auto;
+  background-position: center top;
+  transform: none;
+}
+
+.u389-p.u389-p--surgery.on::after {
+  background: linear-gradient(transparent 45%, #0a1f44 68%);
 }
 
 /* 下側を暗くして、白い文字を読みやすくする */
@@ -883,12 +914,26 @@
     height: 280px;
   }
 
-  /* 開いても高さが低いので，図は小さくして上の部分だけに置く */
-  .u389-p--surgery {
-    background:
-      linear-gradient(transparent 26%, #0a1f44 36%),
-      url("../images/research1/fig2_overview.svg") center top / auto 34% no-repeat,
-      #0a1f44;
+  /* スマホではパネルが横長なので図は回さない
+     閉じた帯：図を帯いっぱいに広げる。開いたとき：高さが低いので，図は小さくして上の部分だけに置く */
+  .u389-p--surgery::before {
+    top: 0;
+    left: 0;
+    width: 100cqw;
+    height: 100cqh;
+    transform: none;
+  }
+
+  .u389-p--surgery.on::before {
+    left: 50%;
+    width: calc(34cqh * 1120 / 640);
+    height: 34cqh;
+    background-size: cover;
+    transform: translateX(-50%);
+  }
+
+  .u389-p.u389-p--surgery.on::after {
+    background: linear-gradient(transparent 26%, #0a1f44 36%);
   }
 
   .u389-lb {
