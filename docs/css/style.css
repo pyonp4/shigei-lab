@@ -649,6 +649,11 @@ figure {
   margin: 0 0 1.5em;
 }
 
+/* 図の画像は本文の横幅いっぱいに表示する */
+figure > img {
+  width: 100%;
+}
+
 figcaption {
   font-size: 0.875rem;
   color: var(--color-text-sub);
