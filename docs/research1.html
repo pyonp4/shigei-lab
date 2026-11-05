@@ -106,7 +106,7 @@
           <p data-en="If AI could assess surgical skill automatically from video, every operation could be evaluated by the same criteria, objectively and efficiently. Young surgeons would also be able to get feedback quickly after each operation.">もし AI が手術映像から技術を自動で評価できれば，すべての手術を同じ基準で，客観的かつ効率的に評価できるようになります．若手医師も，手術のたびにすばやくフィードバックを得られるようになります．</p>
 
           <h2 data-en="Action Recognition in Surgical Video: Temporal Action Segmentation">手術映像の行動認識：時系列行動セグメンテーション</h2>
-          <p data-en="To assess skill, the AI first needs to know what the surgeon is doing, and when. Skill shows up in each operation — how carefully tissue is dissected, how smoothly a vessel is clipped. This research therefore tackles &lt;strong&gt;Temporal Action Segmentation (TAS)&lt;/strong&gt;: the task of estimating, for every frame of a surgical video, which operation (such as dissecting tissue, clipping or cutting a vessel, or stopping bleeding) is being performed.">技術を評価するには，まず AI が「医師が，いつ，何をしているか」を把握できなければなりません．技術の良し悪しは，組織をどう丁寧に剥がすか，血管をどう手際よく処理するかといった，一つひとつの操作に表れるからです．そこで本研究では，手術映像の各フレームについて，「組織を剥がす」「血管をクリップで留める」「血管を切る」「止血する」といった操作のうち，どれを行っているかを推定する<strong>時系列行動セグメンテーション（Temporal Action Segmentation; TAS）</strong>に取り組んでいます．</p>
+          <p data-en="To assess skill, the AI first needs to know what the surgeon is doing, and when. Skill shows up in each operation — how carefully tissue is dissected, how smoothly a vessel is clipped. This research therefore tackles &lt;strong&gt;Temporal Action Segmentation (TAS)&lt;/strong&gt;: the task of estimating, for every frame of a surgical video, which operation (such as dissecting tissue (Dissection), clipping a vessel (Clip), cutting a vessel (Cut), or stopping bleeding (Hemostasis)) is being performed.">技術を評価するには，まず AI が「医師が，いつ，何をしているか」を把握できなければなりません．技術の良し悪しは，組織をどう丁寧に剥がすか，血管をどう手際よく処理するかといった，一つひとつの操作に表れるからです．そこで本研究では，手術映像の各フレームについて，「組織を剥がす（Dissection）」「血管をクリップで留める（Clip）」「血管を切る（Cut）」「止血する（Hemostasis）」といった操作のうち，どれを行っているかを推定する<strong>時系列行動セグメンテーション（Temporal Action Segmentation; TAS）</strong>に取り組んでいます．</p>
           <p data-en="TAS on surgical video is difficult because many operations look alike: the difference often lies only in subtle movements of the instruments.">手術映像の TAS が難しいのは，見た目の似た操作が多く，その違いが器具のわずかな動きにしか表れない点にあります．</p>
           <figure>
             <div class="placeholder">図1：時系列行動セグメンテーションの例<br>（あとで差し替え）</div>
@@ -126,13 +126,14 @@
           </figure>
 
           <h2 data-en="Future work">今後の展望</h2>
-          <p data-en="Going forward, we will work to improve recognition of operations that are currently hard to distinguish. For operations whose appearance and motion differ only slightly, such as blunt and sharp dissection, better feature representations and training methods are needed to capture those differences.">今後は，現状では見分けることが難しい操作の認識精度の向上に取り組みます．例えば，鈍的剥離と鋭的剥離のように外観や動作の差が小さい操作については，その違いを捉えるための特徴表現や学習方法の改善が必要です．</p>
+          <p data-en="Going forward, we will work to improve recognition of operations that are currently hard to distinguish. For operations whose appearance and motion differ only slightly, such as blunt and sharp dissection, better feature representations and training methods are needed to capture those differences.">今後は，現状では見分けることが難しい操作の認識精度の向上に取り組みます．例えば，鈍的剥離（Blunt dissection）と鋭的剥離（Sharp dissection）のように外観や動作の差が小さい操作については，その違いを捉えるための特徴表現や学習方法の改善が必要です．</p>
           <p data-en="We will also connect the results of action recognition to the assessment of surgical skill. From the recognized sequence of operations, we can obtain information such as the order of operations, the time spent on each, and how often the surgeon switches between them. Using these as cues, we aim to build a framework that assesses surgeon skill automatically and objectively, and to apply it to supporting the training of young surgeons.">さらに，行動認識の結果を手術技術の評価へとつなげます．認識した操作の系列からは，各操作の順序や所要時間，操作の切り替わりの頻度といった情報が得られます．これらを手がかりに，術者の技術を自動かつ客観的に評価する枠組みの構築と，若手外科医の教育支援への応用を目指します．</p>
 
           <h2 data-en="Publications">研究業績</h2>
           <ol>
-            <li lang="en">H. Eto et al., “Improving CETNet-Based Temporal Action Segmentation through Downsampling-Based Data Augmentation in Laparoscopic Surgery Videos,” <i>Proc. International Symposium on Artificial Life and Robotics (AROB)</i>, pp. 100–105, 2026.</li>
-            <li>江藤 遥香 他，「腹腔鏡下外科手術映像の時系列行動セグメンテーションにおける VideoMAE V2 特徴の有効性の検証」，<span class="todo">第XX回</span>ファジィシステムシンポジウム，2026．</li>
+            <li lang="en">H. Eto et al., “Improving CETNet-Based Temporal Action Segmentation through Downsampling-Based Data Augmentation in Laparoscopic Surgery Videos,” Proceedings of the International Symposium on Artificial Life and Robotics (AROB), pp. 100–105, 2026.</li>
+            <li>江藤 遥香 他，“腹腔鏡下外科手術映像の時系列行動セグメンテーションにおける VideoMAE V2 特徴の有効性の検証，” 第42回ファジィシステムシンポジウム講演論文集，pp. 596–601，2026．</li>
+            <li lang="en">T. Hidaka et al., “Proposal of Ensemble Method for Action Segmentation in Laparoscopic Surgery Videos,” Journal of Japan Society for Fuzzy Theory and Intelligent Informatics, vol. 37, no. 1, pp. 571–576, 2025.</li>
           </ol>
 
           <div class="btn-row">
