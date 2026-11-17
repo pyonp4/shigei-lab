@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-en="Research on Improving the Detection Accuracy of Fine Cracks Using Machine Learning | Shigei Lab">機械学習を用いた微細ひび割れの検出精度向上に関する研究 | 重井研究室</title>
+  <meta name="description" content="コンクリート構造物の画像からひび割れを AI で検出し，微細なひび割れの見逃しや誤検出を減らして検出精度の向上を目指す研究の紹介ページです．">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/lucian.css">
+  <script>document.documentElement.classList.add("lx-js"); // Lucian の登場アニメーション用（JavaScript が動くときだけ最初に隠す）</script>
+  <script>
+    // 保存した文字サイズを、表示する前に反映する（ちらつき防止）。まだ選んでいない人は「小」で表示する
+    var fs = "small"; try { fs = localStorage.getItem("fontSize") || "small"; } catch (e) {} if (fs === "small" || fs === "large") document.documentElement.dataset.fontSize = fs;
+  </script>
+  <script src="js/lucian.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+
+  <a class="skip-link" href="#main" data-en="Skip to main content">本文へスキップ</a>
+
+  <!-- ===== ヘッダー（全ページ共通） ===== -->
+  <header class="site-header">
+    <div class="container">
+      <a class="site-logo" href="index.html" data-en="Shigei Lab">重井研究室</a>
+      <nav class="global-nav" id="global-nav" aria-label="メインメニュー">
+        <ul>
+          <li><a href="index.html" data-en="Home">ホーム</a></li>
+          <li><a href="news.html" data-en="News">ニュース</a></li>
+          <li class="has-submenu">
+            <a href="research.html" class="is-current" data-en="Research">研究紹介</a>
+            <ul class="submenu">
+              <li><a href="research.html#vision" data-en="Image &amp; Video Recognition">画像・映像識別</a></li>
+              <li><a href="research.html#iot" data-en="IoT">IoT</a></li>
+              <li><a href="research.html#nlp" data-en="Natural Language Processing">自然言語処理</a></li>
+              <li><a href="research.html#ee" data-en="Electrical &amp; Electronic Engineering">電気・電子</a></li>
+            </ul>
+          </li>
+          <li><a href="seminar.html" data-en="Seminars">ゼミ紹介</a></li>
+          <li><a href="events.html" data-en="Events">行事紹介</a></li>
+          <li><a href="members.html" data-en="Members">メンバー</a></li>
+          <li><a href="careers.html" data-en="Careers">就職先</a></li>
+        </ul>
+      </nav>
+      <!-- 言語と文字サイズの切り替え（スマホではヘッダーの2段目に並ぶ） -->
+      <div class="header-tools">
+        <div class="lang-switch" role="group" aria-label="言語 / Language">
+          <button type="button" data-lang="ja" aria-pressed="true">JA</button>
+          <span aria-hidden="true">/</span>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <!-- 文字サイズ：「文字サイズ」にカーソルを合わせる（または押す）と小・中・大が開く -->
+        <div class="font-menu">
+          <button type="button" class="font-menu__toggle" aria-expanded="false" aria-controls="font-menu-list"><span data-en="Text size">文字サイズ</span></button>
+          <ul class="font-menu__list" id="font-menu-list">
+            <li><button type="button" data-font-size="small" aria-pressed="true" data-en="Small">小</button></li>
+            <li><button type="button" data-font-size="medium" aria-pressed="false" data-en="Medium">中</button></li>
+            <li><button type="button" data-font-size="large" aria-pressed="false" data-en="Large">大</button></li>
+          </ul>
+        </div>
+      </div>
+      <button class="menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="global-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <nav class="breadcrumb" aria-label="現在位置">
+      <div class="container">
+        <ol>
+          <li><a href="index.html" data-en="Home">ホーム</a></li>
+          <li><a href="research.html" data-en="Research">研究紹介</a></li>
+          <li><a href="research.html#vision" data-en="Image &amp; Video Recognition">画像・映像識別</a></li>
+          <li aria-current="page" data-en="Detecting fine cracks">微細ひび割れの検出</li>
+        </ol>
+      </div>
+    </nav>
+
+    <section class="hero page-hero">
+      <div class="container">
+        <span class="label" data-en="Infrastructure Management × AI">インフラ管理 × AI</span>
+        <h1 data-en="Research on Improving the Detection Accuracy of Fine Cracks Using Machine Learning">機械学習を用いた微細ひび割れの検出精度向上に関する研究</h1>
+        <p lang="en">Research on Improving the Detection Accuracy of Fine Cracks Using Machine Learning</p>
+        <p data-en="Researcher: &lt;span class=&quot;todo&quot;&gt;[To be confirmed: name in English]&lt;/span&gt;">担当：黒木 勘太郎</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container research-layout">
+        <div class="article">
+          <div class="lead-box" data-en="We aim to improve detection accuracy by using AI to detect cracks in images of concrete structures, reducing missed and false detections of fine cracks.">コンクリート構造物の画像からひび割れを AI で検出し，微細なひび割れの見逃しや誤検出を減らして，検出精度の向上を目指す</div>
+
+          <p data-en="&lt;strong&gt;Keywords:&lt;/strong&gt;&lt;br&gt;Machine Learning／Image Segmentation／YOLOv8-seg／Crack"><strong>キーワード：</strong><br>機械学習／画像セグメンテーション／YOLOv8-seg／ひび割れ</p>
+
+          <h2 data-en="Introduction">はじめに</h2>
+          <p data-en="Concrete structures such as bridges and tunnels deteriorate over the years, and cracks appear on their surfaces. Finding cracks early is important for using structures safely. At present, cracks are mainly inspected visually by people.">橋やトンネルなどのコンクリート構造物は，年月とともに劣化し，表面にひび割れが生じます．ひび割れを早く見つけることは，構造物を安全に使い続けるために大切です．現在，ひび割れの点検は主に，人が目で見て確かめる目視点検で行われています．</p>
+          <p data-en="However, visual inspection takes a great deal of effort and time. If AI could detect cracks in images, it is expected to reduce the effort and time of inspection and contribute to the efficient maintenance of infrastructure.">しかし，目視点検には多くの労力と時間がかかります．もし AI が画像からひび割れを検出できれば，点検にかかる労力と時間を減らし，インフラの効率的な維持管理に貢献できると期待されます．</p>
+
+          <h2 data-en="Crack Area Detection: Image Segmentation">ひび割れの領域検出：画像セグメンテーション</h2>
+          <p data-en="Cracks are thin lines with irregular shapes. This research therefore tackles &lt;strong&gt;image segmentation&lt;/strong&gt;: the task of examining an image pixel by pixel and deciding whether each pixel is part of a crack. As the AI model, we use &lt;strong&gt;YOLOv8-seg&lt;/strong&gt;, a model that can find objects in an image and cut out their shapes pixel by pixel.">ひび割れは，細く，形の決まっていない線です．そこで本研究では，画像を細かな点（画素）の単位で見て，それぞれの画素がひび割れかどうかを判別する<strong>画像セグメンテーション（Image Segmentation）</strong>に取り組んでいます．AI のモデルには，画像の中の物体を見つけ，その形を画素の単位で切り出せる <strong>YOLOv8-seg</strong> を用います．</p>
+          <figure>
+            <img src="images/research6/fig1.jpg" width="640" height="640" alt="コンクリート表面の写真．縦に走るひび割れが赤く着色され，crack と書かれた赤い枠で囲まれている．">
+            <figcaption data-en="Figure 1: An example of crack detection on a concrete surface by YOLOv8-seg. The red boxes and coloured areas show where the model predicted cracks.">図1：YOLOv8-seg によるコンクリート表面のひび割れ検出例．赤色の枠や着色部分は，モデルがひび割れと予測した箇所を示します．</figcaption>
+          </figure>
+
+          <h2 data-en="Research">研究内容</h2>
+          <p data-en="The aim of this research is to reduce missed and false detections of fine cracks by machine learning and improve detection accuracy. The research proceeds in two steps.">本研究では，機械学習による微細なひび割れの見逃しや誤検出を減らし，検出精度を向上させることを目的としています．本研究は，大きく2つの段階で行います．</p>
+          <ol class="point-list">
+            <li data-en="&lt;strong&gt;Training:&lt;/strong&gt; images of cracks are given to the AI, which learns the features of cracks."><strong>学習：</strong>ひび割れが写った画像を AI に与え，ひび割れの特徴を学ばせます．</li>
+            <li data-en="&lt;strong&gt;Detection and evaluation:&lt;/strong&gt; the AI detects cracks in test images not used for training, and its accuracy is evaluated."><strong>検出と評価：</strong>学習に使っていないテスト画像からひび割れを検出し，精度を評価します．</li>
+          </ol>
+
+          <h2 data-en="References">参考文献</h2>
+          <ol>
+            <li>川畑 琉皇，「深層学習によるひび割れ検出とひび割れ幅推定に関する研究」，鹿児島大学大学院理工学研究科 修士論文，2026年3月．</li>
+          </ol>
+
+          <div class="btn-row">
+            <a class="btn btn--outline" href="index.html" data-en="← Back to home">← ホームへ戻る</a>
+          </div>
+        </div>
+
+        <!-- ===== 右側：他の研究へのリンク（スマホ・タブレットでは本文の下に並ぶ） ===== -->
+        <aside class="research-side" aria-labelledby="research-side-title">
+          <h2 class="research-side__title" id="research-side-title" data-en="Other research">他の研究</h2>
+          <ul class="research-side__list">
+            <li>
+              <a href="research1.html">
+                <span class="research-side__tag" data-en="Medicine × AI">医療 × AI</span>
+                <span data-en="Surgical Video Understanding for Quantifying Surgical Skill">手術映像理解による外科手技の定量化</span>
+              </a>
+            </li>
+            <li>
+              <a href="research2.html">
+                <span class="research-side__tag" data-en="Disaster × AI">災害 × AI</span>
+                <span data-en="Estimation of Sediment Disaster Prone Areas Using YOLOv8 from Map Images">YOLOv8 を用いた地図画像からの土砂災害警戒区域の推定</span>
+              </a>
+            </li>
+            <li>
+              <a href="research3.html">
+                <span class="research-side__tag" data-en="Robotics × Computer Vision">ロボット工学 × コンピュータビジョン</span>
+                <span data-en="Evaluation of Localization Accuracy and Stability in Visual SLAM Using RGB-D and Stereo Cameras">RGB-D・ステレオカメラを用いた Visual SLAM の自己位置推定精度と安定性の評価</span>
+              </a>
+            </li>
+            <li>
+              <a href="research4.html">
+                <span class="research-side__tag" data-en="Electric Circuits × AI">電気回路 × AI</span>
+                <span data-en="Data-Driven Modeling of Inductors">インダクタのデータ駆動モデリング</span>
+              </a>
+            </li>
+            <li>
+              <a href="research5.html">
+                <span class="research-side__tag" data-en="Cultural Heritage Conservation × AI">文化財保全 × AI</span>
+                <span data-en="Streamlining the Stability Assessment of Kumamoto Castle’s Stone Walls Using Machine Learning">熊本城石垣の安定性評価における機械学習を用いた省力化</span>
+              </a>
+            </li>
+          </ul>
+          <h2 class="research-side__title" data-en="Browse by area">研究分野から探す</h2>
+          <ul class="research-side__list">
+            <li><a href="research.html#vision" data-en="Image &amp; Video Recognition">画像・映像識別</a></li>
+            <li><a href="research.html#iot">IoT</a></li>
+            <li><a href="research.html#nlp" data-en="Natural Language Processing">自然言語処理</a></li>
+            <li><a href="research.html#ee" data-en="Electrical &amp; Electronic Engineering">電気・電子</a></li>
+          </ul>
+          <a class="view-more" href="research.html" data-en="All research">研究紹介の一覧へ</a>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== お問い合わせ（全ページ共通・フッターの直前） ===== -->
+  <!-- 背景写真は images/contact.jpg に置くと表示されます（無い場合はネイビー一色） -->
+  <section class="contact-cta contact-cta--split" aria-labelledby="contact-cta-title">
+    <div class="container contact-cta__inner">
+      <div class="contact-cta__main">
+        <h2 class="contact-cta__title" id="contact-cta-title">Contact</h2>
+        <p class="contact-cta__sub" data-en="Get in touch">お問い合わせ</p>
+        <p class="contact-cta__text" data-en="For enquiries about joining the lab,&lt;br&gt;joint research, or media coverage,&lt;br&gt;please contact us below.">当研究室への配属・進学のご希望，<br>共同研究や取材のご相談は<br>下記よりお問い合わせください．</p>
+        <a class="btn btn--ghost" href="contact.html">Contact us</a>
+      </div>
+      <!-- 関連リンクのバナー：1つの <li> が1枚（色や模様は css/style.css の .link-banner--名前 で指定）
+           左半分（紺）に Contact、右半分（淡い色）にバナーを 2×2 で並べる -->
+      <nav class="link-banners" aria-labelledby="link-banners-title">
+        <h2 class="link-banners__title" id="link-banners-title">Links<span data-en="Related links">関連リンク</span></h2>
+        <ul class="link-banners__list">
+          <li><a class="link-banner link-banner--kadai" href="https://www.kagoshima-u.ac.jp/" target="_blank" rel="noopener">
+            <span class="link-banner__kicker" data-en="National University Corporation">国立大学法人</span>
+            <span class="link-banner__name" data-en="Kagoshima University">鹿児島大学</span>
+            <span class="link-banner__sub" aria-hidden="true">KAGOSHIMA UNIVERSITY</span>
+            <span class="link-banner__more" aria-hidden="true" data-en="Visit site">サイトを見る</span>
+            <span class="visually-hidden" data-en="(opens in a new tab)">（新しいタブで開きます）</span>
+          </a></li>
+          <li><a class="link-banner link-banner--eng" href="https://www.eng.kagoshima-u.ac.jp/" target="_blank" rel="noopener">
+            <span class="link-banner__kicker" data-en="Kagoshima University">鹿児島大学</span>
+            <span class="link-banner__name" data-en="Faculty of Engineering">工学部</span>
+            <span class="link-banner__sub" aria-hidden="true">FACULTY OF ENGINEERING</span>
+            <span class="link-banner__more" aria-hidden="true" data-en="Visit site">サイトを見る</span>
+            <span class="visually-hidden" data-en="(opens in a new tab)">（新しいタブで開きます）</span>
+          </a></li>
+          <li><a class="link-banner link-banner--grad" href="https://grad.eng.kagoshima-u.ac.jp/" target="_blank" rel="noopener">
+            <span class="link-banner__kicker" data-en="Kagoshima University">鹿児島大学大学院</span>
+            <span class="link-banner__name" data-en="Graduate School of Science and Engineering">理工学研究科</span>
+            <span class="link-banner__sub" aria-hidden="true">GRADUATE SCHOOL OF SCIENCE AND ENGINEERING</span>
+            <span class="link-banner__more" aria-hidden="true" data-en="Visit site">サイトを見る</span>
+            <span class="visually-hidden" data-en="(opens in a new tab)">（新しいタブで開きます）</span>
+          </a></li>
+          <li><a class="link-banner link-banner--nondadon" href="https://main.d1z06gvf79o0ov.amplifyapp.com/" target="_blank" rel="noopener">
+            <span class="link-banner__kicker" data-en="Spreading shochu, digitally.">デジタルで，焼酎を広げる．</span>
+            <span class="link-banner__name" data-en="Nondadon">のんだどん</span>
+            <span class="link-banner__sub" aria-hidden="true">NONDADON</span>
+            <span class="link-banner__more" aria-hidden="true" data-en="Visit site">サイトを見る</span>
+            <span class="visually-hidden" data-en="(opens in a new tab)">（新しいタブで開きます）</span>
+          </a></li>
+        </ul>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ===== フッター（全ページ共通） ===== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="footer-logo" href="index.html" data-en="Shigei Lab">重井研究室</a>
+          <p data-en="Faculty of Engineering, Kagoshima University">鹿児島大学 工学部</p>
+        </div>
+        <ul class="footer-nav">
+          <li><a href="index.html" data-en="Home">ホーム</a></li>
+          <li><a href="news.html" data-en="News">ニュース</a></li>
+          <li><a href="research.html" data-en="Research">研究紹介</a></li>
+          <li><a href="seminar.html" data-en="Seminars">ゼミ紹介</a></li>
+          <li><a href="events.html" data-en="Events">行事紹介</a></li>
+          <li><a href="members.html" data-en="Members">メンバー</a></li>
+          <li><a href="careers.html" data-en="Careers">就職先</a></li>
+          <li><a href="contact.html" data-en="Contact">お問い合わせ</a></li>
+        </ul>
+      </div>
+      <p class="copyright" data-en="© 2026 Shigei Lab, Faculty of Engineering, Kagoshima University / Built by DragonicKing">© 2026 重井研究室（鹿児島大学 工学部） / 制作：DragonicKing</p>
+    </div>
+  </footer>
+
+</body>
+</html>

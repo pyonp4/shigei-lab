@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-en="Data-Driven Modeling of Inductors | Shigei Lab">インダクタのデータ駆動モデリング | 重井研究室</title>
+  <meta name="description" content="回路シミュレーションで作った電流・電圧の波形から，AI でインダクタの等価回路のパラメータを推定する研究の紹介ページです．">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/lucian.css">
+  <script>document.documentElement.classList.add("lx-js"); // Lucian の登場アニメーション用（JavaScript が動くときだけ最初に隠す）</script>
+  <script>
+    // 保存した文字サイズを、表示する前に反映する（ちらつき防止）。まだ選んでいない人は「小」で表示する
+    var fs = "small"; try { fs = localStorage.getItem("fontSize") || "small"; } catch (e) {} if (fs === "small" || fs === "large") document.documentElement.dataset.fontSize = fs;
+  </script>
+  <script src="js/lucian.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+
+  <a class="skip-link" href="#main" data-en="Skip to main content">本文へスキップ</a>
+
+  <!-- ===== ヘッダー（全ページ共通） ===== -->
+  <header class="site-header">
+    <div class="container">
+      <a class="site-logo" href="index.html" data-en="Shigei Lab">重井研究室</a>
+      <nav class="global-nav" id="global-nav" aria-label="メインメニュー">
+        <ul>
+          <li><a href="index.html" data-en="Home">ホーム</a></li>
+          <li><a href="news.html" data-en="News">ニュース</a></li>
+          <li class="has-submenu">
+            <a href="research.html" class="is-current" data-en="Research">研究紹介</a>
+            <ul class="submenu">
+              <li><a href="research.html#vision" data-en="Image &amp; Video Recognition">画像・映像識別</a></li>
+              <li><a href="research.html#iot" data-en="IoT">IoT</a></li>
+              <li><a href="research.html#nlp" data-en="Natural Language Processing">自然言語処理</a></li>
+              <li><a href="research.html#ee" data-en="Electrical &amp; Electronic Engineering">電気・電子</a></li>
+            </ul>
+          </li>
+          <li><a href="seminar.html" data-en="Seminars">ゼミ紹介</a></li>
+          <li><a href="events.html" data-en="Events">行事紹介</a></li>
+          <li><a href="members.html" data-en="Members">メンバー</a></li>
+          <li><a href="careers.html" data-en="Careers">就職先</a></li>
+        </ul>
+      </nav>
+      <!-- 言語と文字サイズの切り替え（スマホではヘッダーの2段目に並ぶ） -->
+      <div class="header-tools">
+        <div class="lang-switch" role="group" aria-label="言語 / Language">
+          <button type="button" data-lang="ja" aria-pressed="true">JA</button>
+          <span aria-hidden="true">/</span>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <!-- 文字サイズ：「文字サイズ」にカーソルを合わせる（または押す）と小・中・大が開く -->
+        <div class="font-menu">
+          <button type="button" class="font-menu__toggle" aria-expanded="false" aria-controls="font-menu-list"><span data-en="Text size">文字サイズ</span></button>
+          <ul class="font-menu__list" id="font-menu-list">
+            <li><button type="button" data-font-size="small" aria-pressed="true" data-en="Small">小</button></li>
+            <li><button type="button" data-font-size="medium" aria-pressed="false" data-en="Medium">中</button></li>
+            <li><button type="button" data-font-size="large" aria-pressed="false" data-en="Large">大</button></li>
+          </ul>
+        </div>
+      </div>
+      <button class="menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="global-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <nav class="breadcrumb" aria-label="現在位置">
+      <div class="container">
+        <ol>
+          <li><a href="index.html" data-en="Home">ホーム</a></li>
+          <li><a href="research.html" data-en="Research">研究紹介</a></li>
+          <li><a href="research.html#ee" data-en="Electrical &amp; Electronic Engineering">電気・電子</a></li>
+          <li aria-current="page" data-en="Data-driven modeling of inductors">インダクタのデータ駆動モデリング</li>
+        </ol>
+      </div>
+    </nav>
+
+    <section class="hero page-hero">
+      <div class="container">
+        <span class="label" data-en="Electric Circuits × AI">電気回路 × AI</span>
+        <h1 data-en="Data-Driven Modeling of Inductors">インダクタのデータ駆動モデリング</h1>
+        <p lang="en">Data-Driven Modeling of Inductors</p>
+        <p data-en="Researcher: &lt;span class=&quot;todo&quot;&gt;[To be confirmed: name in English]&lt;/span&gt;">担当：川﨑 はな</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container research-layout">
+        <div class="article">
+          <div class="lead-box" data-en="We aim to improve the accuracy of circuit parameter estimation by using AI to estimate the parameters of an inductor’s equivalent circuit from waveforms generated by circuit simulation.">回路シミュレーションで作った波形から AI でインダクタの等価回路のパラメータを推定し，回路パラメータ推定の精度向上を目指す</div>
+
+          <p data-en="&lt;strong&gt;Keywords:&lt;/strong&gt;&lt;br&gt;Machine Learning／InceptionTime／SPICE／Electric Circuits／Circuit Modeling"><strong>キーワード：</strong><br>機械学習／InceptionTime／SPICE／電気回路／回路モデリング</p>
+
+          <h2 data-en="Introduction">はじめに</h2>
+          <p data-en="Power electronics is the technology of converting and controlling electric power into the form each device needs. It is used in many devices around us, from smartphone chargers to electric vehicles. Designing such circuits requires circuit models that correctly represent the behaviour of each component.">パワーエレクトロニクスは，電気の電圧や電流を，機器に合った形に変換・制御する技術です．スマートフォンの充電器から電気自動車まで，身の回りの多くの機器に使われています．こうした回路を設計するには，部品のふるまいを正しく表す回路モデルが必要です．</p>
+          <p data-en="However, the early stages of development before building the actual circuit take a great deal of time and effort. If AI could estimate circuit parameters, these costs of time and effort are expected to be reduced.">しかし，実際の回路を作る前の開発の段階（開発前工程）では，多くの時間と労力がかかっています．もし AI で回路パラメータを推定できれば，こうした時間と労力のコストを減らせると期待されます．</p>
+
+          <h2 data-en="Estimation from Time-Series Data: Circuit Parameter Estimation">時系列データからの推定：回路パラメータ推定</h2>
+          <p data-en="This research focuses on the &lt;strong&gt;inductor&lt;/strong&gt; (coil), a component that resists changes in current. A real inductor does not behave like an ideal coil, so it is represented by an &lt;strong&gt;equivalent circuit&lt;/strong&gt; that combines components such as resistors and coils. The values of the components in the equivalent circuit are called circuit parameters.">本研究では，電流の変化をさまたげる性質をもつ部品である<strong>インダクタ</strong>（コイル）を扱います．実際のインダクタは，理想的なコイルとは異なるふるまいをします．そのため，抵抗やコイルなどを組み合わせた回路（<strong>等価回路</strong>）で表します．この等価回路の各部品の値を，回路パラメータと呼びます．</p>
+          <p data-en="This research tackles &lt;strong&gt;circuit parameter estimation from time-series data&lt;/strong&gt;. Time-series data are values, such as current and voltage, recorded at regular intervals as they change over time. Given the current and voltage waveforms as input, the AI outputs the values of the circuit parameters. As the AI model, we use &lt;strong&gt;InceptionTime&lt;/strong&gt;, a deep-learning model for time-series data.">そこで本研究では，<strong>時系列データを用いた回路パラメータ推定</strong>に取り組んでいます．時系列データとは，時間とともに変わる電流や電圧の値を，一定の間隔で記録したデータです．AI には電流・電圧の波形を入力し，回路パラメータの値を答えとして出させます．AI のモデルには，時系列データを扱う深層学習モデル <strong>InceptionTime</strong> を用います．</p>
+          <figure>
+            <img src="images/research4/fig1.png" width="670" height="727" alt="ダブルパルステスト回路の中のインダクタの等価回路図．コイル Lc1，Lc2，Lhp1，Lhp2 と抵抗 Rc1，Rc2，Rhp1，Rhp2 などが組み合わされている．">
+            <figcaption data-en="Figure 1: Equivalent circuit of the inductor in the double-pulse test circuit to be estimated. The values in braces, such as Lc1 and Rc1, are the circuit parameters estimated by AI.">図1：推定対象となるダブルパルステスト回路のインダクタ等価回路図．｛ ｝で囲まれた Lc1 や Rc1 などの値が，AI で推定する回路パラメータです．</figcaption>
+          </figure>
+
+          <h2 data-en="Research">研究内容</h2>
+          <p data-en="The aim of this research is to improve the accuracy of circuit parameter estimation. The research proceeds in two steps.">本研究では，回路パラメータ推定の精度向上を目的としています．本研究は，大きく2つの段階で行います．</p>
+          <ol class="point-list">
+            <li data-en="&lt;strong&gt;Generating waveforms:&lt;/strong&gt; a circuit containing the inductor’s equivalent circuit is built in a circuit simulator (SPICE), software that calculates the behaviour of electronic circuits on a computer. A transient analysis, which calculates how current and voltage change over time, is then run to generate waveforms."><strong>波形の生成：</strong>電子回路の動きをコンピュータ上で計算するシミュレータ（SPICE）で，インダクタの等価回路を含む回路を作ります．そして，電流や電圧が時間とともに変わるようすを計算する過渡解析を行い，波形を作ります．</li>
+            <li data-en="&lt;strong&gt;Estimating circuit parameters:&lt;/strong&gt; the time-series data of the waveforms are fed into the AI, which estimates the circuit parameters of the equivalent circuit."><strong>回路パラメータの推定：</strong>波形の時系列データを AI に入力し，等価回路の回路パラメータを推定します．</li>
+          </ol>
+          <figure>
+            <img src="images/research4/fig2.png" width="1800" height="443" alt="研究の流れの図．シミュレータ上で等価回路を含む回路を作り，電流・電圧波形の時系列データを生成し，深層学習モデルに入力して等価回路パラメータを推定する．">
+            <figcaption data-en="Figure 2: Overview of the research. Current and voltage waveforms generated by the simulator are fed into a deep-learning model, which estimates the parameters of the equivalent circuit.">図2：研究概要．シミュレータで作った電流・電圧の波形を深層学習モデルに入力し，等価回路のパラメータを推定する流れを表します．</figcaption>
+          </figure>
+
+          <h2 data-en="References">参考文献</h2>
+          <ol>
+            <li lang="en">T. Motomatsu et al., <i>IEEE Trans. Magn.</i>, vol. 59, no. 11, 2023.</li>
+            <li>元松 武大 他，電気・情報関係学会九州支部連合大会，04-2A-07，2024．</li>
+            <li>元松 武大，修士学位論文，鹿児島大学，2024．</li>
+            <li lang="en">R. Ridley, IS09.1, APEC, Mar. 2016.</li>
+            <li lang="en">H. Ismail Fawaz, arXiv: 1909.04939, 2019.</li>
+          </ol>
+
+          <div class="btn-row">
+            <a class="btn btn--outline" href="index.html" data-en="← Back to home">← ホームへ戻る</a>
+          </div>
+        </div>
+
+        <!-- ===== 右側：他の研究へのリンク（スマホ・タブレットでは本文の下に並ぶ） ===== -->
+        <aside class="research-side" aria-labelledby="research-side-title">
+          <h2 class="research-side__title" id="research-side-title" data-en="Other research">他の研究</h2>
+          <ul class="research-side__list">
+            <li>
+              <a href="research1.html">
+                <span class="research-side__tag" data-en="Medicine × AI">医療 × AI</span>
+                <span data-en="Surgical Video Understanding for Quantifying Surgical Skill">手術映像理解による外科手技の定量化</span>
+              </a>
+            </li>
+            <li>
+              <a href="research2.html">
+                <span class="research-side__tag" data-en="Disaster × AI">災害 × AI</span>
+                <span data-en="Estimation of Sediment Disaster Prone Areas Using YOLOv8 from Map Images">YOLOv8 を用いた地図画像からの土砂災害警戒区域の推定</span>
+              </a>
+            </li>
+            <li>
+              <a href="research3.html">
+                <span class="research-side__tag" data-en="Robotics × Computer Vision">ロボット工学 × コンピュータビジョン</span>
+                <span data-en="Evaluation of Localization Accuracy and Stability in Visual SLAM Using RGB-D and Stereo Cameras">RGB-D・ステレオカメラを用いた Visual SLAM の自己位置推定精度と安定性の評価</span>
+              </a>
+            </li>
+            <li>
+              <a href="research5.html">
+                <span class="research-side__tag" data-en="Cultural Heritage Conservation × AI">文化財保全 × AI</span>
+                <span data-en="Streamlining the Stability Assessment of Kumamoto Castle’s Stone Walls Using Machine Learning">熊本城石垣の安定性評価における機械学習を用いた省力化</span>
+              </a>
+            </li>
+            <li>
+              <a href="research6.html">
+                <span class="research-side__tag" data-en="Infrastructure Management × AI">インフラ管理 × AI</span>
+                <span data-en="Research on Improving the Detection Accuracy of Fine Cracks Using Machine Learning">機械学習を用いた微細ひび割れの検出精度向上に関する研究</span>
+              </a>
+            </li>
+          </ul>
+          <h2 class="research-side__title" data-en="Browse by area">研究分野から探す</h2>
+          <ul class="research-side__list">
+            <li><a href="research.html#vision" data-en="Image &amp; Video Recognition">画像・映像識別</a></li>
+            <li><a href="research.html#iot">IoT</a></li>
+            <li><a href="research.html#nlp" data-en="Natural Language Processing">自然言語処理</a></li>
+            <li><a href="research.html#ee" data-en="Electrical &amp; Electronic Engineering">電気・電子</a></li>
+          </ul>
+          <a class="view-more" href="research.html" data-en="All research">研究紹介の一覧へ</a>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== お問い合わせ（全ページ共通・フッターの直前） ===== -->
+  <!-- 背景写真は images/contact.jpg に置くと表示されます（無い場合はネイビー一色） -->
+  <section class="contact-cta contact-cta--split" aria-labelledby="contact-cta-title">
+    <div class="container contact-cta__inner">
+      <div class="contact-cta__main">
+        <h2 class="contact-cta__title" id="contact-cta-title">Contact</h2>
+        <p class="contact-cta__sub" data-en="Get in touch">お問い合わせ</p>
+        <p class="contact-cta__text" data-en="For enquiries about joining the lab,&lt;br&gt;joint research, or media coverage,&lt;br&gt;please contact us below.">当研究室への配属・進学のご希望，<br>共同研究や取材のご相談は<br>下記よりお問い合わせください．</p>
+        <a class="btn btn--ghost" href="contact.html">Contact us</a>
+      </div>
+      <!-- 関連リンクのバナー：1つの <li> が1枚（色や模様は css/style.css の .link-banner--名前 で指定）
+           左半分（紺）に Contact、右半分（淡い色）にバナーを 2×2 で並べる -->
+      <nav class="link-banners" aria-labelledby="link-banners-title">
+        <h2 class="link-banners__title" id="link-banners-title">Links<span data-en="Related links">関連リンク</span></h2>
+        <ul class="link-banners__list">
+          <li><a class="link-banner link-banner--kadai" href="https://www.kagoshima-u.ac.jp/" target="_blank" rel="noopener">
+            <span class="link-banner__kicker" data-en="National University Corporation">国立大学法人</span>
+            <span class="link-banner__name" data-en="Kagoshima University">鹿児島大学</span>
+            <span class="link-banner__sub" aria-hidden="true">KAGOSHIMA UNIVERSITY</span>
+            <span class="link-banner__more" aria-hidden="true" data-en="Visit site">サイトを見る</span>
+            <span class="visually-hidden" data-en="(opens in a new tab)">（新しいタブで開きます）</span>
+          </a></li>
+          <li><a class="link-banner link-banner--eng" href="https://www.eng.kagoshima-u.ac.jp/" target="_blank" rel="noopener">
+            <span class="link-banner__kicker" data-en="Kagoshima University">鹿児島大学</span>
+            <span class="link-banner__name" data-en="Faculty of Engineering">工学部</span>
+            <span class="link-banner__sub" aria-hidden="true">FACULTY OF ENGINEERING</span>
+            <span class="link-banner__more" aria-hidden="true" data-en="Visit site">サイトを見る</span>
+            <span class="visually-hidden" data-en="(opens in a new tab)">（新しいタブで開きます）</span>
+          </a></li>
+          <li><a class="link-banner link-banner--grad" href="https://grad.eng.kagoshima-u.ac.jp/" target="_blank" rel="noopener">
+            <span class="link-banner__kicker" data-en="Kagoshima University">鹿児島大学大学院</span>
+            <span class="link-banner__name" data-en="Graduate School of Science and Engineering">理工学研究科</span>
+            <span class="link-banner__sub" aria-hidden="true">GRADUATE SCHOOL OF SCIENCE AND ENGINEERING</span>
+            <span class="link-banner__more" aria-hidden="true" data-en="Visit site">サイトを見る</span>
+            <span class="visually-hidden" data-en="(opens in a new tab)">（新しいタブで開きます）</span>
+          </a></li>
+          <li><a class="link-banner link-banner--nondadon" href="https://main.d1z06gvf79o0ov.amplifyapp.com/" target="_blank" rel="noopener">
+            <span class="link-banner__kicker" data-en="Spreading shochu, digitally.">デジタルで，焼酎を広げる．</span>
+            <span class="link-banner__name" data-en="Nondadon">のんだどん</span>
+            <span class="link-banner__sub" aria-hidden="true">NONDADON</span>
+            <span class="link-banner__more" aria-hidden="true" data-en="Visit site">サイトを見る</span>
+            <span class="visually-hidden" data-en="(opens in a new tab)">（新しいタブで開きます）</span>
+          </a></li>
+        </ul>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ===== フッター（全ページ共通） ===== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="footer-logo" href="index.html" data-en="Shigei Lab">重井研究室</a>
+          <p data-en="Faculty of Engineering, Kagoshima University">鹿児島大学 工学部</p>
+        </div>
+        <ul class="footer-nav">
+          <li><a href="index.html" data-en="Home">ホーム</a></li>
+          <li><a href="news.html" data-en="News">ニュース</a></li>
+          <li><a href="research.html" data-en="Research">研究紹介</a></li>
+          <li><a href="seminar.html" data-en="Seminars">ゼミ紹介</a></li>
+          <li><a href="events.html" data-en="Events">行事紹介</a></li>
+          <li><a href="members.html" data-en="Members">メンバー</a></li>
+          <li><a href="careers.html" data-en="Careers">就職先</a></li>
+          <li><a href="contact.html" data-en="Contact">お問い合わせ</a></li>
+        </ul>
+      </div>
+      <p class="copyright" data-en="© 2026 Shigei Lab, Faculty of Engineering, Kagoshima University / Built by DragonicKing">© 2026 重井研究室（鹿児島大学 工学部） / 制作：DragonicKing</p>
+    </div>
+  </footer>
+
+</body>
+</html>
