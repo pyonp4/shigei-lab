@@ -1695,6 +1695,11 @@ main .container {
     grid-template-columns: 1fr;
     gap: 12px;
   }
+
+  /* 縦横比と最低の高さ（150px）が両方あると幅が366px未満に縮まず，幅375pxで横にはみ出すため，スマホでは縦横比を外す */
+  .link-banner {
+    aspect-ratio: auto;
+  }
 }
 
 .contact-cta {
