@@ -584,6 +584,18 @@ a.card:hover .placeholder {
   opacity: 0.85;
 }
 
+/* カードのイメージ画像（仮置きと同じ16:9の枠に収める） */
+.card-img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  transition: opacity 0.3s;
+}
+
+a.card:hover .card-img {
+  opacity: 0.85;
+}
+
 .card-body {
   padding: 32px 32px 36px;
   flex: 1;
@@ -647,6 +659,11 @@ a.card:hover .placeholder {
 
 figure {
   margin: 0 0 1.5em;
+}
+
+/* 図の画像は本文の横幅いっぱいに表示する */
+figure > img {
+  width: 100%;
 }
 
 figcaption {
@@ -1856,6 +1873,69 @@ main .container {
   opacity: 0.75;
 }
 
+/* 右下に隠れている棒人間：レーダーの帯が通ると下から飛び出して「tab!」と叫ぶ．出ている間に押すと裏の重井研究室（ura.html）へ
+   要素と出し入れは js/lucian.js の setupRadarPeek で行う */
+.radar-peek {
+  position: absolute;
+  left: calc(75% + 190px);   /* 右半分のレーダーの中心から右へ */
+  bottom: 0;
+  z-index: 1;
+  width: 40px;
+  height: 64px;
+  text-decoration: none;
+  pointer-events: none;
+}
+
+.radar-peek__man {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: var(--color-main);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transform: translateY(110%);   /* ふだんは下の端の外に隠れている */
+  transition: transform 0.35s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+.radar-peek__say {
+  position: absolute;
+  right: 100%;
+  top: -14px;
+  margin-right: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--color-main);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  white-space: nowrap;
+  transform: scale(0);
+  transform-origin: right bottom;
+  transition: transform 0.2s ease-in;
+}
+
+.radar-peek.is-on .radar-peek__man {
+  transform: translateY(0);
+}
+
+/* 出ている間だけ押せる */
+.radar-peek.is-on {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.radar-peek.is-on:hover .radar-peek__man {
+  stroke: var(--color-accent, #2e5aa8);
+}
+
+.radar-peek.is-on .radar-peek__say {
+  transform: scale(1);
+  transition: transform 0.3s cubic-bezier(0.3, 1.6, 0.5, 1) 0.15s;
+}
+
 /* 1024px以下：上に紺の Contact、下に淡い色のバナー（タブレット2列・スマホ1列） */
 @media (max-width: 1024px) {
   .contact-cta.contact-cta--split {
@@ -1886,6 +1966,7 @@ main .container {
   }
 
   .contact-cta--split .u211-bm,
+  .contact-cta--split .radar-peek,
   .contact-cta--split.u211::before,
   .contact-cta--split.u211::after {
     display: none;

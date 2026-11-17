@@ -163,9 +163,10 @@
         </div>
         <!-- Lucian UX/UI Prompt #389（横に開くパネル）：カーソルを合わせる・フォーカスする・タップすると、そのパネルが広がる
              ←/→ キーでも移動できる。パネル全体が各ページへのリンク（タップでは1回目で開き、2回目でページへ移動）
-             背景は --bg で指定。写真ができたら url("images/ファイル名.jpg") center / cover に差し替える -->
+             背景は --bg で指定。写真ができたら url("images/ファイル名.jpg") center / cover に差し替える
+             図を背景にする場合は，lucian.css の .u389-p--fig と .u389-p--surgery のようにクラスで指定する（文字が図に重ならないよう，図は上側に置く） -->
         <div class="ux u389" role="group" aria-labelledby="research-title">
-          <a class="u389-p" href="research1.html" style="--bg:radial-gradient(60% 40% at 70% 20%,rgba(125,180,255,.45),transparent 70%),linear-gradient(#3d6fc4,#1d4185 50%,#0a1f44)">
+          <a class="u389-p u389-p--fig u389-p--surgery" href="research1.html">
             <span class="u389-lb" data-en="AI-based surgical skill assessment">AIによる手術手技スキルの推定</span>
             <span class="u389-ds">
               <small data-en="Medicine × AI">医療 × AI</small>
@@ -173,39 +174,42 @@
               <i data-en="Read more">詳しく見る</i>
             </span>
           </a>
-          <a class="u389-p" href="research2.html" style="--bg:radial-gradient(50% 35% at 30% 25%,rgba(165,242,211,.35),transparent 70%),linear-gradient(#1f7a68,#14524f 50%,#0a1f44)">
-            <span class="u389-lb" data-en="AI-based disaster risk mapping">AIによる災害危険個所の推定</span>
+          <a class="u389-p u389-p--fig u389-p--disaster" href="research2.html">
+            <span class="u389-lb" data-en="AI-based estimation of sediment disaster prone areas">AIによる土砂災害警戒区域の推定</span>
             <span class="u389-ds">
-              <small data-en="Disaster prevention × AI">防災 × AI</small>
-              <span data-en="We use deep learning to automatically find areas prone to sediment disasters in map images, helping people understand where the risks are.">地図画像から土砂災害の危険箇所を深層学習で自動的に見つけ出し，防災のための危険箇所の把握を支援します．</span>
+              <small data-en="Disaster × AI">災害 × AI</small>
+              <span data-en="Using the machine learning model YOLOv8, we estimate places where sediment disasters could occur from map images, aiming to improve the accuracy of estimating sediment disaster prone areas.">機械学習モデル YOLOv8 を用いて地図画像から土砂災害が起こりうる危険箇所を推定し，土砂災害警戒区域の推定精度の向上を目指します．</span>
               <i data-en="Read more">詳しく見る</i>
             </span>
           </a>
           <a class="u389-p" href="research.html#nlp" style="--bg:repeating-linear-gradient(0deg,rgba(255,255,255,.06) 0 1px,transparent 1px 22px),linear-gradient(#4a5fb8,#2a3a85 55%,#0a1f44)">
             <span class="u389-lb" data-en="Natural Language Processing">自然言語処理</span>
             <span class="u389-ds">
-              <small data-en="Research area">研究分野</small>
+              <small data-en="Coming soon">準備中</small>
               <i data-en="See this area">分野を見る</i>
             </span>
           </a>
           <a class="u389-p" href="research.html#iot" style="--bg:radial-gradient(2px 2px at 30% 30%,#c7d6f2,transparent),radial-gradient(2px 2px at 65% 45%,#c7d6f2,transparent),radial-gradient(2px 2px at 45% 65%,#c7d6f2,transparent),linear-gradient(#2c6e9e,#1b4a73 55%,#0a1f44)">
             <span class="u389-lb">IoT</span>
             <span class="u389-ds">
-              <small data-en="Research area">研究分野</small>
+              <small data-en="Coming soon">準備中</small>
+              <span data-en="We use AI to make the most of data collected by sensors and networked devices.">センサやネットワークでつながった機器から集めたデータを，AIで活用する研究です．</span>
               <i data-en="See this area">分野を見る</i>
             </span>
           </a>
-          <a class="u389-p" href="research.html#vision" style="--bg:radial-gradient(40% 30% at 50% 30%,rgba(199,214,242,.4),transparent 70%),linear-gradient(#5b4fa8,#33307a 55%,#0a1f44)">
+          <a class="u389-p u389-p--fig u389-p--vision" href="research.html#vision">
             <span class="u389-lb" data-en="Image &amp; Video Recognition">画像・映像識別</span>
             <span class="u389-ds">
               <small data-en="Research area">研究分野</small>
+              <span data-en="We use deep learning to find objects and judge their condition in images and videos such as surgical footage, maps and photos of structures.">手術映像や地図，構造物の写真などの画像・映像から，深層学習で対象を見つけたり状態を判定したりする研究です．</span>
               <i data-en="See this area">分野を見る</i>
             </span>
           </a>
-          <a class="u389-p" href="research.html#ee" style="--bg:repeating-linear-gradient(90deg,rgba(255,255,255,.06) 0 1px,transparent 1px 26px),linear-gradient(#2e5aa8,#132c5a 55%,#06142e)">
+          <a class="u389-p u389-p--fig u389-p--ee" href="research.html#ee">
             <span class="u389-lb" data-en="Electrical &amp; Electronic Engineering">電気・電子</span>
             <span class="u389-ds">
               <small data-en="Research area">研究分野</small>
+              <span data-en="We apply machine learning to the design and analysis of electrical and electronic devices.">電気・電子機器の設計や解析に，機械学習を活かす研究です．</span>
               <i data-en="See this area">分野を見る</i>
             </span>
           </a>

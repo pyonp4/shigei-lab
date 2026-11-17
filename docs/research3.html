@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-en="Evaluation of Localization Accuracy and Stability in Visual SLAM Using RGB-D and Stereo Cameras | Shigei Lab">RGB-D・ステレオカメラを用いた Visual SLAM の自己位置推定精度と安定性の評価 | 重井研究室</title>
+  <meta name="description" content="RGB-D カメラやステレオカメラの画像から移動ロボットの自己位置を推定する Visual SLAM で，赤外線投光の有無が推定の精度と安定性に与える影響を調べる研究の紹介ページです．">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/lucian.css">
+  <script>document.documentElement.classList.add("lx-js"); // Lucian の登場アニメーション用（JavaScript が動くときだけ最初に隠す）</script>
+  <script>
+    // 保存した文字サイズを、表示する前に反映する（ちらつき防止）。まだ選んでいない人は「小」で表示する
+    var fs = "small"; try { fs = localStorage.getItem("fontSize") || "small"; } catch (e) {} if (fs === "small" || fs === "large") document.documentElement.dataset.fontSize = fs;
+  </script>
+  <script src="js/lucian.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+
+  <a class="skip-link" href="#main" data-en="Skip to main content">本文へスキップ</a>
+
+  <!-- ===== ヘッダー（全ページ共通） ===== -->
+  <header class="site-header">
+    <div class="container">
+      <a class="site-logo" href="index.html" data-en="Shigei Lab">重井研究室</a>
+      <nav class="global-nav" id="global-nav" aria-label="メインメニュー">
+        <ul>
+          <li><a href="index.html" data-en="Home">ホーム</a></li>
+          <li><a href="news.html" data-en="News">ニュース</a></li>
+          <li class="has-submenu">
+            <a href="research.html" class="is-current" data-en="Research">研究紹介</a>
+            <ul class="submenu">
+              <li><a href="research.html#vision" data-en="Image &amp; Video Recognition">画像・映像識別</a></li>
+              <li><a href="research.html#iot" data-en="IoT">IoT</a></li>
+              <li><a href="research.html#nlp" data-en="Natural Language Processing">自然言語処理</a></li>
+              <li><a href="research.html#ee" data-en="Electrical &amp; Electronic Engineering">電気・電子</a></li>
+            </ul>
+          </li>
+          <li><a href="seminar.html" data-en="Seminars">ゼミ紹介</a></li>
+          <li><a href="events.html" data-en="Events">行事紹介</a></li>
+          <li><a href="members.html" data-en="Members">メンバー</a></li>
+          <li><a href="careers.html" data-en="Careers">就職先</a></li>
+        </ul>
+      </nav>
+      <!-- 言語と文字サイズの切り替え（スマホではヘッダーの2段目に並ぶ） -->
+      <div class="header-tools">
+        <div class="lang-switch" role="group" aria-label="言語 / Language">
+          <button type="button" data-lang="ja" aria-pressed="true">JA</button>
+          <span aria-hidden="true">/</span>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <!-- 文字サイズ：「文字サイズ」にカーソルを合わせる（または押す）と小・中・大が開く -->
+        <div class="font-menu">
+          <button type="button" class="font-menu__toggle" aria-expanded="false" aria-controls="font-menu-list"><span data-en="Text size">文字サイズ</span></button>
+          <ul class="font-menu__list" id="font-menu-list">
+            <li><button type="button" data-font-size="small" aria-pressed="true" data-en="Small">小</button></li>
+            <li><button type="button" data-font-size="medium" aria-pressed="false" data-en="Medium">中</button></li>
+            <li><button type="button" data-font-size="large" aria-pressed="false" data-en="Large">大</button></li>
+          </ul>
+        </div>
+      </div>
+      <button class="menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="global-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <nav class="breadcrumb" aria-label="現在位置">
+      <div class="container">
+        <ol>
+          <li><a href="index.html" data-en="Home">ホーム</a></li>
+          <li><a href="research.html" data-en="Research">研究紹介</a></li>
+          <li><a href="research.html#vision" data-en="Image &amp; Video Recognition">画像・映像識別</a></li>
+          <li aria-current="page" data-en="Localization with Visual SLAM">Visual SLAM による自己位置推定</li>
+        </ol>
+      </div>
+    </nav>
+
+    <section class="hero page-hero">
+      <div class="container">
+        <span class="label" data-en="Robotics × Computer Vision">ロボット工学 × コンピュータビジョン</span>
+        <h1 data-en="Evaluation of Localization Accuracy and Stability in Visual SLAM Using RGB-D and Stereo Cameras">RGB-D・ステレオカメラを用いた Visual SLAM の自己位置推定精度と安定性の評価</h1>
+        <p lang="en">Evaluation of Localization Accuracy and Stability in Visual SLAM Using RGB-D and Stereo Cameras</p>
+        <p data-en="Researcher: SUO Tianzhang">担当：索 天章</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container research-layout">
+        <div class="article">
+          <div class="lead-box" data-en="Using Visual SLAM, which estimates a mobile robot’s position from RGB-D and stereo camera images, we aim to clarify how infrared projection affects the accuracy and stability of localization.">RGB-D・ステレオカメラの画像で移動ロボットの自己位置を推定する Visual SLAM で，赤外線投光の有無が精度と安定性に与える影響の解明を目指す</div>
+
+          <p data-en="&lt;strong&gt;Keywords:&lt;/strong&gt;&lt;br&gt;Visual SLAM／RGB-D Camera／Stereo Camera／ORB-SLAM3／Localization／Feature Matching／Mobile Robot"><strong>キーワード：</strong><br>Visual SLAM／RGB-D カメラ／ステレオカメラ／ORB-SLAM3／自己位置推定／特徴点マッチング／移動ロボット</p>
+
+          <h2 data-en="Introduction">はじめに</h2>
+          <p data-en="For a mobile robot to move around on its own, it needs to know where it is right now. Outdoors, its position can be found with GPS. Indoors, however, GPS signals do not reach, so GPS cannot be used.">移動ロボットが自分で動き回るには，「自分が今どこにいるか」を知る必要があります．屋外では GPS で位置を知ることができます．しかし屋内では GPS の電波が届かないため，GPS を使えません．</p>
+          <p data-en="If a mobile robot could estimate its own position stably from camera images even indoors without GPS, it could move autonomously. In the future, this technology is expected to be applied to logistics, equipment inspection and disaster response.">もし GPS が使えない屋内でも，移動ロボットがカメラの画像から安定して自己位置を推定できれば，自律移動が可能になります．将来的には，物流，設備点検，災害対応などへの応用が期待できます．</p>
+
+          <h2 data-en="Localization from Camera Images: Visual SLAM">カメラ画像からの位置推定：Visual SLAM</h2>
+          <p data-en="This research works on &lt;strong&gt;Visual SLAM (Simultaneous Localization and Mapping)&lt;/strong&gt;, a technology that uses camera images to estimate the position of the camera (the robot) and build a map of its surroundings at the same time. First, it finds points in the image that make good landmarks, such as corners and patterns (&lt;strong&gt;feature points&lt;/strong&gt;). Next, it matches the same feature points between images. From how the feature points move, it calculates how the camera has moved and estimates its position.">本研究では，<strong>Visual SLAM（Simultaneous Localization and Mapping）</strong>に取り組んでいます．Visual SLAM は，カメラの画像をもとに，カメラ（ロボット）の位置の推定と，周りの地図づくりを同時に行う技術です．まず，画像の中から，物の角や模様など目印になりやすい点（<strong>特徴点</strong>）を見つけます．次に，画像どうしで同じ特徴点を対応付けます．そして，特徴点の見え方の変化から，カメラがどう動いたかを計算し，自己位置を推定します．</p>
+          <p data-en="We use a single camera, the Intel RealSense D435i, to compare two kinds of input. A &lt;strong&gt;stereo camera&lt;/strong&gt; finds depth from the images of left and right infrared (IR) cameras, just as our two eyes do. An &lt;strong&gt;RGB-D camera&lt;/strong&gt; uses a colour (RGB) image together with a depth image that shows the distance to each pixel. The D435i creates its depth image internally by matching the left and right IR images. The D435i also has an IR projector that casts a pattern, and turning it on or off changes how the IR images look.">本研究では，Intel RealSense D435i という1台のカメラで，2種類の入力を比べます．<strong>ステレオカメラ</strong>は，左右2つの赤外線（IR）カメラの画像から，人の両目と同じしくみで奥行きを求めます．<strong>RGB-D カメラ</strong>は，カラー画像（RGB）と，各画素までの距離を表す深度画像を組にして使います．D435i の深度画像は，左右の IR 画像の対応から，カメラの内部で作られます．また D435i には，赤外線の模様を投影する IR 投影器があり，投影のオン・オフで IR 画像の見え方が変わります．</p>
+          <figure>
+            <img src="images/research3/fig1.png" width="1362" height="612" alt="Intel RealSense D435i の左右の IR カメラ，IR 投影器，RGB カメラから得た画像が，ステレオ入力と RGB-D 入力として ORB-SLAM3 に渡される流れを示した図．">
+            <figcaption data-en="Figure 1: Experimental setup of Visual SLAM using the Intel RealSense D435i. RGB-D and stereo images are obtained from the camera, and ORB-SLAM3 estimates the camera’s position and trajectory. Blue lines show the stereo input and green lines show the RGB-D input.">図1：Intel RealSense D435i を用いた Visual SLAM の実験構成．カメラから RGB-D 画像とステレオ画像を取得し，ORB-SLAM3 で自己位置と移動軌跡を推定します．青の線はステレオ入力，緑の線は RGB-D 入力の流れを表します．</figcaption>
+          </figure>
+
+          <h2 data-en="Research">研究内容</h2>
+          <p data-en="The aim of this research is to clarify how camera settings, especially whether infrared projection is used, affect the accuracy and stability of localization in Visual SLAM. The research proceeds in four steps.">本研究では，カメラの撮影条件，特に赤外線投光の有無が，Visual SLAM の自己位置推定の精度と安定性に与える影響を明らかにすることを目的としています．本研究は，大きく4つの段階で行います．</p>
+          <ol class="point-list">
+            <li data-en="&lt;strong&gt;Capturing images:&lt;/strong&gt; RGB-D and stereo images are captured with the D435i camera."><strong>画像の取得：</strong>D435i カメラで，RGB-D 画像とステレオ画像を撮影します．</li>
+            <li data-en="&lt;strong&gt;Estimating position:&lt;/strong&gt; the images are fed into ORB-SLAM3, a publicly available Visual SLAM software, which estimates the camera’s position and the path it moved along (its trajectory)."><strong>自己位置の推定：</strong>撮影した画像を，公開されている Visual SLAM のソフトウェア ORB-SLAM3 に入力します．そして，カメラの自己位置と，移動した道のり（移動軌跡）を推定します．</li>
+            <li data-en="&lt;strong&gt;Evaluating errors:&lt;/strong&gt; the SLAM results are compared with the true positions (ground truth) to evaluate the errors."><strong>誤差の評価：</strong>実際の位置を表す正解データ（Ground Truth）と SLAM の推定結果を比べ，誤差を評価します．</li>
+            <li data-en="&lt;strong&gt;Comparison and analysis:&lt;/strong&gt; the differences between the results are compared and analysed."><strong>比較と分析：</strong>条件による結果の違いを比べ，分析します．</li>
+          </ol>
+
+          <div class="btn-row">
+            <a class="btn btn--outline" href="index.html" data-en="← Back to home">← ホームへ戻る</a>
+          </div>
+        </div>
+
+        <!-- ===== 右側：他の研究へのリンク（スマホ・タブレットでは本文の下に並ぶ） ===== -->
+        <aside class="research-side" aria-labelledby="research-side-title">
+          <h2 class="research-side__title" id="research-side-title" data-en="Other research">他の研究</h2>
+          <ul class="research-side__list">
+            <li>
+              <a href="research1.html">
+                <span class="research-side__tag" data-en="Medicine × AI">医療 × AI</span>
+                <span data-en="Surgical Video Understanding for Quantifying Surgical Skill">手術映像理解による外科手技の定量化</span>
+              </a>
+            </li>
+            <li>
+              <a href="research2.html">
+                <span class="research-side__tag" data-en="Disaster × AI">災害 × AI</span>
+                <span data-en="Estimation of Sediment Disaster Prone Areas Using YOLOv8 from Map Images">YOLOv8 を用いた地図画像からの土砂災害警戒区域の推定</span>
+              </a>
+            </li>
+            <li>
+              <a href="research4.html">
+                <span class="research-side__tag" data-en="Electric Circuits × AI">電気回路 × AI</span>
+                <span data-en="Data-Driven Modeling of Inductors">インダクタのデータ駆動モデリング</span>
+              </a>
+            </li>
+            <li>
+              <a href="research5.html">
+                <span class="research-side__tag" data-en="Cultural Heritage Conservation × AI">文化財保全 × AI</span>
+                <span data-en="Streamlining the Stability Assessment of Kumamoto Castle’s Stone Walls Using Machine Learning">熊本城石垣の安定性評価における機械学習を用いた省力化</span>
+              </a>
+            </li>
+            <li>
+              <a href="research6.html">
+                <span class="research-side__tag" data-en="Infrastructure Management × AI">インフラ管理 × AI</span>
+                <span data-en="Research on Improving the Detection Accuracy of Fine Cracks Using Machine Learning">機械学習を用いた微細ひび割れの検出精度向上に関する研究</span>
+              </a>
+            </li>
+          </ul>
+          <h2 class="research-side__title" data-en="Browse by area">研究分野から探す</h2>
+          <ul class="research-side__list">
+            <li><a href="research.html#vision" data-en="Image &amp; Video Recognition">画像・映像識別</a></li>
+            <li><a href="research.html#iot">IoT</a></li>
+            <li><a href="research.html#nlp" data-en="Natural Language Processing">自然言語処理</a></li>
+            <li><a href="research.html#ee" data-en="Electrical &amp; Electronic Engineering">電気・電子</a></li>
+          </ul>
+          <a class="view-more" href="research.html" data-en="All research">研究紹介の一覧へ</a>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== お問い合わせ（全ページ共通・フッターの直前） ===== -->
+  <!-- 背景写真は images/contact.jpg に置くと表示されます（無い場合はネイビー一色） -->
+  <section class="contact-cta contact-cta--split" aria-labelledby="contact-cta-title">
+    <div class="container contact-cta__inner">
+      <div class="contact-cta__main">
+        <h2 class="contact-cta__title" id="contact-cta-title">Contact</h2>
+        <p class="contact-cta__sub" data-en="Get in touch">お問い合わせ</p>
+        <p class="contact-cta__text" data-en="For enquiries about joining the lab,&lt;br&gt;joint research, or media coverage,&lt;br&gt;please contact us below.">当研究室への配属・進学のご希望，<br>共同研究や取材のご相談は<br>下記よりお問い合わせください．</p>
+        <a class="btn btn--ghost" href="contact.html">Contact us</a>
+      </div>
+      <!-- 関連リンクのバナー：1つの <li> が1枚（色や模様は css/style.css の .link-banner--名前 で指定）
+           左半分（紺）に Contact、右半分（淡い色）にバナーを 2×2 で並べる -->
+      <nav class="link-banners" aria-labelledby="link-banners-title">
+        <h2 class="link-banners__title" id="link-banners-title">Links<span data-en="Related links">関連リンク</span></h2>
+        <ul class="link-banners__list">
+          <li><a class="link-banner link-banner--kadai" href="https://www.kagoshima-u.ac.jp/" target="_blank" rel="noopener">
+            <span class="link-banner__kicker" data-en="National University Corporation">国立大学法人</span>
+            <span class="link-banner__name" data-en="Kagoshima University">鹿児島大学</span>
+            <span class="link-banner__sub" aria-hidden="true">KAGOSHIMA UNIVERSITY</span>
+            <span class="link-banner__more" aria-hidden="true" data-en="Visit site">サイトを見る</span>
+            <span class="visually-hidden" data-en="(opens in a new tab)">（新しいタブで開きます）</span>
+          </a></li>
+          <li><a class="link-banner link-banner--eng" href="https://www.eng.kagoshima-u.ac.jp/" target="_blank" rel="noopener">
+            <span class="link-banner__kicker" data-en="Kagoshima University">鹿児島大学</span>
+            <span class="link-banner__name" data-en="Faculty of Engineering">工学部</span>
+            <span class="link-banner__sub" aria-hidden="true">FACULTY OF ENGINEERING</span>
+            <span class="link-banner__more" aria-hidden="true" data-en="Visit site">サイトを見る</span>
+            <span class="visually-hidden" data-en="(opens in a new tab)">（新しいタブで開きます）</span>
+          </a></li>
+          <li><a class="link-banner link-banner--grad" href="https://grad.eng.kagoshima-u.ac.jp/" target="_blank" rel="noopener">
+            <span class="link-banner__kicker" data-en="Kagoshima University">鹿児島大学大学院</span>
+            <span class="link-banner__name" data-en="Graduate School of Science and Engineering">理工学研究科</span>
+            <span class="link-banner__sub" aria-hidden="true">GRADUATE SCHOOL OF SCIENCE AND ENGINEERING</span>
+            <span class="link-banner__more" aria-hidden="true" data-en="Visit site">サイトを見る</span>
+            <span class="visually-hidden" data-en="(opens in a new tab)">（新しいタブで開きます）</span>
+          </a></li>
+          <li><a class="link-banner link-banner--nondadon" href="https://main.d1z06gvf79o0ov.amplifyapp.com/" target="_blank" rel="noopener">
+            <span class="link-banner__kicker" data-en="Spreading shochu, digitally.">デジタルで，焼酎を広げる．</span>
+            <span class="link-banner__name" data-en="Nondadon">のんだどん</span>
+            <span class="link-banner__sub" aria-hidden="true">NONDADON</span>
+            <span class="link-banner__more" aria-hidden="true" data-en="Visit site">サイトを見る</span>
+            <span class="visually-hidden" data-en="(opens in a new tab)">（新しいタブで開きます）</span>
+          </a></li>
+        </ul>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ===== フッター（全ページ共通） ===== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="footer-logo" href="index.html" data-en="Shigei Lab">重井研究室</a>
+          <p data-en="Faculty of Engineering, Kagoshima University">鹿児島大学 工学部</p>
+        </div>
+        <ul class="footer-nav">
+          <li><a href="index.html" data-en="Home">ホーム</a></li>
+          <li><a href="news.html" data-en="News">ニュース</a></li>
+          <li><a href="research.html" data-en="Research">研究紹介</a></li>
+          <li><a href="seminar.html" data-en="Seminars">ゼミ紹介</a></li>
+          <li><a href="events.html" data-en="Events">行事紹介</a></li>
+          <li><a href="members.html" data-en="Members">メンバー</a></li>
+          <li><a href="careers.html" data-en="Careers">就職先</a></li>
+          <li><a href="contact.html" data-en="Contact">お問い合わせ</a></li>
+        </ul>
+      </div>
+      <p class="copyright" data-en="© 2026 Shigei Lab, Faculty of Engineering, Kagoshima University / Built by DragonicKing">© 2026 重井研究室（鹿児島大学 工学部） / 制作：DragonicKing</p>
+    </div>
+  </footer>
+
+</body>
+</html>

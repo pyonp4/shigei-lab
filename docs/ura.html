@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 裏の重井研究室：お問い合わせ欄の棒人間（js/lucian.js の setupRadarPeek）を押すと来るページ
+       検索結果には出さない．
+       1. まず合言葉の画面が出る．何を入力しても反応せず，Tab キーを押したときだけ先へ進む
+       2. 研究室の物語のアニメーション（約14秒）が流れ，最後は SHIGEI LAB のロゴで止まる -->
+  <meta name="robots" content="noindex, nofollow">
+  <title>裏 重井研究室</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap">
+  <style>
+    :root {
+      --ura-bg: #05070d;
+      --ura-text: #e8eef7;
+      --ura-dim: #7f8ea6;
+      --ura-blue: #7db4ff;
+      --ura-mint: #a5f2d3;
+      --ura-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      overflow: hidden;
+      background:
+        radial-gradient(60% 50% at 50% 45%, rgba(125, 180, 255, 0.08), transparent 70%),
+        linear-gradient(rgba(165, 242, 211, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(165, 242, 211, 0.04) 1px, transparent 1px),
+        var(--ura-bg);
+      background-size: auto, 26px 26px, 26px 26px, auto;
+      color: var(--ura-text);
+      font-family: "Noto Sans JP", sans-serif;
+    }
+
+    .ura__mark {
+      position: fixed;
+      top: 24px;
+      left: 28px;
+      margin: 0;
+      font-family: var(--ura-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.32em;
+      color: var(--ura-mint);
+    }
+
+    .ura__back {
+      position: fixed;
+      right: 28px;
+      bottom: 24px;
+      color: var(--ura-dim);
+      font-size: 0.78rem;
+      text-decoration: none;
+      letter-spacing: 0.08em;
+    }
+
+    .ura__back:hover {
+      color: var(--ura-text);
+    }
+
+    /* ---------- 1. 合言葉の画面 ---------- */
+    .gate {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 16px;
+      transition: opacity 0.7s ease, filter 0.7s ease;
+    }
+
+    .gate.is-open {
+      opacity: 0;
+      filter: blur(6px);
+      pointer-events: none;
+    }
+
+    .gate__box {
+      width: min(420px, 100%);
+      text-align: center;
+    }
+
+    .gate__kicker {
+      margin: 0 0 20px;
+      font-family: var(--ura-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.4em;
+      color: var(--ura-dim);
+    }
+
+    .gate__label {
+      display: block;
+      margin-bottom: 28px;
+      font-size: 1.05rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+    }
+
+    .gate__input {
+      width: 100%;
+      padding: 10px 4px;
+      border: 0;
+      border-bottom: 1px solid rgba(232, 238, 247, 0.25);
+      background: transparent;
+      color: var(--ura-text);
+      font-family: var(--ura-mono);
+      font-size: 1.1rem;
+      letter-spacing: 0.3em;
+      text-align: center;
+      outline: none;
+      caret-color: var(--ura-mint);
+      transition: border-color 0.3s;
+    }
+
+    .gate__input:focus {
+      border-bottom-color: var(--ura-blue);
+    }
+
+    .gate.is-open .gate__input {
+      border-bottom-color: var(--ura-mint);
+    }
+
+    /* ---------- 2. アニメーション ---------- */
+    .stage {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 56px 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.9s ease 0.3s;
+    }
+
+    .stage.is-on {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ビル：アニメーションが終わったら押せる */
+    #st .bld {
+      pointer-events: none;
+    }
+
+    #st .bld__hit {
+      fill: transparent;
+    }
+
+    #st .is-ready .bld {
+      pointer-events: auto;
+      cursor: pointer;
+    }
+
+    #st .is-ready .bld:hover {
+      filter: url(#ura-glow);
+    }
+
+    /* ---------- 3. シューティングゲーム ---------- */
+    .game {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .game[hidden] {
+      display: none;
+    }
+
+    .game.is-on {
+      opacity: 1;
+    }
+
+    .game__cv {
+      display: block;
+      border: 1px solid rgba(165, 242, 211, 0.18);
+      box-shadow: 0 0 60px -20px rgba(125, 180, 255, 0.5);
+    }
+
+    .game__result {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-content: center;
+      text-align: center;
+      background: rgba(5, 7, 13, 0.72);
+    }
+
+    .game__result[hidden] {
+      display: none;
+    }
+
+    .game__kicker,
+    .game__label {
+      margin: 0;
+      font-family: var(--ura-mono);
+      letter-spacing: 0.4em;
+    }
+
+    .game__kicker {
+      margin-bottom: 28px;
+      font-size: 0.8rem;
+      color: var(--ura-mint);
+    }
+
+    .game__label {
+      font-size: 0.7rem;
+      color: var(--ura-dim);
+    }
+
+    .game__score {
+      margin: 8px 0 36px;
+      font-size: 3.4rem;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      text-shadow: 0 0 24px rgba(165, 242, 211, 0.5);
+    }
+
+    .game__back {
+      justify-self: center;
+      padding: 10px 40px;
+      border: 1px solid var(--ura-mint);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--ura-mint);
+      font: inherit;
+      letter-spacing: 0.2em;
+      cursor: pointer;
+    }
+
+    .game__back:hover,
+    .game__back:focus-visible {
+      background: rgba(165, 242, 211, 0.12);
+      outline: none;
+    }
+
+    #st {
+      width: min(960px, 100%);
+      max-height: 100%;
+      overflow: visible;
+    }
+
+    #st .ln {
+      fill: none;
+      stroke: url(#ura-grad);
+      stroke-width: 1;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    #st .ln--soft {
+      stroke: rgba(232, 238, 247, 0.35);
+    }
+
+    #st .win {
+      fill: rgba(165, 242, 211, 0);
+    }
+
+    #st .mono {
+      fill: var(--ura-text);
+      font-family: var(--ura-mono);
+      font-size: 7px;
+      letter-spacing: 0.25em;
+    }
+
+    #st .jp {
+      fill: var(--ura-dim);
+      font-size: 6.5px;
+      letter-spacing: 0.2em;
+    }
+
+    #st .node {
+      fill: var(--ura-bg);
+      stroke: url(#ura-grad);
+      stroke-width: 1;
+    }
+
+    #st .dot {
+      fill: var(--ura-mint);
+    }
+
+    #st .pulse {
+      fill: #fff;
+    }
+
+    #st .logo {
+      fill: var(--ura-text);
+      font-size: 17px;
+      font-weight: 300;
+      letter-spacing: 0.6em;
+    }
+
+    #st .tag {
+      fill: var(--ura-dim);
+      font-family: var(--ura-mono);
+      font-size: 6px;
+      letter-spacing: 0.5em;
+    }
+
+    /* ---------- 4. 一覧（レシピ・登山部） ---------- */
+    .sheet {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      padding: 56px 16px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .sheet[hidden] {
+      display: none;
+    }
+
+    .sheet.is-on {
+      opacity: 1;
+    }
+
+    .sheet__box {
+      width: min(560px, 100%);
+      max-height: 100%;
+      overflow-y: auto;
+      padding: 40px 40px 32px;
+      border: 1px solid rgba(165, 242, 211, 0.18);
+      background: rgba(8, 12, 22, 0.82);
+      box-shadow: 0 0 80px -30px rgba(125, 180, 255, 0.55);
+      backdrop-filter: blur(6px);
+      transform: translateY(8px);
+      transition: transform 0.4s ease;
+    }
+
+    .sheet.is-on .sheet__box {
+      transform: none;
+    }
+
+    .sheet__kicker {
+      margin: 0 0 10px;
+      font-family: var(--ura-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.4em;
+      color: var(--ura-mint);
+    }
+
+    .sheet__title {
+      margin: 0 0 28px;
+      font-size: 1.5rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+    }
+
+    .sheet__stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1px;
+      margin: 0 0 28px;
+      background: rgba(165, 242, 211, 0.15);
+      border: 1px solid rgba(165, 242, 211, 0.15);
+    }
+
+    .sheet__stats[hidden] {
+      display: none;
+    }
+
+    .sheet__stat {
+      padding: 14px 18px;
+      background: rgba(8, 12, 22, 0.95);
+    }
+
+    .sheet__stat dt {
+      margin-bottom: 4px;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      color: var(--ura-dim);
+    }
+
+    .sheet__stat dd {
+      margin: 0;
+    }
+
+    .sheet__stat dd span {
+      font-family: var(--ura-mono);
+      font-size: 1.7rem;
+      color: var(--ura-text);
+      text-shadow: 0 0 18px rgba(165, 242, 211, 0.35);
+    }
+
+    .sheet__stat dd small {
+      margin-left: 6px;
+      font-size: 0.8rem;
+      color: var(--ura-dim);
+    }
+
+    .sheet__list {
+      list-style: none;
+      margin: 0 0 32px;
+      padding: 0;
+      border-top: 1px solid rgba(232, 238, 247, 0.1);
+    }
+
+    .sheet__item {
+      display: flex;
+      align-items: baseline;
+      gap: 18px;
+      width: 100%;
+      padding: 16px 4px;
+      border: 0;
+      border-bottom: 1px solid rgba(232, 238, 247, 0.1);
+      background: none;
+      color: var(--ura-text);
+      font: inherit;
+      text-align: left;
+    }
+
+    button.sheet__item {
+      cursor: pointer;
+      transition: background 0.2s, padding 0.2s;
+    }
+
+    button.sheet__item:hover,
+    button.sheet__item:focus-visible {
+      padding-left: 12px;
+      background: rgba(165, 242, 211, 0.06);
+      outline: none;
+    }
+
+    button.sheet__item::after {
+      content: "→";
+      margin-left: 4px;
+      color: var(--ura-mint);
+    }
+
+    .sheet__no {
+      font-family: var(--ura-mono);
+      font-size: 0.75rem;
+      color: var(--ura-mint);
+    }
+
+    .sheet__name {
+      flex: 1;
+      font-size: 1.02rem;
+      letter-spacing: 0.06em;
+    }
+
+    .sheet__meta {
+      font-size: 0.75rem;
+      color: var(--ura-dim);
+    }
+
+    .sheet__back,
+    .aerial__back {
+      padding: 10px 36px;
+      border: 1px solid var(--ura-mint);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--ura-mint);
+      font: inherit;
+      letter-spacing: 0.2em;
+      cursor: pointer;
+    }
+
+    .sheet__back:hover,
+    .aerial__back:hover {
+      background: rgba(165, 242, 211, 0.12);
+    }
+
+    /* ---------- 5. 山の3D航空写真 ---------- */
+    .aerial {
+      position: fixed;
+      inset: 0;
+      z-index: 3;
+      background: var(--ura-bg);
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .aerial[hidden] {
+      display: none;
+    }
+
+    .aerial.is-on {
+      opacity: 1;
+    }
+
+    /* 地図ライブラリの CSS（.maplibregl-map の position: relative）に負けないよう，.aerial を付けて強くし，高さも明示する */
+    .aerial .aerial__map {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* 写真の上下を暗くして，文字を読みやすくする */
+    .aerial::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(rgba(5, 7, 13, 0.75), transparent 22%, transparent 80%, rgba(5, 7, 13, 0.6));
+      pointer-events: none;
+    }
+
+    .aerial__head {
+      position: absolute;
+      top: 28px;
+      left: 32px;
+      z-index: 1;
+    }
+
+    .aerial__kicker {
+      margin: 0 0 6px;
+      font-family: var(--ura-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.4em;
+      color: var(--ura-mint);
+    }
+
+    .aerial__name {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 300;
+      letter-spacing: 0.14em;
+    }
+
+    .aerial__msg {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      z-index: 1;
+      text-align: center;
+      color: var(--ura-dim);
+    }
+
+    .aerial__back {
+      position: absolute;
+      right: 32px;
+      bottom: 32px;
+      z-index: 1;
+      background: rgba(5, 7, 13, 0.6);
+    }
+
+    .aerial .maplibregl-ctrl-attrib {
+      background: rgba(5, 7, 13, 0.6);
+      color: var(--ura-dim);
+      font-size: 10px;
+    }
+
+    .aerial .maplibregl-ctrl-attrib a {
+      color: var(--ura-dim);
+    }
+
+    /* 山頂の光る点と，カーソルを当てたときの表示 */
+    .summit {
+      position: relative;
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+    }
+
+    .summit__dot {
+      position: absolute;
+      inset: 9px;
+      border-radius: 50%;
+      background: var(--ura-mint);
+      box-shadow: 0 0 12px 3px rgba(165, 242, 211, 0.8);
+    }
+
+    .summit__dot::after {
+      content: "";
+      position: absolute;
+      inset: -9px;
+      border: 1px solid var(--ura-mint);
+      border-radius: 50%;
+      animation: summit-ping 2s ease-out infinite;
+    }
+
+    @keyframes summit-ping {
+      from { transform: scale(0.4); opacity: 1; }
+      to { transform: scale(1.6); opacity: 0; }
+    }
+
+    .summit__tip {
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 10px);
+      display: grid;
+      gap: 4px;
+      min-width: 150px;
+      padding: 12px 16px;
+      border: 1px solid rgba(165, 242, 211, 0.4);
+      background: rgba(5, 7, 13, 0.85);
+      color: var(--ura-text);
+      font-size: 0.8rem;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translate(-50%, 6px);
+      transition: opacity 0.2s, transform 0.2s;
+      pointer-events: none;
+    }
+
+    .summit:hover .summit__tip {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    .summit__tip b {
+      margin-bottom: 4px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      color: var(--ura-mint);
+    }
+
+    .summit__row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .summit__row span:first-child {
+      color: var(--ura-dim);
+    }
+
+    .summit__row span:last-child {
+      font-family: var(--ura-mono);
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <p class="ura__mark">URA SHIGEI LAB</p>
+
+  <div class="gate" id="gate">
+    <div class="gate__box">
+      <p class="gate__kicker">RESTRICTED</p>
+      <label class="gate__label" for="gate-input">合言葉を入力してください．</label>
+      <input class="gate__input" id="gate-input" type="text" autocomplete="off" spellcheck="false" autofocus>
+    </div>
+  </div>
+
+  <div class="stage" id="stage" aria-hidden="true">
+    <p class="visually-hidden" id="st-desc">DENDEN の建物にある重井研究室が線で描かれ，そこから AI・医療・教育へ光が伸び，最後に光でつながった街と SHIGEI LAB のロゴになるアニメーション．</p>
+    <svg id="st" viewBox="0 0 480 320" role="img" aria-labelledby="st-desc">
+      <defs>
+        <linearGradient id="ura-grad" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="480" y2="0">
+          <stop offset="0" stop-color="#7db4ff"/>
+          <stop offset="0.5" stop-color="#e8eef7"/>
+          <stop offset="1" stop-color="#a5f2d3"/>
+        </linearGradient>
+        <filter id="ura-glow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="2.4" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <g id="s1"></g>
+      <g id="s2"></g>
+      <g id="s3"></g>
+      <g id="s4"></g>
+    </svg>
+  </div>
+
+  <!-- ビルを押すと出る一覧（レシピ・登山部で共通．中身は script の RECIPES / MOUNTAINS から作る） -->
+  <div class="sheet" id="sheet" hidden>
+    <div class="sheet__box">
+      <p class="sheet__kicker" id="sheet-kicker"></p>
+      <h2 class="sheet__title" id="sheet-title"></h2>
+      <dl class="sheet__stats" id="sheet-stats" hidden></dl>
+      <ol class="sheet__list" id="sheet-list"></ol>
+      <button class="sheet__back" id="sheet-back" type="button">戻る</button>
+    </div>
+  </div>
+
+  <!-- 山の3D航空写真 -->
+  <div class="aerial" id="aerial" hidden>
+    <div class="aerial__map" id="aerial-map"></div>
+    <div class="aerial__head">
+      <p class="aerial__kicker">SUMMIT</p>
+      <h2 class="aerial__name" id="aerial-name"></h2>
+    </div>
+    <p class="aerial__msg" id="aerial-msg" hidden></p>
+    <button class="aerial__back" id="aerial-back" type="button">一覧へ戻る</button>
+  </div>
+
+  <div class="game" id="game" hidden>
+    <canvas class="game__cv" id="game-cv" aria-label="シューティングゲーム"></canvas>
+    <div class="game__result" id="game-result" hidden>
+      <p class="game__kicker">TIME UP</p>
+      <p class="game__label">SCORE</p>
+      <p class="game__score" id="game-score">0</p>
+      <button class="game__back" id="game-back" type="button">戻る</button>
+    </div>
+  </div>
+
+  <a class="ura__back" href="index.html">表の重井研究室へ戻る</a>
+
+  <script>
+    (() => {
+      const SVG = "http://www.w3.org/2000/svg";
+      const $ = (id) => document.getElementById(id);
+      const el = (tag, attrs, parent) => {
+        const e = document.createElementNS(SVG, tag);
+        for (const k in attrs) e.setAttribute(k, attrs[k]);
+        if (parent) parent.appendChild(e);
+        return e;
+      };
+      const anim = (e, frames, opts) => e.animate(frames, Object.assign({ fill: "both", easing: "cubic-bezier(.2,.7,.2,1)" }, opts));
+      const fadeIn = (e, delay, duration = 700) => anim(e, [{ opacity: 0 }, { opacity: 1 }], { delay, duration });
+      const centerOrigin = (e) => { e.style.transformBox = "fill-box"; e.style.transformOrigin = "center"; };
+      // 線を端から描く
+      const draw = (els, start, spread, duration = 900) => els.forEach((e, i) => {
+        const L = e.getTotalLength();
+        e.style.strokeDasharray = L;
+        anim(e, [{ strokeDashoffset: L }, { strokeDashoffset: 0 }], { delay: start + (i * spread) / Math.max(els.length, 1), duration });
+      });
+      // 2点を少し曲がった線でつなぐ
+      const curve = (a, b, bend, parent, cls = "ln") => {
+        const mx = (a[0] + b[0]) / 2, my = (a[1] + b[1]) / 2;
+        const dx = b[0] - a[0], dy = b[1] - a[1], l = Math.hypot(dx, dy);
+        const c = [mx - (dy / l) * bend, my + (dx / l) * bend];
+        return el("path", { class: cls, d: `M${a[0]} ${a[1]} Q${c[0]} ${c[1]} ${b[0]} ${b[1]}` }, parent);
+      };
+
+      // ---------- 光の粒：線の上を流れ続ける（線と同じグループに置くので，図が縮むと一緒に縮む） ----------
+      const pulses = [];
+      const addPulse = (path, start, period, phase = 0) => {
+        const dot = el("circle", { class: "pulse", r: 1.4, opacity: 0, filter: "url(#ura-glow)" }, path.parentNode);
+        pulses.push({ path, len: path.getTotalLength(), start, period, phase, dot });
+      };
+      let t0 = 0;
+      const loop = (now) => {
+        const t = now - t0;
+        pulses.forEach((p) => {
+          if (t < p.start) return;
+          const k = ((t - p.start) / p.period + p.phase) % 1;
+          const pt = p.path.getPointAtLength(k * p.len);
+          p.dot.setAttribute("cx", pt.x);
+          p.dot.setAttribute("cy", pt.y);
+          p.dot.setAttribute("opacity", Math.sin(Math.PI * k).toFixed(3));
+        });
+        requestAnimationFrame(loop);
+      };
+
+      // ---------- 1. DENDEN の建物と，重井研究室の窓 ----------
+      const s1 = $("s1");
+      const lines1 = [
+        el("path", { class: "ln ln--soft", d: "M60 250 L420 250" }, s1),
+        el("path", { class: "ln", d: "M170 250 L170 110 L310 110 L310 250" }, s1),
+        el("path", { class: "ln", d: "M148 122 L164 122 L164 232 L148 232 Z" }, s1),
+        el("path", { class: "ln", d: "M164 140 L170 140 M164 214 L170 214" }, s1),
+        el("path", { class: "ln", d: "M224 250 L224 220 Q240 204 256 220 L256 250" }, s1),
+        el("path", { class: "ln", d: "M240 212 L240 250" }, s1),
+        el("path", { class: "ln", d: "M290 110 L290 90" }, s1),
+      ];
+      const lab = el("rect", { class: "ln", x: 258, y: 126, width: 40, height: 40 }, s1);
+      lines1.push(lab);
+      const wins = [[182, 128], [206, 128], [230, 128], [182, 152], [206, 152], [230, 152], [182, 176], [206, 176], [230, 176], [258, 184], [282, 184]]
+        .map(([x, y]) => el("rect", { class: "ln ln--soft win", x, y, width: 14, height: 10 }, s1));
+      const sign = "DENDEN".split("").map((c, i) => {
+        const t = el("text", { class: "mono", x: 156, y: 140 + i * 16, "text-anchor": "middle", "font-size": 8, opacity: 0 }, s1);
+        t.textContent = c;
+        return t;
+      });
+      const labText = [["shigei", 143], ["_labo", 153]].map(([s, y]) => {
+        const t = el("text", { class: "mono", x: 278, y, "text-anchor": "middle", "font-size": 6, "letter-spacing": "0.08em", opacity: 0 }, s1);
+        t.textContent = s;
+        return t;
+      });
+      const beacon = el("circle", { class: "dot", cx: 290, cy: 88, r: 1.8, opacity: 0, filter: "url(#ura-glow)" }, s1);
+
+      // ---------- 2. 研究室から AI・医療・教育へ ----------
+      const s2 = $("s2");
+      const CORE = [240, 190];
+      const NODES = [[110, 112, "AI", "人工知能"], [240, 70, "MEDICAL", "医療"], [370, 112, "EDUCATION", "教育"]];
+      const core = el("g", {}, s2);
+      el("circle", { class: "node", cx: CORE[0], cy: CORE[1], r: 7 }, core);
+      el("circle", { class: "dot", cx: CORE[0], cy: CORE[1], r: 2.4, filter: "url(#ura-glow)" }, core);
+      centerOrigin(core);
+      const spokes = NODES.map(([x, y], i) => curve(CORE, [x, y], i === 1 ? 0 : (i ? 26 : -26), s2));
+      const links = [
+        curve([110, 112], [240, 70], -14, s2, "ln ln--soft"),
+        curve([240, 70], [370, 112], -14, s2, "ln ln--soft"),
+        curve([110, 112], [370, 112], 30, s2, "ln ln--soft"),
+      ];
+      const nodeGroups = NODES.map(([x, y, en, jp]) => {
+        const g = el("g", {}, s2);
+        el("circle", { class: "node", cx: x, cy: y, r: 13 }, g);
+        el("circle", { class: "dot", cx: x, cy: y, r: 2, filter: "url(#ura-glow)" }, g);
+        el("text", { class: "mono", x, y: y - 20, "text-anchor": "middle" }, g).textContent = en;
+        el("text", { class: "jp", x, y: y + 25, "text-anchor": "middle" }, g).textContent = jp;
+        centerOrigin(g);
+        return g;
+      });
+
+      // ---------- 3. 光でつながる街 ----------
+      const s3 = $("s3");
+      const B = [[48, 26, 52], [80, 18, 80], [104, 30, 40], [140, 22, 96], [168, 34, 64], [208, 26, 104], [240, 30, 84], [276, 20, 58], [302, 32, 100], [340, 24, 70], [370, 28, 46], [404, 26, 88]];
+      const city = [el("path", { class: "ln ln--soft", d: "M30 250 L450 250" }, s3)];
+      const cityWins = [];
+      // ビルは1棟ずつグループにして，アニメーションが終わったらクリックできるようにする（BUILDING_ACTIONS）
+      const buildings = B.map(([x, w, h], bi) => {
+        const g = el("g", { class: "bld" }, s3);
+        city.push(el("path", { class: "ln", d: `M${x} 250 L${x} ${250 - h} L${x + w} ${250 - h} L${x + w} 250` }, g));
+        let n = 0;
+        for (let wy = 250 - h + 8; wy < 242; wy += 9) {
+          for (let wx = x + 5; wx < x + w - 5; wx += 7) {
+            if ((n++ * 7 + bi * 3) % 5 < 3) cityWins.push(el("rect", { class: "win", x: wx, y: wy, width: 3, height: 4 }, g));
+          }
+        }
+        el("rect", { class: "bld__hit", x, y: 250 - h, width: w, height: h }, g);
+        return g;
+      });
+      // 2 の図は空へ縮んで星座のようになる．縮んだあとの位置から，街のビルへ光を下ろす
+      const K = 0.62, TX = 240 - K * 240, TY = 92 - K * 140;
+      const sky = ([x, y]) => [TX + K * x, TY + K * y];
+      const rays = [[0, 1], [0, 3], [1, 5], [1, 6], [2, 8], [2, 11]].map(([ni, bi], i) => {
+        const [x, w, h] = B[bi];
+        return curve(sky(NODES[ni]), [x + w / 2, 250 - h], i % 2 ? 10 : -10, s3, "ln ln--soft");
+      });
+
+      // ---------- 4. ロゴ ----------
+      const s4 = $("s4");
+      const logo = el("text", { class: "logo", x: 245, y: 288, "text-anchor": "middle", opacity: 0 }, s4);
+      logo.textContent = "SHIGEI LAB";
+      const rule = el("path", { class: "ln", d: "M180 296 L300 296", opacity: 0 }, s4);
+      const tag = el("text", { class: "tag", x: 241, y: 309, "text-anchor": "middle", opacity: 0 }, s4);
+      tag.textContent = "AI × MEDICAL × EDUCATION";
+
+      [s2, s3].forEach((g) => (g.style.opacity = 0));
+
+      function play() {
+        t0 = performance.now();
+        requestAnimationFrame(loop);
+
+        // 1. 建物を描く（0〜3.6秒）
+        draw(lines1, 200, 1400, 1000);
+        draw(wins, 900, 900, 700);
+        sign.forEach((t, i) => fadeIn(t, 1500 + i * 90, 500));
+        wins.forEach((w, i) => anim(w, [{ fill: "rgba(165,242,211,0)" }, { fill: "rgba(165,242,211,0.55)" }], { delay: 2100 + i * 70, duration: 400 }));
+        labText.forEach((t) => fadeIn(t, 2300, 600));
+        anim(lab, [{ fill: "rgba(125,180,255,0)" }, { fill: "rgba(125,180,255,0.18)" }], { delay: 2600, duration: 600 });
+        anim(beacon, [{ opacity: 0 }, { opacity: 1 }, { opacity: 0.2 }], { delay: 2000, duration: 1400, iterations: Infinity, easing: "ease-in-out", fill: "none" });
+
+        // 研究室の窓へ寄っていき，建物は消える（3.6〜4.8秒）
+        anim(s1, [{ transform: "translate(0px,0px) scale(1)", opacity: 1, filter: "blur(0px)" },
+                  { transform: "translate(-378px,-156px) scale(2.2)", opacity: 0, filter: "blur(3px)" }],
+             { delay: 3600, duration: 1200, easing: "cubic-bezier(.6,0,.3,1)" });
+
+        // 2. 研究室から AI・医療・教育へ広がる（4.4〜8秒）
+        fadeIn(s2, 4400, 400);
+        anim(core, [{ transform: "scale(0)" }, { transform: "scale(1)" }], { delay: 4400, duration: 600 });
+        draw(spokes, 4900, 400, 900);
+        nodeGroups.forEach((g, i) => anim(g, [{ opacity: 0, transform: "scale(.6)" }, { opacity: 1, transform: "scale(1)" }], { delay: 5600 + i * 180, duration: 700 }));
+        draw(links, 6400, 300, 1100);
+        spokes.forEach((p, i) => { addPulse(p, 5700 + i * 200, 1600, 0); addPulse(p, 5700 + i * 200, 1600, 0.5); });
+
+        // 3. 図は空へ縮み，下に街ができて，光でつながる（8〜12秒）
+        anim(s2, [{ transform: "translate(0px,0px) scale(1)" }, { transform: `translate(${TX}px,${TY}px) scale(${K})` }], { delay: 8000, duration: 1300, easing: "cubic-bezier(.6,0,.3,1)" });
+        anim(core, [{ opacity: 1 }, { opacity: 0 }], { delay: 8000, duration: 600 });
+        fadeIn(s3, 8600, 300);
+        draw(city, 8700, 1600, 900);
+        cityWins.forEach((w) => {
+          const x = +w.getAttribute("x");
+          anim(w, [{ fill: "rgba(165,242,211,0)" }, { fill: "rgba(165,242,211,0.9)" }, { fill: "rgba(165,242,211,0.45)" }], { delay: 9800 + x * 4, duration: 900 });
+        });
+        draw(rays, 10200, 900, 1000);
+        rays.forEach((p, i) => addPulse(p, 11000 + i * 120, 1900, i * 0.17));
+
+        // 4. ロゴ（12秒〜）
+        anim(logo, [{ opacity: 0, letterSpacing: "1.2em" }, { opacity: 1, letterSpacing: "0.6em" }], { delay: 12000, duration: 1600 });
+        anim(rule, [{ opacity: 0 }, { opacity: 1 }], { delay: 12600, duration: 10 });
+        draw([rule], 12600, 0, 1000);
+        fadeIn(tag, 13300, 900);
+
+        // 終わったら，ビルを押せるようにする
+        setTimeout(() => s3.classList.add("is-ready"), 13600);
+      }
+
+      // ---------- ビルを押したときの動き（左から 0, 1, 2, … 番目） ----------
+      const BUILDING_ACTIONS = {
+        2: () => openMountains(),  // 左から3つ目：重井研登山部
+        3: () => shooter.open(),   // 左から4つ目：シューティングゲーム
+        6: () => openRecipes(),    // 左から7つ目：尾曲シェフの研究室レシピ
+      };
+
+      // ---------- 一覧のデータ（ここに1行足すと，一覧に増える） ----------
+      // 尾曲シェフの研究室レシピ
+      const RECIPES = [
+        { name: "尾曲シェフの濃コクカレー" },
+        { name: "軍チャー" },
+      ];
+      // 重井研登山部：踏破した山（lat, lng は山頂などの位置．elevation は標高 m，gain は獲得標高 m，time はタイム．分からないものは null）
+      const MOUNTAINS = [
+        { name: "屋久島の縄文杉", lat: 30.3607272, lng: 130.5317994, elevation: null, gain: null, time: null },
+        { name: "高千穂峰", lat: 31.8859731, lng: 130.9188233, elevation: 1574, gain: 628, time: "3:54" },
+      ];
+
+      // ---------- 一覧の画面（レシピ・登山部で共通） ----------
+      const stage = $("stage");
+      const sheet = $("sheet");
+      const sheetKicker = $("sheet-kicker");
+      const sheetTitle = $("sheet-title");
+      const sheetStats = $("sheet-stats");
+      const sheetList = $("sheet-list");
+      const pad2 = (n) => String(n).padStart(2, "0");
+
+      const showSheet = () => {
+        sheet.hidden = false;
+        stage.classList.remove("is-on");
+        requestAnimationFrame(() => sheet.classList.add("is-on"));
+      };
+      const hideSheet = (toCity) => {
+        sheet.classList.remove("is-on");
+        if (toCity) stage.classList.add("is-on");
+        setTimeout(() => { if (!sheet.classList.contains("is-on")) sheet.hidden = true; }, 400);
+      };
+      $("sheet-back").addEventListener("click", () => hideSheet(true));
+
+      const fillSheet = (kicker, title, items, stats) => {
+        sheetKicker.textContent = kicker;
+        sheetTitle.textContent = title;
+        sheetStats.hidden = !stats;
+        sheetStats.innerHTML = "";
+        (stats || []).forEach(([label, value, unit]) => {
+          const d = document.createElement("div");
+          d.className = "sheet__stat";
+          d.innerHTML = `<dt></dt><dd><span></span><small></small></dd>`;
+          d.querySelector("dt").textContent = label;
+          d.querySelector("span").textContent = value;
+          d.querySelector("small").textContent = unit;
+          sheetStats.appendChild(d);
+        });
+        sheetList.innerHTML = "";
+        items.forEach((item, i) => {
+          const li = document.createElement("li");
+          const row = document.createElement(item.onClick ? "button" : "div");
+          row.className = "sheet__item";
+          if (item.onClick) {
+            row.type = "button";
+            row.addEventListener("click", item.onClick);
+          }
+          row.innerHTML = `<span class="sheet__no">${pad2(i + 1)}</span><span class="sheet__name"></span><span class="sheet__meta"></span>`;
+          row.querySelector(".sheet__name").textContent = item.name;
+          row.querySelector(".sheet__meta").textContent = item.meta || "";
+          li.appendChild(row);
+          sheetList.appendChild(li);
+        });
+      };
+
+      function openRecipes() {
+        fillSheet("RECIPES", "尾曲シェフの研究室レシピ", RECIPES.map((r) => ({ name: r.name })));
+        showSheet();
+      }
+
+      function openMountains() {
+        const gain = MOUNTAINS.reduce((sum, m) => sum + (m.gain || 0), 0);
+        fillSheet("MOUNTAINEERING CLUB", "重井研登山部",
+          MOUNTAINS.map((m) => ({
+            name: m.name,
+            meta: m.gain != null ? `獲得標高 ${m.gain.toLocaleString()}m` : "",
+            onClick: () => aerial.open(m),
+          })),
+          [["登頂した山数", MOUNTAINS.length, "座"], ["獲得標高", gain.toLocaleString(), "m"]]);
+        showSheet();
+      }
+
+      // ---------- 山の3D航空写真：空から山へ近づき，周りをぐるぐる回る ----------
+      // 地図は MapLibre GL JS（初めて開いたときに読み込む）．写真は国土地理院の地理院タイル，地形の高さは AWS の標高タイル
+      const aerial = (() => {
+        const wrap = $("aerial");
+        const nameEl = $("aerial-name");
+        const msg = $("aerial-msg");
+        let map = null, raf = 0, marker = null;
+
+        const loadLib = () => window.maplibregl ? Promise.resolve() : new Promise((resolve, reject) => {
+          const css = document.createElement("link");
+          css.rel = "stylesheet";
+          css.href = "https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css";
+          document.head.appendChild(css);
+          const js = document.createElement("script");
+          js.src = "https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js";
+          js.onload = resolve;
+          js.onerror = reject;
+          document.head.appendChild(js);
+        });
+
+        const orbit = () => {
+          let last = performance.now();
+          const step = (now) => {
+            raf = requestAnimationFrame(step);
+            map.setBearing(map.getBearing() + (now - last) * 0.006);   // 1秒に約6度
+            last = now;
+          };
+          raf = requestAnimationFrame(step);
+        };
+
+        // 山頂の光る点．カーソルを当てると，標高とタイムが出る
+        const summit = (m) => {
+          const elm = document.createElement("div");
+          elm.className = "summit";
+          elm.innerHTML =
+            '<span class="summit__dot"></span>' +
+            '<span class="summit__tip"><b></b><span class="summit__row"><span>標高</span><span class="v1"></span></span>' +
+            '<span class="summit__row"><span>タイム</span><span class="v2"></span></span></span>';
+          elm.querySelector("b").textContent = m.name;
+          elm.querySelector(".v1").textContent = m.elevation != null ? `${m.elevation.toLocaleString()}m` : "—";
+          elm.querySelector(".v2").textContent = m.time || "—";
+          return elm;
+        };
+
+        const open = async (m) => {
+          hideSheet(false);
+          nameEl.textContent = m.name;
+          msg.hidden = true;
+          wrap.hidden = false;
+          requestAnimationFrame(() => wrap.classList.add("is-on"));
+          try {
+            await loadLib();
+          } catch (e) {
+            msg.textContent = "地図を読み込めませんでした．";
+            msg.hidden = false;
+            return;
+          }
+          if (!document.createElement("canvas").getContext("webgl2") && !document.createElement("canvas").getContext("webgl")) {
+            msg.textContent = "このブラウザでは3D表示ができません．";
+            msg.hidden = false;
+            return;
+          }
+          map = new maplibregl.Map({
+            container: "aerial-map",
+            interactive: false,
+            attributionControl: false,
+            center: [m.lng, m.lat],
+            zoom: 8.5,
+            pitch: 0,
+            bearing: 0,
+            maxPitch: 75,
+            style: {
+              version: 8,
+              sources: {
+                photo: {
+                  type: "raster",
+                  tiles: ["https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg"],
+                  tileSize: 256,
+                  maxzoom: 18,
+                },
+                dem: {
+                  type: "raster-dem",
+                  tiles: ["https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png"],
+                  tileSize: 256,
+                  maxzoom: 15,
+                  encoding: "terrarium",
+                },
+              },
+              layers: [
+                { id: "bg", type: "background", paint: { "background-color": "#05070d" } },
+                { id: "photo", type: "raster", source: "photo", paint: { "raster-saturation": -0.15, "raster-contrast": 0.1 } },
+              ],
+              terrain: { source: "dem", exaggeration: 1.4 },
+            },
+          });
+          map.addControl(new maplibregl.AttributionControl({
+            compact: true,
+            customAttribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">地理院タイル</a> | Terrain: Mapzen, AWS',
+          }));
+          marker = new maplibregl.Marker({ element: summit(m), anchor: "center" }).setLngLat([m.lng, m.lat]).addTo(map);
+          map.once("load", () => {
+            // 空の高いところから，斜めに見下ろしながら山へ近づく
+            map.flyTo({ center: [m.lng, m.lat], zoom: 14, pitch: 68, bearing: -40, duration: 7000, curve: 1.3, essential: true });
+            map.once("moveend", orbit);
+          });
+        };
+
+        const close = () => {
+          cancelAnimationFrame(raf);
+          raf = 0;
+          wrap.classList.remove("is-on");
+          setTimeout(() => {
+            if (marker) marker.remove();
+            if (map) map.remove();
+            map = marker = null;
+            wrap.hidden = true;
+          }, 400);
+          showSheet();
+        };
+        $("aerial-back").addEventListener("click", close);
+
+        return { open };
+      })();
+      buildings.forEach((g, i) => g.addEventListener("click", () => {
+        if (s3.classList.contains("is-ready") && BUILDING_ACTIONS[i]) BUILDING_ACTIONS[i]();
+      }));
+
+      // ---------- シューティングゲーム（30秒） ----------
+      // ← → で移動，Tab で弾を発射．Tab を2秒長押しして離すと，2秒間のビーム
+      const shooter = (() => {
+        const wrap = $("game");
+        const cv = $("game-cv");
+        const ctx = cv.getContext("2d");
+        const result = $("game-result");
+        const scoreOut = $("game-score");
+        const back = $("game-back");
+        const stage = $("stage");
+        const W = 480, H = 600;
+        const TIME = 30, CHARGE = 2000, BEAM = 2000;
+        const MINT = "#a5f2d3", BLUE = "#7db4ff", TEXT = "#e8eef7", DIM = "#7f8ea6";
+        const MONO = 'ui-monospace, "SF Mono", Menlo, Consolas, monospace';
+
+        let state = "off";   // off → intro → play → over
+        let keys, player, bullets, enemies, sparks, score, elapsed, spawnAcc, beamUntil, tabAt, tabHeld, last, raf;
+
+        const fit = () => {
+          const dpr = window.devicePixelRatio || 1;
+          const h = Math.min(window.innerHeight - 120, 720);
+          cv.style.height = h + "px";
+          cv.style.width = (h * W / H) + "px";
+          cv.width = W * dpr;
+          cv.height = H * dpr;
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        };
+
+        const reset = () => {
+          keys = { left: false, right: false };
+          player = { x: W / 2, y: H - 56 };
+          bullets = [];
+          enemies = [];
+          sparks = [];
+          score = 0;
+          elapsed = 0;
+          spawnAcc = 0;
+          beamUntil = 0;
+          tabHeld = false;
+        };
+
+        const fire = () => bullets.push({ x: player.x, y: player.y - 16 });
+
+        const kill = (e) => {
+          e.dead = true;
+          score += 100;
+          for (let i = 0; i < 10; i++) {
+            const a = (Math.PI * 2 * i) / 10 + Math.random() * 0.4;
+            const v = 60 + Math.random() * 90;
+            sparks.push({ x: e.x, y: e.y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, life: 0.5 });
+          }
+        };
+
+        const spawn = () => {
+          enemies.push({
+            x: 30 + Math.random() * (W - 60),
+            y: -20,
+            vy: 70 + Math.random() * 60 + elapsed * 3,
+            sway: Math.random() * Math.PI * 2,
+            spin: (Math.random() - 0.5) * 3,
+            rot: 0,
+            sides: [4, 6, 3][Math.floor(Math.random() * 3)],
+            r: 11,
+          });
+        };
+
+        const onDown = (e) => {
+          if (state !== "intro" && state !== "play") return;
+          if (e.key === "Tab") {
+            e.preventDefault();
+            if (e.repeat) return;
+            if (state === "intro") { state = "play"; return; }
+            fire();
+            tabHeld = true;
+            tabAt = performance.now();
+          } else if (e.key === "ArrowLeft" || e.key === "a") {
+            e.preventDefault();
+            keys.left = true;
+          } else if (e.key === "ArrowRight" || e.key === "d") {
+            e.preventDefault();
+            keys.right = true;
+          }
+        };
+
+        const onUp = (e) => {
+          if (e.key === "Tab") {
+            if (state === "intro" || state === "play") e.preventDefault();
+            if (state === "play" && tabHeld && performance.now() - tabAt >= CHARGE) beamUntil = performance.now() + BEAM;
+            tabHeld = false;
+          } else if (e.key === "ArrowLeft" || e.key === "a") keys.left = false;
+          else if (e.key === "ArrowRight" || e.key === "d") keys.right = false;
+        };
+
+        const onBlur = () => { keys.left = keys.right = false; tabHeld = false; };
+
+        const update = (dt, now) => {
+          elapsed += dt;
+          if (elapsed >= TIME) {
+            elapsed = TIME;
+            state = "over";
+            tabHeld = false;
+            beamUntil = 0;
+            scoreOut.textContent = score;
+            result.hidden = false;
+            back.focus();
+            return;
+          }
+          player.x = Math.max(22, Math.min(W - 22, player.x + ((keys.right ? 1 : 0) - (keys.left ? 1 : 0)) * 300 * dt));
+
+          bullets.forEach((b) => (b.y -= 560 * dt));
+          bullets = bullets.filter((b) => b.y > -12 && !b.dead);
+
+          spawnAcc += dt * (1 + elapsed * 0.09);
+          while (spawnAcc >= 1) { spawn(); spawnAcc -= 1; }
+          enemies.forEach((e) => {
+            e.y += e.vy * dt;
+            e.x += Math.sin(e.sway + e.y / 40) * 24 * dt;
+            e.rot += e.spin * dt;
+          });
+
+          const beaming = now < beamUntil;
+          enemies.forEach((e) => {
+            if (e.dead) return;
+            if (beaming && Math.abs(e.x - player.x) < 12 + e.r && e.y < player.y) { kill(e); return; }
+            for (const b of bullets) {
+              if (!b.dead && Math.hypot(b.x - e.x, b.y - e.y) < e.r + 3) { b.dead = true; kill(e); break; }
+            }
+          });
+          enemies = enemies.filter((e) => !e.dead && e.y < H + 24);
+        };
+
+        const glow = (color, blur = 8) => { ctx.strokeStyle = color; ctx.fillStyle = color; ctx.shadowColor = color; ctx.shadowBlur = blur; };
+
+        const draw = (now) => {
+          ctx.shadowBlur = 0;
+          ctx.fillStyle = "#05070d";
+          ctx.fillRect(0, 0, W, H);
+          ctx.strokeStyle = "rgba(165,242,211,0.05)";
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          for (let x = 0; x <= W; x += 24) { ctx.moveTo(x + 0.5, 0); ctx.lineTo(x + 0.5, H); }
+          for (let y = 0; y <= H; y += 24) { ctx.moveTo(0, y + 0.5); ctx.lineTo(W, y + 0.5); }
+          ctx.stroke();
+
+          // ビーム
+          if (now < beamUntil) {
+            const left = (beamUntil - now) / BEAM;
+            const w = 10 + Math.sin(now / 30) * 2;
+            const g = ctx.createLinearGradient(player.x - w, 0, player.x + w, 0);
+            g.addColorStop(0, "rgba(125,180,255,0)");
+            g.addColorStop(0.5, `rgba(165,242,211,${0.35 + 0.4 * left})`);
+            g.addColorStop(1, "rgba(125,180,255,0)");
+            ctx.shadowBlur = 0;
+            ctx.fillStyle = g;
+            ctx.fillRect(player.x - w, 0, w * 2, player.y - 14);
+            glow("#fff", 16);
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(player.x, 0);
+            ctx.lineTo(player.x, player.y - 14);
+            ctx.stroke();
+          }
+
+          // 敵
+          ctx.lineWidth = 1.2;
+          enemies.forEach((e) => {
+            glow(e.sides === 3 ? MINT : BLUE);
+            ctx.beginPath();
+            for (let i = 0; i <= e.sides; i++) {
+              const a = e.rot + (Math.PI * 2 * i) / e.sides;
+              ctx.lineTo(e.x + Math.cos(a) * e.r, e.y + Math.sin(a) * e.r);
+            }
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(e.x, e.y, 1.6, 0, Math.PI * 2);
+            ctx.fill();
+          });
+
+          // 弾
+          glow("#fff", 10);
+          ctx.lineWidth = 1.5;
+          bullets.forEach((b) => { ctx.beginPath(); ctx.moveTo(b.x, b.y); ctx.lineTo(b.x, b.y + 9); ctx.stroke(); });
+
+          // 爆発の破片
+          sparks.forEach((s) => {
+            glow(`rgba(165,242,211,${s.life * 2})`, 6);
+            ctx.beginPath();
+            ctx.moveTo(s.x, s.y);
+            ctx.lineTo(s.x - s.vx * 0.04, s.y - s.vy * 0.04);
+            ctx.stroke();
+          });
+
+          // 自機
+          glow(TEXT, 10);
+          ctx.lineWidth = 1.4;
+          ctx.beginPath();
+          ctx.moveTo(player.x, player.y - 15);
+          ctx.lineTo(player.x - 12, player.y + 11);
+          ctx.lineTo(player.x, player.y + 5);
+          ctx.lineTo(player.x + 12, player.y + 11);
+          ctx.closePath();
+          ctx.stroke();
+
+          // ためている間は，自機の周りの輪が2秒で一周する
+          if (tabHeld && state === "play") {
+            const p = Math.min((now - tabAt) / CHARGE, 1);
+            const full = p >= 1;
+            glow(full ? MINT : BLUE, full ? 14 : 6);
+            ctx.lineWidth = full ? 2 : 1.2;
+            ctx.beginPath();
+            ctx.arc(player.x, player.y, 22, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * p);
+            ctx.stroke();
+            if (full) {
+              ctx.shadowBlur = 0;
+              ctx.font = `9px ${MONO}`;
+              ctx.textAlign = "center";
+              ctx.fillText("RELEASE", player.x, player.y + 38);
+            }
+          }
+
+          // 上の表示
+          ctx.shadowBlur = 0;
+          ctx.font = `11px ${MONO}`;
+          ctx.fillStyle = DIM;
+          ctx.textAlign = "left";
+          ctx.fillText("SCORE", 18, 26);
+          ctx.textAlign = "right";
+          ctx.fillText("TIME", W - 18, 26);
+          ctx.font = `16px ${MONO}`;
+          ctx.fillStyle = TEXT;
+          ctx.textAlign = "left";
+          ctx.fillText(String(score).padStart(6, "0"), 18, 46);
+          ctx.textAlign = "right";
+          ctx.fillText((TIME - elapsed).toFixed(1), W - 18, 46);
+
+          // 始める前の説明
+          if (state === "intro") {
+            ctx.fillStyle = "rgba(5,7,13,0.7)";
+            ctx.fillRect(0, 0, W, H);
+            ctx.textAlign = "center";
+            glow(TEXT, 12);
+            ctx.font = `300 26px "Noto Sans JP", sans-serif`;
+            ctx.fillText("S H O O T E R", W / 2, 210);
+            ctx.shadowBlur = 0;
+            ctx.fillStyle = DIM;
+            ctx.font = `13px "Noto Sans JP", sans-serif`;
+            ctx.fillText("← →　移動", W / 2, 270);
+            ctx.fillText("TAB　弾を発射", W / 2, 296);
+            ctx.fillText("TAB を2秒長押しして離す　2秒間のビーム", W / 2, 322);
+            ctx.fillStyle = MINT;
+            ctx.globalAlpha = 0.55 + 0.45 * Math.sin(now / 300);
+            ctx.font = `12px ${MONO}`;
+            ctx.fillText("PRESS TAB TO START", W / 2, 390);
+            ctx.globalAlpha = 1;
+          }
+        };
+
+        const frame = (now) => {
+          raf = requestAnimationFrame(frame);
+          const dt = Math.min((now - last) / 1000, 0.05);
+          last = now;
+          if (state === "play") update(dt, now);
+          sparks.forEach((s) => { s.x += s.vx * dt; s.y += s.vy * dt; s.life -= dt; });
+          sparks = sparks.filter((s) => s.life > 0);
+          draw(now);
+        };
+
+        const open = () => {
+          if (state !== "off") return;
+          reset();
+          fit();
+          state = "intro";
+          result.hidden = true;
+          wrap.hidden = false;
+          stage.classList.remove("is-on");
+          requestAnimationFrame(() => wrap.classList.add("is-on"));
+          document.addEventListener("keydown", onDown, true);
+          document.addEventListener("keyup", onUp, true);
+          window.addEventListener("blur", onBlur);
+          window.addEventListener("resize", fit);
+          last = performance.now();
+          raf = requestAnimationFrame(frame);
+        };
+
+        // 戻る：ゲームを閉じて，裏の重井研究室のホーム（街の画面）へ戻る
+        const close = () => {
+          state = "off";
+          cancelAnimationFrame(raf);
+          document.removeEventListener("keydown", onDown, true);
+          document.removeEventListener("keyup", onUp, true);
+          window.removeEventListener("blur", onBlur);
+          window.removeEventListener("resize", fit);
+          wrap.classList.remove("is-on");
+          stage.classList.add("is-on");
+          setTimeout(() => { wrap.hidden = true; }, 500);
+        };
+        back.addEventListener("click", close);
+
+        return { open };
+      })();
+
+      // 建物の線は，描き始めるまで隠しておく
+      [...lines1, ...wins].forEach((e) => { const L = e.getTotalLength(); e.style.strokeDasharray = L; e.style.strokeDashoffset = L; });
+
+      // ---------- 合言葉：何を入力しても反応しない．Tab キーを押したときだけ進む ----------
+      const gate = $("gate");
+      const input = $("gate-input");
+      input.focus();
+      const onKey = (e) => {
+        if (e.key !== "Tab") return;
+        e.preventDefault();
+        document.removeEventListener("keydown", onKey, true);
+        input.blur();
+        gate.classList.add("is-open");
+        gate.setAttribute("aria-hidden", "true");
+        const stage = $("stage");
+        stage.removeAttribute("aria-hidden");
+        stage.classList.add("is-on");
+        setTimeout(play, 500);
+      };
+      document.addEventListener("keydown", onKey, true);
+    })();
+  </script>
+</body>
+</html>
