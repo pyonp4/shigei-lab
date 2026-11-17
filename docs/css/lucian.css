@@ -766,42 +766,57 @@
   flex-grow: 5;
 }
 
-/* 「AIによる手術手技スキルの推定」：研究ページの図2を背景にする
+/* 図を背景にするパネル（u389-p--fig）：研究ページの図を背景にする
    図は ::before に置く（背景画像は回転できないため）。紺色の重ねは ::after（元の .u389-p::after より後ろに効くよう .u389-p を重ねて指定）。パネルの大きさは container-type で cqw・cqh として使う
    ・閉じた細いパネル：図を90度回して横向きにし，帯いっぱいに広げる。縦書きの名前が読めるよう紺色を重ねる
-   ・開いたパネル：図を上側に置き，下側（文字の部分）は紺色にする */
-.u389-p--surgery {
+   ・開いたパネル：図を上側に置き，下側（文字の部分）は紺色にする
+   図を足すときは，下の「パネルごとの図」に，クラス名・図のファイル・縦横比（--fig-r：横÷縦）を1行ずつ足す */
+.u389-p--fig {
+  --fig-r: 1.75;
   container-type: size;
   background: #0a1f44;
 }
 
-.u389-p--surgery::before {
+/* パネルごとの図 */
+.u389-p--surgery  { --fig-r: 1.75; }   /* research1：1120×640 */
+.u389-p--surgery::before  { background-image: url("../images/research1/fig2_overview.svg"); }
+.u389-p--disaster { --fig-r: 1.603; }  /* research2：800×499 */
+.u389-p--disaster::before { background-image: url("../images/research2/card.png"); }
+.u389-p--vision   { --fig-r: 1.636; }  /* 画像・映像識別：research5 の図2（800×489） */
+.u389-p--vision::before   { background-image: url("../images/research5/card.jpg"); }
+.u389-p--ee       { --fig-r: 1.778; }  /* 電気・電子：research4 の図2（800×450） */
+.u389-p--ee::before       { background-image: url("../images/research4/card.png"); }
+
+.u389-p--fig::before {
   content: "";
   position: absolute;
   top: 50%;
   left: 50%;
   width: 100cqh;
   height: 100cqw;
-  background: url("../images/research1/fig2_overview.svg") center / cover no-repeat #fff;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: #fff;
   transform: translate(-50%, -50%) rotate(-90deg);
   pointer-events: none;
 }
 
-.u389-p.u389-p--surgery::after {
+.u389-p.u389-p--fig::after {
   background: rgba(10, 31, 68, 0.82);
 }
 
-.u389-p--surgery.on::before {
+.u389-p--fig.on::before {
   top: 0;
   left: 0;
   width: 100cqw;
-  height: calc(100cqw * 640 / 1120);   /* 図の縦横比（1120×640）のまま */
+  height: calc(100cqw / var(--fig-r));   /* 図の縦横比のまま */
   background-size: 100% auto;
   background-position: center top;
   transform: none;
 }
 
-.u389-p.u389-p--surgery.on::after {
+.u389-p.u389-p--fig.on::after {
   background: linear-gradient(transparent 45%, #0a1f44 68%);
 }
 
@@ -916,7 +931,7 @@
 
   /* スマホではパネルが横長なので図は回さない
      閉じた帯：図を帯いっぱいに広げる。開いたとき：高さが低いので，図は小さくして上の部分だけに置く */
-  .u389-p--surgery::before {
+  .u389-p--fig::before {
     top: 0;
     left: 0;
     width: 100cqw;
@@ -924,15 +939,15 @@
     transform: none;
   }
 
-  .u389-p--surgery.on::before {
+  .u389-p--fig.on::before {
     left: 50%;
-    width: calc(34cqh * 1120 / 640);
+    width: calc(34cqh * var(--fig-r));
     height: 34cqh;
     background-size: cover;
     transform: translateX(-50%);
   }
 
-  .u389-p.u389-p--surgery.on::after {
+  .u389-p.u389-p--fig.on::after {
     background: linear-gradient(transparent 26%, #0a1f44 36%);
   }
 
