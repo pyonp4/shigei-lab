@@ -518,7 +518,7 @@
 }
 
 /* ---------- 行事紹介：画面に貼りついて横に進むタイムライン ---------- */
-/* 「1年の流れ」が画面に貼りつき、下へスクロールすると行事が1つずつ横へ送られる（lucian.js の setupTimeline）
+/* 「1年の流れ」が画面に貼りつき、下へスクロールすると行事が1つずつ横へ送られる（lucian.js の setupTimeline）。スマホでは縦に並べる（下の @media）
    ページ上の高さは「行事の数 × 画面の7割」。上に行事名の目次、下に進み具合のバー
    JavaScript が動くときだけ .pin が付く（動かない環境・動きを減らす設定では style.css の縦の一覧のまま） */
 .pin {
@@ -563,6 +563,7 @@
 }
 
 .pin-nav button {
+  white-space: nowrap;   /* 行事名を折り返さない（目次が2段にならないように） */
   font: inherit;
   font-size: 0.875rem;
   font-weight: 700;
@@ -668,29 +669,42 @@
   transform: scaleX(var(--p, 0));
 }
 
-/* スマートフォン：写真を上、カードを下に重ねる。目次は今の行事の名前だけ出し、ほかは点にする */
+/* スマートフォン：横に送る仕組みをやめて，行事を縦に並べる（写真が上，カードが下）
+   画面の幅が変わったときもその場で切り替わるよう，JavaScript で付けた枠はそのままにして見た目だけ戻す */
 @media (max-width: 768px) {
+  .pin {
+    height: auto;
+    margin-bottom: 40px;
+  }
+
   .pin-sticky {
-    top: max(72px, calc(50vh - 260px));
-    gap: 14px;
+    position: static;
+    overflow: visible;
   }
 
-  .pin-nav button {
-    font-size: 0.75rem;
-    padding: 2px 10px;
+  .pin-nav,
+  .pin-bar {
+    display: none;
   }
 
-  .pin-nav button:not(.on) {
-    width: 14px;
-    height: 14px;
-    padding: 0;
-    overflow: hidden;
-    color: transparent;
+  .pin-view {
+    overflow: visible;
+  }
+
+  .timeline.pin-track {
+    display: block;
+    transform: none !important;   /* JavaScript が付ける横送りを無効にする */
   }
 
   .timeline.pin-track li.pin-panel {
     grid-template-columns: minmax(0, 1fr);
     gap: 12px;
+    padding: 0;
+    margin-bottom: 32px;
+  }
+
+  .timeline.pin-track li.pin-panel:last-child {
+    margin-bottom: 0;
   }
 
   .pin-photos.timeline-photos {

@@ -2179,11 +2179,14 @@ main .container {
     width: auto;
   }
 
+  /* PC 用の幅（26%・12%）を外して，ゼミ名を1行で表示する */
   .seminar-table tbody th {
+    width: auto;
     padding: 16px 0 4px 12px;
   }
 
   .seminar-table__target {
+    width: auto;
     padding: 16px 12px 4px 0;
   }
 
