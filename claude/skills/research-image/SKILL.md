@@ -8,8 +8,8 @@ description: 研究室サイトで、研究のイメージ画像（図や写真�
 お手本は「AIによる手術手技スキルの推定」（research1）。最初に次の3か所を読み、同じ形で作る。
 
 - `docs/research.html` の `<a class="card" href="research1.html">` と、`docs/css/style.css` の `.card-img`
-- `docs/index.html` の `<a class="u389-p u389-p--fig u389-p--surgery" href="research1.html">`（分野のパネルの例は `u389-p--slam`：research3 の図を「画像・映像識別」に表示）
-- `docs/css/lucian.css` の `.u389-p--fig`（共通の仕組み）と、研究ごとの `.u389-p--surgery`・`.u389-p--slam`
+- `docs/index.html` の `<a class="u389-p u389-p--fig u389-p--surgery" href="research1.html">`（分野のパネルの例は `u389-p--vision`・`u389-p--ee`）
+- `docs/css/lucian.css` の `.u389-p--fig`（共通の仕組み）と、その下の「パネルごとの図」（`.u389-p--surgery` など）
 
 ## 0. 準備
 
@@ -34,12 +34,19 @@ powershell -NoProfile -ExecutionPolicy Bypass -File claude/skills/research-image
 
 ## 2. トップの研究紹介パネル（`docs/index.html` と `docs/css/lucian.css`）
 
-パネルは「横に開くパネル」（`.u389`）。開くと横長、閉じると細い縦の帯になる。個別の研究のパネルがない研究は、その研究が入っている分野のパネル（例：「画像・映像識別」）に画像を出すか、新しくパネルを足すかを確認する。
+パネルは「横に開くパネル」（`.u389`）。開くと横長、閉じると細い縦の帯になる。個別の研究のパネルがない研究は、その研究が入っている分野のパネル（例：「画像・映像識別」）に画像を出すか、新しくパネルを足すかを確認する。分野のパネルにすでに別の研究の図が入っている場合は、差し替えるかどうかも確認する。
+
+研究ページが1つもない分野は、図を入れずに「準備中」にする（`docs/index.html` のパネルの `<small>` を「準備中」に、`docs/research.html` の分野の欄を `.notice` の「この分野の研究紹介は準備中です．」に。お手本は IoT・自然言語処理）。
 
 - **写真など暗めで文字が読める画像**：`index.html` のコメントのとおり、インラインの `--bg` を `url("images/…") center / cover` に差し替えるだけでよい。
 - **白い背景の図**：そのまま敷くと白い文字が読めないので、research1 と同じ作りにする。
   1. `index.html`：パネルの `style="--bg:…"` を消し、`u389-p--fig` と `u389-p--研究の名前` の2つのクラスを付ける。
-  2. `lucian.css`：`.u389-p--slam` の3行をまねて、研究ごとのクラスに図のパス（`--fig`）と、図の横・縦の大きさ（`--fig-w`・`--fig-h`、単位なしの数字）だけを書く。画像のパスは CSS からの相対パス（`../images/…`）にする。PC用・スマホ用の動きは `.u389-p--fig` が受け持つので、書き足さなくてよい。
+  2. `lucian.css`：「パネルごとの図」に2行を足す。1行目は図の縦横比（`--fig-r`：横÷縦）、2行目は `::before` の `background-image` に図のパスを書く。画像のパスは CSS からの相対パス（`../images/…`）にする。PC用・スマホ用の動きは `.u389-p--fig` が受け持つので、書き足さなくてよい。
+
+     ```css
+     .u389-p--名前 { --fig-r: 1.778; }   /* researchN：800×450 */
+     .u389-p--名前::before { background-image: url("../images/researchN/card.png"); }
+     ```
   3. 仕組み（`.u389-p--fig`）：図は `::before` に置き、パネルの大きさは `container-type: size` で `cqw`・`cqh` として使う。
      - 開いたとき：図を上側に置き、下側（タイトル・説明・ボタンの部分）は紺色。
      - 閉じた細い帯（PC）：図を90度回して横向きにし、帯いっぱいに拡大する。縦書きの名前が読めるよう、`::after` で紺色（濃さ 82%）を重ねる。
