@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- 裏の重井研究室：お問い合わせ欄の棒人間（js/lucian.js の setupRadarPeek）を押すと来るページ
-       検索結果には出さない．今はトップ画面だけの仮のページ（test） -->
+       検索結果には出さない．開くと，研究室の物語のアニメーション（約15秒）が流れる -->
   <meta name="robots" content="noindex, nofollow">
   <title>裏 重井研究室</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,6 +15,12 @@
       --ura-bg: #05070d;
       --ura-text: #e8eef7;
       --ura-accent: #a5f2d3;
+      /* 以下はアニメーション（#st）が使う色と文字 */
+      --text-primary: #e8eef7;
+      --text-secondary: #9fb0c8;
+      --surface-2: #0b1220;
+      --bg-accent: #0d2a4a;
+      --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
     }
 
     * {
@@ -37,6 +43,11 @@
       text-align: center;
     }
 
+    main {
+      width: 100%;
+      max-width: 520px;
+    }
+
     .ura__kicker {
       margin: 0 0 8px;
       font-size: 0.9rem;
@@ -45,31 +56,158 @@
     }
 
     .ura__title {
-      margin: 0 0 32px;
-      font-size: clamp(2rem, 7vw, 3.6rem);
+      margin: 0 0 16px;
+      font-size: clamp(2rem, 7vw, 3rem);
       font-weight: 700;
       letter-spacing: 0.08em;
     }
 
-    .ura__test {
-      margin: 0 0 48px;
-      font-size: clamp(3rem, 12vw, 6rem);
-      font-weight: 700;
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+    }
+
+    #st {
+      display: block;
+      font-family: "Noto Sans JP", sans-serif;
+    }
+
+    #stReplay {
+      margin: 8px 0 32px;
+      padding: 8px 20px;
+      border: 1px solid var(--ura-accent);
+      border-radius: 999px;
+      background: transparent;
       color: var(--ura-accent);
+      font: inherit;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    #stReplay:hover {
+      background: rgba(165, 242, 211, 0.12);
     }
 
     .ura__back {
       color: var(--ura-text);
       font-size: 0.9rem;
     }
+
+    /* ---------- 研究室の物語のアニメーション ---------- */
+    #st .d,#st .p{fill:none;stroke:var(--text-primary);stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+    #st .t{fill:var(--text-primary);font-size:11px;font-family:var(--font-mono);opacity:0}
+    #st .ray{fill:none;stroke:#378ADD;stroke-width:1.3;stroke-linecap:round}
+    #st .bubc{fill:var(--bg-accent);stroke:#378ADD;stroke-width:1.3}
+    #st .blbl{fill:var(--text-primary);font-size:12px}
+    #st .eye{fill:var(--text-primary)}
+    #st .kc{fill:var(--surface-2);stroke:#378ADD;stroke-width:1.2}
+    #st .kt{fill:var(--text-primary);font-size:11px;font-family:var(--font-mono)}
+    #st .heart{fill:#D4537E;opacity:0}
+    #st .cap{fill:var(--text-primary);font-size:15px;opacity:0}
+    #st .sub{fill:var(--text-secondary);font-size:11px;font-family:var(--font-mono);opacity:0}
   </style>
 </head>
 <body>
   <main>
     <p class="ura__kicker">URA SHIGEI LAB</p>
     <h1 class="ura__title">裏 重井研究室</h1>
-    <p class="ura__test">test</p>
-    <a class="ura__back" href="index.html">表の重井研究室へ戻る</a>
+    <p class="visually-hidden" id="st-desc">電大の重井研究室が線画で描かれ，そこからAI・医療・教育へ線が伸びて人々が笑顔になり，最後にみんながAIと心地よく暮らす街になるアニメーション．</p>
+<svg id="st" viewBox="0 0 360 400" width="100%" role="img" aria-labelledby="st-desc">
+<g id="s1">
+<path class="d" d="M10 300 L350 300"></path>
+<path class="d" d="M60 300 L60 120 L250 120 L250 300"></path>
+<path class="d" d="M56 140 L60 140 M56 206 L60 206"></path>
+<rect class="d" x="36" y="128" width="20" height="92"></rect>
+<g id="dendai"></g>
+<g id="wins"></g>
+<rect class="d" x="175" y="140" width="60" height="66"></rect>
+<text class="t" x="205" y="168" text-anchor="middle">shigei</text>
+<text class="t" x="205" y="184" text-anchor="middle">_labo</text>
+<path class="d" d="M115 300 L115 264 Q135 238 155 264 L155 300"></path>
+<path class="d" d="M135 252 L135 300"></path>
+<circle class="d" cx="130" cy="280" r="1.6"></circle><circle class="d" cx="140" cy="280" r="1.6"></circle>
+<circle class="d" cx="282" cy="262" r="24"></circle>
+<path class="d" d="M282 286 L282 300"></path>
+<path class="d" d="M271 256 q3 -3 6 0 M284 250 q3 -3 6 0 M278 268 q3 -3 6 0"></path>
+<g id="grass"></g>
+</g>
+<g id="s2"></g>
+<g id="s3" style="opacity:0">
+<g id="s3d">
+<circle class="d" cx="320" cy="60" r="14"></circle>
+<path class="d" d="M320 38 L320 31 M320 82 L320 89 M298 60 L291 60 M342 60 L349 60 M304 44 L299 39 M336 76 L341 81 M336 44 L341 39 M304 76 L299 81"></path>
+<path class="d" d="M10 280 L350 280"></path>
+<path class="d" d="M18 280 L18 238 L58 238 L58 280"></path>
+<rect class="d" x="25" y="246" width="26" height="12"></rect>
+<circle class="d" cx="67" cy="262" r="9"></circle><path class="d" d="M67 271 L67 280"></path>
+<path class="d" d="M84 280 L84 248 L106 230 L128 248 L128 280"></path>
+<path class="d" d="M102 280 L102 264 L110 264 L110 280"></path>
+<path class="d" d="M140 280 L140 228 L194 228 L194 280"></path>
+<path class="d" d="M167 238 L167 254 M159 246 L175 246"></path>
+<path class="d" d="M161 280 L161 266 L173 266 L173 280"></path>
+<path class="d" d="M208 280 L208 244 L238 224 L268 244 L268 280"></path>
+<circle class="d" cx="238" cy="248" r="6"></circle>
+<path class="d" d="M238 224 L238 206 L252 211 L238 216"></path>
+<path class="d" d="M232 280 L232 266 L244 266 L244 280"></path>
+<path class="d" d="M284 280 L284 250 L308 232 L332 250 L332 280"></path>
+<path class="d" d="M302 280 L302 264 L314 264 L314 280"></path>
+<path class="d" d="M10 340 L350 340"></path>
+</g>
+<g id="s3r"></g>
+<g id="people"></g>
+<text class="cap" id="cap" x="180" y="374" text-anchor="middle">小さな研究室から，心地よい社会へ．</text>
+<text class="sub" id="sub" x="180" y="394" text-anchor="middle">shigei_labo</text>
+</g>
+</svg>
+    <button id="stReplay" type="button">↻ 最初から再生</button>
+    <p><a class="ura__back" href="index.html">表の重井研究室へ戻る</a></p>
   </main>
+  <script>
+const S='http://www.w3.org/2000/svg',$=id=>document.getElementById(id);
+function el(t,a,p){const e=document.createElementNS(S,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+function anim(e,k,o){return e.animate(k,Object.assign({fill:'both',easing:'ease-out'},o))}
+'DENDAI'.split('').forEach((c,i)=>{const t=el('text',{class:'t',x:46,y:146+i*14,'text-anchor':'middle'},$('dendai'));t.textContent=c});
+[[78,140],[110,140],[142,140],[78,175],[110,175],[142,175],[175,232],[207,232]].forEach(([x,y])=>el('rect',{class:'d win',x,y,width:18,height:16},$('wins')));
+for(let x=18;x<345;x+=22)el('path',{class:'d',d:`M${x} 316 L${x+6} 308`},$('grass'));
+const ppl=[];
+[60,140,220,300].forEach(x=>{const g=el('g',{transform:`translate(${x},0)`},$('people'));const b=el('g',{},g);b.style.transformBox='fill-box';b.style.transformOrigin='center bottom';
+el('circle',{class:'p',cx:0,cy:302,r:7},b);el('circle',{class:'eye',cx:-2.5,cy:300,r:1},b);el('circle',{class:'eye',cx:2.5,cy:300,r:1},b);el('path',{class:'p',d:'M-3 304 Q0 307 3 304'},b);
+el('path',{class:'p',d:'M0 309 L0 326 M-8 315 L8 315 M0 326 L-6 340 M0 326 L6 340'},b);
+const hg=el('g',{transform:'translate(25,298)'},g);const h=el('g',{},hg);el('rect',{class:'kc',x:-15,y:-8,width:30,height:16,rx:3},h);const kt=el('text',{class:'kt',y:4,'text-anchor':'middle'},h);kt.textContent='tab';
+const hr=el('g',{transform:'translate(12,286)'},g);const heart=el('path',{class:'heart',d:'M0 3 C-6 -3 -2 -8 0 -4 C2 -8 6 -3 0 3 Z'},hr);
+ppl.push({b,h,heart})});
+function draw(els,start,spread){els.forEach((e,i)=>{const L=e.getTotalLength();e.style.strokeDasharray=L;anim(e,[{strokeDashoffset:L},{strokeDashoffset:0}],{delay:start+i*spread/els.length,duration:700})})}
+function ray(p1,p2,r1,r2,delay,parent,bend){const dx=p2[0]-p1[0],dy=p2[1]-p1[1],l=Math.hypot(dx,dy),ux=dx/l,uy=dy/l;const s=[p1[0]+ux*r1,p1[1]+uy*r1],e=[p2[0]-ux*r2,p2[1]-uy*r2];const c=[(s[0]+e[0])/2-uy*bend,(s[1]+e[1])/2+ux*bend];
+const p=el('path',{class:'ray',d:`M${s[0]} ${s[1]} Q${c[0]} ${c[1]} ${e[0]} ${e[1]}`},parent);const L=p.getTotalLength();p.style.strokeDasharray=L;anim(p,[{strokeDashoffset:L},{strokeDashoffset:0}],{delay,duration:700})}
+function pop(e,delay){anim(e,[{transform:'scale(0)'},{transform:'scale(1.2)',offset:.6},{transform:'scale(1)'}],{delay,duration:450})}
+function play(){
+document.getAnimations().forEach(a=>a.cancel());$('s2').innerHTML='';$('s3r').innerHTML='';
+const s1=$('s1'),s2=$('s2'),s3=$('s3');
+draw([...s1.querySelectorAll('.d')],200,2200);
+s1.querySelectorAll('.t').forEach(t=>anim(t,[{opacity:0},{opacity:1}],{delay:2000,duration:600}));
+[...s1.querySelectorAll('.win')].forEach((w,i)=>anim(w,[{fill:'rgba(250,199,117,0)'},{fill:'rgba(250,199,117,1)'}],{delay:2900+i*120,duration:500}));
+anim(s1,[{transform:'translate(0px,0px) scale(1)'},{transform:'translate(-110px,0px) scale(1.3)'}],{delay:4200,duration:1300,easing:'ease-in-out'});
+const O=[156,150],inner=[[75,100,'AI'],[175,72,'医療'],[275,100,'教育']],outer=[[32,40],[230,26],[330,48]];
+inner.forEach(([x,y,lbl],i)=>{ray(O,[x,y],0,22,5600+i*250,s2,i===1?0:(i?14:-14));
+const g=el('g',{transform:`translate(${x},${y})`},s2),b=el('g',{},g);el('circle',{class:'bubc',r:22},b);const t=el('text',{class:'blbl',y:4,'text-anchor':'middle'},b);t.textContent=lbl;pop(b,6200+i*250);
+const [ox,oy]=outer[i];ray([x,y],[ox,oy],22,16,7000+i*250,s2,8);
+const fg=el('g',{transform:`translate(${ox},${oy})`},s2),f=el('g',{},fg);el('circle',{class:'p',r:16},f);el('circle',{class:'eye',cx:-5,cy:-3,r:1.6},f);el('circle',{class:'eye',cx:5,cy:-3,r:1.6},f);el('path',{class:'p',d:'M-6 4 Q0 10 6 4'},f);pop(f,7600+i*250)});
+[s1,s2].forEach(g=>anim(g,[{opacity:1},{opacity:0}],{delay:9800,duration:800,easing:'ease-in'}));
+anim(s3,[{opacity:0},{opacity:1}],{delay:10400,duration:300});
+draw([...$('s3d').querySelectorAll('.d')],10500,1800);
+[[106,228],[167,226],[238,204],[308,230]].forEach((p,i)=>ray([38,236],p,0,4,12400+i*150,$('s3r'),-30-i*8));
+ppl.forEach((p,i)=>{pop(p.b,12600+i*200);pop(p.h,13200+i*200);
+anim(p.h,[{transform:'translateY(0px)'},{transform:'translateY(-4px)'}],{delay:13800+i*150,duration:900,iterations:Infinity,direction:'alternate',easing:'ease-in-out',fill:'none'});
+anim(p.heart,[{opacity:0,transform:'translateY(0px) scale(.6)'},{opacity:1,transform:'translateY(-6px) scale(1)',offset:.3},{opacity:0,transform:'translateY(-22px) scale(1)'}],{delay:14200+i*500,duration:2200,iterations:Infinity,fill:'none'})});
+anim($('cap'),[{opacity:0},{opacity:1}],{delay:14000,duration:800});
+anim($('sub'),[{opacity:0},{opacity:1}],{delay:14500,duration:800});
+}
+play();$('stReplay').onclick=play;
+  </script>
 </body>
 </html>
