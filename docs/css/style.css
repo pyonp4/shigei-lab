@@ -1258,6 +1258,11 @@ main .container {
   border-bottom: 1px solid var(--color-border);
 }
 
+/* トップのニュース欄は件数が多いので，行の間隔を詰める */
+.news-list[data-latest] .news-item {
+  padding: 16px 8px;
+}
+
 .news-date {
   font-weight: 700;
   color: var(--color-text-sub);
