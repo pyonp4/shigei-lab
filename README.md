@@ -13,6 +13,10 @@
 | docs/index.html | ホーム | 山下 | Must |
 | docs/research1.html | 手術手技スキルの推定 | 江藤 | Must |
 | docs/research2.html | 土砂災害警戒区域の推定 | 山下 | Must |
+| docs/research3.html | Visual SLAM による自己位置推定（索） | 山下 | Should |
+| docs/research4.html | インダクタのデータ駆動モデリング（川﨑） | 山下 | Should |
+| docs/research5.html | 熊本城石垣の安定性評価（出永） | 山下 | Should |
+| docs/research6.html | 微細ひび割れの検出（黒木） | 山下 | Should |
 | docs/events.html | 行事紹介 | 江藤 | Must |
 | docs/seminar.html | ゼミ紹介 | 山下 | Should |
 | docs/css/style.css | 全ページ共通のデザイン | 変更時は相談 | - |
