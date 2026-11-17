@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 裏の重井研究室：お問い合わせ欄の棒人間（js/lucian.js の setupRadarPeek）を押すと来るページ
+       検索結果には出さない．今はトップ画面だけの仮のページ（test） -->
+  <meta name="robots" content="noindex, nofollow">
+  <title>裏 重井研究室</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap">
+  <style>
+    :root {
+      --ura-bg: #05070d;
+      --ura-text: #e8eef7;
+      --ura-accent: #a5f2d3;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 32px 16px;
+      background:
+        linear-gradient(rgba(165, 242, 211, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(165, 242, 211, 0.06) 1px, transparent 1px),
+        var(--ura-bg);
+      background-size: 26px 26px, 26px 26px, auto;
+      color: var(--ura-text);
+      font-family: "Noto Sans JP", sans-serif;
+      text-align: center;
+    }
+
+    .ura__kicker {
+      margin: 0 0 8px;
+      font-size: 0.9rem;
+      letter-spacing: 0.3em;
+      color: var(--ura-accent);
+    }
+
+    .ura__title {
+      margin: 0 0 32px;
+      font-size: clamp(2rem, 7vw, 3.6rem);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .ura__test {
+      margin: 0 0 48px;
+      font-size: clamp(3rem, 12vw, 6rem);
+      font-weight: 700;
+      color: var(--ura-accent);
+    }
+
+    .ura__back {
+      color: var(--ura-text);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="ura__kicker">URA SHIGEI LAB</p>
+    <h1 class="ura__title">裏 重井研究室</h1>
+    <p class="ura__test">test</p>
+    <a class="ura__back" href="index.html">表の重井研究室へ戻る</a>
+  </main>
+</body>
+</html>

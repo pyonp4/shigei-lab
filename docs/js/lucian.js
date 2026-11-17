@@ -333,11 +333,14 @@
 
   // 右半分のレーダー（回る光の帯）が右下を通ると，隠れていた棒人間が下から飛び出して「tab!」と叫ぶ
   // 帯の向きは CSS アニメーションの進み具合から計算する（帯は 9 秒で 1 周）
+  // 出ている間に棒人間をクリックすると，裏の重井研究室（ura.html）へ移る（遊びの隠し要素なので，キーボードでは選べないようにしている）
   // 画面の幅が 1024px 以下（レーダーを出さない幅）と，動きを減らす設定のときは何もしない
   function setupRadarPeek(root, beam) {
     if (reduceMotion) return;
-    const peek = document.createElement("span");
+    const peek = document.createElement("a");
     peek.className = "radar-peek";
+    peek.href = "ura.html";
+    peek.tabIndex = -1;
     peek.setAttribute("aria-hidden", "true");
     peek.innerHTML =
       '<span class="radar-peek__say">tab!</span>' +
@@ -352,6 +355,9 @@
     let raf = 0;
     let shownAt = 0;
     let visible = false;
+    let hovering = false;   // カーソルが乗っている間は隠さない（押そうとした瞬間に消えないように）
+    peek.addEventListener("mouseenter", () => { hovering = true; });
+    peek.addEventListener("mouseleave", () => { hovering = false; });
 
     const tick = (now) => {
       raf = requestAnimationFrame(tick);
@@ -371,7 +377,7 @@
         if (!visible) peek.classList.add("is-on");
         visible = true;
         shownAt = now;
-      } else if (visible && now - shownAt > HOLD) {
+      } else if (visible && !hovering && now - shownAt > HOLD) {
         peek.classList.remove("is-on");
         visible = false;
       }

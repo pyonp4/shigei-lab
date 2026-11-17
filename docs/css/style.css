@@ -1873,7 +1873,7 @@ main .container {
   opacity: 0.75;
 }
 
-/* 右下に隠れている棒人間：レーダーの帯が通ると下から飛び出して「tab!」と叫ぶ
+/* 右下に隠れている棒人間：レーダーの帯が通ると下から飛び出して「tab!」と叫ぶ．出ている間に押すと裏の重井研究室（ura.html）へ
    要素と出し入れは js/lucian.js の setupRadarPeek で行う */
 .radar-peek {
   position: absolute;
@@ -1882,6 +1882,7 @@ main .container {
   z-index: 1;
   width: 40px;
   height: 64px;
+  text-decoration: none;
   pointer-events: none;
 }
 
@@ -1918,6 +1919,16 @@ main .container {
 
 .radar-peek.is-on .radar-peek__man {
   transform: translateY(0);
+}
+
+/* 出ている間だけ押せる */
+.radar-peek.is-on {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.radar-peek.is-on:hover .radar-peek__man {
+  stroke: var(--color-accent, #2e5aa8);
 }
 
 .radar-peek.is-on .radar-peek__say {
