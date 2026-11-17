@@ -494,9 +494,12 @@
       opacity: 1;
     }
 
-    .aerial__map {
+    /* 地図ライブラリの CSS（.maplibregl-map の position: relative）に負けないよう，.aerial を付けて強くし，高さも明示する */
+    .aerial .aerial__map {
       position: absolute;
       inset: 0;
+      width: 100%;
+      height: 100%;
     }
 
     /* 写真の上下を暗くして，文字を読みやすくする */
