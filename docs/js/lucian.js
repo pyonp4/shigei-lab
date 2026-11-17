@@ -314,6 +314,7 @@
       const side = bm.cloneNode();
       side.classList.add("u211-bm--side");
       bm.after(side);
+      setupRadarPeek(root, side);
     }
 
     if (title) title.classList.add("u211-gr");
@@ -330,7 +331,72 @@
     }
   }
 
-  // Lucian UX/UI Prompt #343 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#343
+  // 右半分のレーダー（回る光の帯）が右下を通ると，隠れていた棒人間が下から飛び出して「tab!」と叫ぶ
+  // 帯の向きは CSS アニメーションの進み具合から計算する（帯は 9 秒で 1 周）
+  // 画面の幅が 1024px 以下（レーダーを出さない幅）と，動きを減らす設定のときは何もしない
+  function setupRadarPeek(root, beam) {
+    if (reduceMotion) return;
+    const peek = document.createElement("span");
+    peek.className = "radar-peek";
+    peek.setAttribute("aria-hidden", "true");
+    peek.innerHTML =
+      '<span class="radar-peek__say">tab!</span>' +
+      '<svg class="radar-peek__man" viewBox="0 0 40 64"><circle cx="20" cy="10" r="7"/>' +
+      '<path d="M20 17v23M20 24 8 14M20 24l12-10M20 40l-10 20M20 40l10 20"/></svg>';
+    root.appendChild(peek);
+
+    const wide = window.matchMedia("(min-width: 1025px)");
+    const BEAM_OFFSET = 300;   // 帯がいちばん明るいのは，円の 0deg（真上）から時計回りに約 300deg の位置
+    const HIT = 22;            // 帯の向きと棒人間の向きの差がこの角度以内なら「重なった」とみなす
+    const HOLD = 1400;         // 一度出たら，少なくともこの時間（ms）は出しておく
+    let raf = 0;
+    let shownAt = 0;
+    let visible = false;
+
+    const tick = (now) => {
+      raf = requestAnimationFrame(tick);
+      const anim = beam.getAnimations()[0];
+      if (!anim || anim.currentTime == null) return;
+      const b = (anim.currentTime % 9000) / 9000 * 360;
+      const dir = (b + BEAM_OFFSET) % 360;
+
+      const c = beam.getBoundingClientRect();
+      const p = peek.getBoundingClientRect();
+      const dx = (p.left + p.width / 2) - (c.left + c.width / 2);
+      const dy = (p.top + p.height / 2) - (c.top + c.height / 2);
+      const target = (Math.atan2(dx, -dy) * 180 / Math.PI + 360) % 360;
+      const diff = Math.abs(((dir - target + 540) % 360) - 180);
+
+      if (diff < HIT) {
+        if (!visible) peek.classList.add("is-on");
+        visible = true;
+        shownAt = now;
+      } else if (visible && now - shownAt > HOLD) {
+        peek.classList.remove("is-on");
+        visible = false;
+      }
+    };
+
+    // お問い合わせ欄が画面に入っていて，幅が広いときだけ計算する
+    let inView = false;
+    const sync = () => {
+      const run = inView && wide.matches;
+      if (run && !raf) raf = requestAnimationFrame(tick);
+      if (!run && raf) {
+        cancelAnimationFrame(raf);
+        raf = 0;
+        peek.classList.remove("is-on");
+        visible = false;
+      }
+    };
+    new IntersectionObserver((entries) => {
+      inView = entries[0].isIntersecting;
+      sync();
+    }).observe(root);
+    wide.addEventListener("change", sync);
+  }
+
+  // Lucian UX/UI Prompt #343· MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#343
   // ある程度下へスクロールすると右下に丸いボタンが浮かび、周りの輪が読んだ量だけ埋まる
   // 押すと矢印がロケットに変わって飛び、ページがなめらかに先頭へ戻る
   // 戻ったあとはフォーカスをヘッダーのロゴへ移す（キーボード操作の人が見失わないように）
