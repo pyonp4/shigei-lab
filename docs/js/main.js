@@ -54,8 +54,8 @@ function setupLanguage() {
   });
 }
 
-// トップのニュース：<ul class="news-list" data-latest="5" data-src="news.html"> に、
-// ニュース一覧の上から5件を読み込んで入れ替える（読み込めないときは HTML に書いた予備のまま）
+// トップのニュース：<ul class="news-list" data-latest="7" data-src="news.html"> に、
+// ニュース一覧の上から data-latest の件数を読み込んで入れ替える（読み込めないときは HTML に書いた予備のまま）
 function setupLatestNews() {
   const list = document.querySelector(".news-list[data-latest]");
   if (!list) return;
@@ -70,7 +70,7 @@ function setupLatestNews() {
       applyLanguage(document.documentElement.lang === "en" ? "en" : "ja");
     })
     .catch(() => {
-      // 予備の5件をそのまま表示する
+      // 予備をそのまま表示する
     });
 }
 
