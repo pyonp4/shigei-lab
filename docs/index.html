@@ -93,10 +93,23 @@
         <h1 data-en='<span class="u216-w"><span style="--d:300">Shigei</span></span> <span class="u216-w"><span style="--d:370">Lab</span></span>'><span class="u216-w"><span style="--d:300">重井</span></span><span class="u216-w"><span style="--d:370">研究室</span></span></h1>
         <p class="u216-p" data-s style="--d:620" data-en="Our research applies AI, centred on soft computing and information networks.">ソフトコンピューティングと情報ネットワークを軸に，AIの応用研究を行っています．</p>
         <div class="btn-row" data-s style="--d:760">
+          <!-- 押すと下の <dialog id="qr-dialog"> が開き，このサイトの QR コードを表示する（ページは移動しない） -->
+          <button type="button" class="btn btn--light btn--qr" aria-haspopup="dialog" aria-controls="qr-dialog" data-en="View on your phone">スマホで見る</button>
           <a class="btn" href="research.html" data-en="Our research">研究を見る</a>
         </div>
       </div>
     </section>
+
+    <!-- スマホで見る：このサイト（https://pyonp4.github.io/shigei-lab/）の QR コード -->
+    <dialog class="profile-dialog qr-dialog" id="qr-dialog" aria-labelledby="qr-dialog-title">
+      <div class="profile-dialog__inner">
+        <button type="button" class="profile-dialog__close" data-dialog-close><span data-en="Close">閉じる</span></button>
+        <h2 class="qr-dialog__title" id="qr-dialog-title" data-en="View on your phone">スマホで見る</h2>
+        <p data-en="Scan the QR code with your phone’s camera to open this site.">スマートフォンのカメラで QR コードを読み取ると，このサイトを開けます．</p>
+        <img class="qr-dialog__img" src="images/qr.png" width="375" height="375" alt="重井研究室のサイト（https://pyonp4.github.io/shigei-lab/）を開く QR コード">
+        <p class="qr-dialog__url">https://pyonp4.github.io/shigei-lab/</p>
+      </div>
+    </dialog>
 
     <!-- ===== 研究分野が流れる帯（Lucian UX/UI Prompt #394）：飾りなので読み上げない ===== -->
     <!-- 流す文字は data-rows に「|」区切りで3段分書く -->
