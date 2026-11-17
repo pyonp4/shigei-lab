@@ -309,6 +309,330 @@
       letter-spacing: 0.5em;
     }
 
+    /* ---------- 4. 一覧（レシピ・登山部） ---------- */
+    .sheet {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      padding: 56px 16px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .sheet[hidden] {
+      display: none;
+    }
+
+    .sheet.is-on {
+      opacity: 1;
+    }
+
+    .sheet__box {
+      width: min(560px, 100%);
+      max-height: 100%;
+      overflow-y: auto;
+      padding: 40px 40px 32px;
+      border: 1px solid rgba(165, 242, 211, 0.18);
+      background: rgba(8, 12, 22, 0.82);
+      box-shadow: 0 0 80px -30px rgba(125, 180, 255, 0.55);
+      backdrop-filter: blur(6px);
+      transform: translateY(8px);
+      transition: transform 0.4s ease;
+    }
+
+    .sheet.is-on .sheet__box {
+      transform: none;
+    }
+
+    .sheet__kicker {
+      margin: 0 0 10px;
+      font-family: var(--ura-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.4em;
+      color: var(--ura-mint);
+    }
+
+    .sheet__title {
+      margin: 0 0 28px;
+      font-size: 1.5rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+    }
+
+    .sheet__stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1px;
+      margin: 0 0 28px;
+      background: rgba(165, 242, 211, 0.15);
+      border: 1px solid rgba(165, 242, 211, 0.15);
+    }
+
+    .sheet__stats[hidden] {
+      display: none;
+    }
+
+    .sheet__stat {
+      padding: 14px 18px;
+      background: rgba(8, 12, 22, 0.95);
+    }
+
+    .sheet__stat dt {
+      margin-bottom: 4px;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      color: var(--ura-dim);
+    }
+
+    .sheet__stat dd {
+      margin: 0;
+    }
+
+    .sheet__stat dd span {
+      font-family: var(--ura-mono);
+      font-size: 1.7rem;
+      color: var(--ura-text);
+      text-shadow: 0 0 18px rgba(165, 242, 211, 0.35);
+    }
+
+    .sheet__stat dd small {
+      margin-left: 6px;
+      font-size: 0.8rem;
+      color: var(--ura-dim);
+    }
+
+    .sheet__list {
+      list-style: none;
+      margin: 0 0 32px;
+      padding: 0;
+      border-top: 1px solid rgba(232, 238, 247, 0.1);
+    }
+
+    .sheet__item {
+      display: flex;
+      align-items: baseline;
+      gap: 18px;
+      width: 100%;
+      padding: 16px 4px;
+      border: 0;
+      border-bottom: 1px solid rgba(232, 238, 247, 0.1);
+      background: none;
+      color: var(--ura-text);
+      font: inherit;
+      text-align: left;
+    }
+
+    button.sheet__item {
+      cursor: pointer;
+      transition: background 0.2s, padding 0.2s;
+    }
+
+    button.sheet__item:hover,
+    button.sheet__item:focus-visible {
+      padding-left: 12px;
+      background: rgba(165, 242, 211, 0.06);
+      outline: none;
+    }
+
+    button.sheet__item::after {
+      content: "→";
+      margin-left: 4px;
+      color: var(--ura-mint);
+    }
+
+    .sheet__no {
+      font-family: var(--ura-mono);
+      font-size: 0.75rem;
+      color: var(--ura-mint);
+    }
+
+    .sheet__name {
+      flex: 1;
+      font-size: 1.02rem;
+      letter-spacing: 0.06em;
+    }
+
+    .sheet__meta {
+      font-size: 0.75rem;
+      color: var(--ura-dim);
+    }
+
+    .sheet__back,
+    .aerial__back {
+      padding: 10px 36px;
+      border: 1px solid var(--ura-mint);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--ura-mint);
+      font: inherit;
+      letter-spacing: 0.2em;
+      cursor: pointer;
+    }
+
+    .sheet__back:hover,
+    .aerial__back:hover {
+      background: rgba(165, 242, 211, 0.12);
+    }
+
+    /* ---------- 5. 山の3D航空写真 ---------- */
+    .aerial {
+      position: fixed;
+      inset: 0;
+      z-index: 3;
+      background: var(--ura-bg);
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .aerial[hidden] {
+      display: none;
+    }
+
+    .aerial.is-on {
+      opacity: 1;
+    }
+
+    .aerial__map {
+      position: absolute;
+      inset: 0;
+    }
+
+    /* 写真の上下を暗くして，文字を読みやすくする */
+    .aerial::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(rgba(5, 7, 13, 0.75), transparent 22%, transparent 80%, rgba(5, 7, 13, 0.6));
+      pointer-events: none;
+    }
+
+    .aerial__head {
+      position: absolute;
+      top: 28px;
+      left: 32px;
+      z-index: 1;
+    }
+
+    .aerial__kicker {
+      margin: 0 0 6px;
+      font-family: var(--ura-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.4em;
+      color: var(--ura-mint);
+    }
+
+    .aerial__name {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 300;
+      letter-spacing: 0.14em;
+    }
+
+    .aerial__msg {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      z-index: 1;
+      text-align: center;
+      color: var(--ura-dim);
+    }
+
+    .aerial__back {
+      position: absolute;
+      right: 32px;
+      bottom: 32px;
+      z-index: 1;
+      background: rgba(5, 7, 13, 0.6);
+    }
+
+    .aerial .maplibregl-ctrl-attrib {
+      background: rgba(5, 7, 13, 0.6);
+      color: var(--ura-dim);
+      font-size: 10px;
+    }
+
+    .aerial .maplibregl-ctrl-attrib a {
+      color: var(--ura-dim);
+    }
+
+    /* 山頂の光る点と，カーソルを当てたときの表示 */
+    .summit {
+      position: relative;
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+    }
+
+    .summit__dot {
+      position: absolute;
+      inset: 9px;
+      border-radius: 50%;
+      background: var(--ura-mint);
+      box-shadow: 0 0 12px 3px rgba(165, 242, 211, 0.8);
+    }
+
+    .summit__dot::after {
+      content: "";
+      position: absolute;
+      inset: -9px;
+      border: 1px solid var(--ura-mint);
+      border-radius: 50%;
+      animation: summit-ping 2s ease-out infinite;
+    }
+
+    @keyframes summit-ping {
+      from { transform: scale(0.4); opacity: 1; }
+      to { transform: scale(1.6); opacity: 0; }
+    }
+
+    .summit__tip {
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 10px);
+      display: grid;
+      gap: 4px;
+      min-width: 150px;
+      padding: 12px 16px;
+      border: 1px solid rgba(165, 242, 211, 0.4);
+      background: rgba(5, 7, 13, 0.85);
+      color: var(--ura-text);
+      font-size: 0.8rem;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translate(-50%, 6px);
+      transition: opacity 0.2s, transform 0.2s;
+      pointer-events: none;
+    }
+
+    .summit:hover .summit__tip {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    .summit__tip b {
+      margin-bottom: 4px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      color: var(--ura-mint);
+    }
+
+    .summit__row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .summit__row span:first-child {
+      color: var(--ura-dim);
+    }
+
+    .summit__row span:last-child {
+      font-family: var(--ura-mono);
+    }
+
     .visually-hidden {
       position: absolute;
       width: 1px;
@@ -350,6 +674,28 @@
       <g id="s3"></g>
       <g id="s4"></g>
     </svg>
+  </div>
+
+  <!-- ビルを押すと出る一覧（レシピ・登山部で共通．中身は script の RECIPES / MOUNTAINS から作る） -->
+  <div class="sheet" id="sheet" hidden>
+    <div class="sheet__box">
+      <p class="sheet__kicker" id="sheet-kicker"></p>
+      <h2 class="sheet__title" id="sheet-title"></h2>
+      <dl class="sheet__stats" id="sheet-stats" hidden></dl>
+      <ol class="sheet__list" id="sheet-list"></ol>
+      <button class="sheet__back" id="sheet-back" type="button">戻る</button>
+    </div>
+  </div>
+
+  <!-- 山の3D航空写真 -->
+  <div class="aerial" id="aerial" hidden>
+    <div class="aerial__map" id="aerial-map"></div>
+    <div class="aerial__head">
+      <p class="aerial__kicker">SUMMIT</p>
+      <h2 class="aerial__name" id="aerial-name"></h2>
+    </div>
+    <p class="aerial__msg" id="aerial-msg" hidden></p>
+    <button class="aerial__back" id="aerial-back" type="button">一覧へ戻る</button>
   </div>
 
   <div class="game" id="game" hidden>
@@ -548,8 +894,215 @@
 
       // ---------- ビルを押したときの動き（左から 0, 1, 2, … 番目） ----------
       const BUILDING_ACTIONS = {
+        2: () => openMountains(),  // 左から3つ目：重井研登山部
         3: () => shooter.open(),   // 左から4つ目：シューティングゲーム
+        6: () => openRecipes(),    // 左から7つ目：尾曲シェフの研究室レシピ
       };
+
+      // ---------- 一覧のデータ（ここに1行足すと，一覧に増える） ----------
+      // 尾曲シェフの研究室レシピ
+      const RECIPES = [
+        { name: "尾曲シェフの濃コクカレー" },
+        { name: "軍チャー" },
+      ];
+      // 重井研登山部：踏破した山（lat, lng は山頂などの位置．elevation は標高 m，gain は獲得標高 m，time はタイム．分からないものは null）
+      const MOUNTAINS = [
+        { name: "屋久島の縄文杉", lat: 30.3614, lng: 130.5314, elevation: null, gain: null, time: null },
+        { name: "高千穂峰", lat: 31.8861, lng: 130.9189, elevation: 1574, gain: 628, time: "3:54" },
+      ];
+
+      // ---------- 一覧の画面（レシピ・登山部で共通） ----------
+      const stage = $("stage");
+      const sheet = $("sheet");
+      const sheetKicker = $("sheet-kicker");
+      const sheetTitle = $("sheet-title");
+      const sheetStats = $("sheet-stats");
+      const sheetList = $("sheet-list");
+      const pad2 = (n) => String(n).padStart(2, "0");
+
+      const showSheet = () => {
+        sheet.hidden = false;
+        stage.classList.remove("is-on");
+        requestAnimationFrame(() => sheet.classList.add("is-on"));
+      };
+      const hideSheet = (toCity) => {
+        sheet.classList.remove("is-on");
+        if (toCity) stage.classList.add("is-on");
+        setTimeout(() => { if (!sheet.classList.contains("is-on")) sheet.hidden = true; }, 400);
+      };
+      $("sheet-back").addEventListener("click", () => hideSheet(true));
+
+      const fillSheet = (kicker, title, items, stats) => {
+        sheetKicker.textContent = kicker;
+        sheetTitle.textContent = title;
+        sheetStats.hidden = !stats;
+        sheetStats.innerHTML = "";
+        (stats || []).forEach(([label, value, unit]) => {
+          const d = document.createElement("div");
+          d.className = "sheet__stat";
+          d.innerHTML = `<dt></dt><dd><span></span><small></small></dd>`;
+          d.querySelector("dt").textContent = label;
+          d.querySelector("span").textContent = value;
+          d.querySelector("small").textContent = unit;
+          sheetStats.appendChild(d);
+        });
+        sheetList.innerHTML = "";
+        items.forEach((item, i) => {
+          const li = document.createElement("li");
+          const row = document.createElement(item.onClick ? "button" : "div");
+          row.className = "sheet__item";
+          if (item.onClick) {
+            row.type = "button";
+            row.addEventListener("click", item.onClick);
+          }
+          row.innerHTML = `<span class="sheet__no">${pad2(i + 1)}</span><span class="sheet__name"></span><span class="sheet__meta"></span>`;
+          row.querySelector(".sheet__name").textContent = item.name;
+          row.querySelector(".sheet__meta").textContent = item.meta || "";
+          li.appendChild(row);
+          sheetList.appendChild(li);
+        });
+      };
+
+      function openRecipes() {
+        fillSheet("RECIPES", "尾曲シェフの研究室レシピ", RECIPES.map((r) => ({ name: r.name })));
+        showSheet();
+      }
+
+      function openMountains() {
+        const gain = MOUNTAINS.reduce((sum, m) => sum + (m.gain || 0), 0);
+        fillSheet("MOUNTAINEERING CLUB", "重井研登山部",
+          MOUNTAINS.map((m) => ({
+            name: m.name,
+            meta: m.gain != null ? `獲得標高 ${m.gain.toLocaleString()}m` : "",
+            onClick: () => aerial.open(m),
+          })),
+          [["登頂した山数", MOUNTAINS.length, "座"], ["獲得標高", gain.toLocaleString(), "m"]]);
+        showSheet();
+      }
+
+      // ---------- 山の3D航空写真：空から山へ近づき，周りをぐるぐる回る ----------
+      // 地図は MapLibre GL JS（初めて開いたときに読み込む）．写真は国土地理院の地理院タイル，地形の高さは AWS の標高タイル
+      const aerial = (() => {
+        const wrap = $("aerial");
+        const nameEl = $("aerial-name");
+        const msg = $("aerial-msg");
+        let map = null, raf = 0, marker = null;
+
+        const loadLib = () => window.maplibregl ? Promise.resolve() : new Promise((resolve, reject) => {
+          const css = document.createElement("link");
+          css.rel = "stylesheet";
+          css.href = "https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css";
+          document.head.appendChild(css);
+          const js = document.createElement("script");
+          js.src = "https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js";
+          js.onload = resolve;
+          js.onerror = reject;
+          document.head.appendChild(js);
+        });
+
+        const orbit = () => {
+          let last = performance.now();
+          const step = (now) => {
+            raf = requestAnimationFrame(step);
+            map.setBearing(map.getBearing() + (now - last) * 0.006);   // 1秒に約6度
+            last = now;
+          };
+          raf = requestAnimationFrame(step);
+        };
+
+        // 山頂の光る点．カーソルを当てると，標高とタイムが出る
+        const summit = (m) => {
+          const elm = document.createElement("div");
+          elm.className = "summit";
+          elm.innerHTML =
+            '<span class="summit__dot"></span>' +
+            '<span class="summit__tip"><b></b><span class="summit__row"><span>標高</span><span class="v1"></span></span>' +
+            '<span class="summit__row"><span>タイム</span><span class="v2"></span></span></span>';
+          elm.querySelector("b").textContent = m.name;
+          elm.querySelector(".v1").textContent = m.elevation != null ? `${m.elevation.toLocaleString()}m` : "—";
+          elm.querySelector(".v2").textContent = m.time || "—";
+          return elm;
+        };
+
+        const open = async (m) => {
+          hideSheet(false);
+          nameEl.textContent = m.name;
+          msg.hidden = true;
+          wrap.hidden = false;
+          requestAnimationFrame(() => wrap.classList.add("is-on"));
+          try {
+            await loadLib();
+          } catch (e) {
+            msg.textContent = "地図を読み込めませんでした．";
+            msg.hidden = false;
+            return;
+          }
+          if (!document.createElement("canvas").getContext("webgl2") && !document.createElement("canvas").getContext("webgl")) {
+            msg.textContent = "このブラウザでは3D表示ができません．";
+            msg.hidden = false;
+            return;
+          }
+          map = new maplibregl.Map({
+            container: "aerial-map",
+            interactive: false,
+            attributionControl: false,
+            center: [m.lng, m.lat],
+            zoom: 8.5,
+            pitch: 0,
+            bearing: 0,
+            maxPitch: 75,
+            style: {
+              version: 8,
+              sources: {
+                photo: {
+                  type: "raster",
+                  tiles: ["https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg"],
+                  tileSize: 256,
+                  maxzoom: 18,
+                },
+                dem: {
+                  type: "raster-dem",
+                  tiles: ["https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png"],
+                  tileSize: 256,
+                  maxzoom: 15,
+                  encoding: "terrarium",
+                },
+              },
+              layers: [
+                { id: "bg", type: "background", paint: { "background-color": "#05070d" } },
+                { id: "photo", type: "raster", source: "photo", paint: { "raster-saturation": -0.15, "raster-contrast": 0.1 } },
+              ],
+              terrain: { source: "dem", exaggeration: 1.4 },
+            },
+          });
+          map.addControl(new maplibregl.AttributionControl({
+            compact: true,
+            customAttribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">地理院タイル</a> | Terrain: Mapzen, AWS',
+          }));
+          marker = new maplibregl.Marker({ element: summit(m), anchor: "center" }).setLngLat([m.lng, m.lat]).addTo(map);
+          map.once("load", () => {
+            // 空の高いところから，斜めに見下ろしながら山へ近づく
+            map.flyTo({ center: [m.lng, m.lat], zoom: 14, pitch: 68, bearing: -40, duration: 7000, curve: 1.3, essential: true });
+            map.once("moveend", orbit);
+          });
+        };
+
+        const close = () => {
+          cancelAnimationFrame(raf);
+          raf = 0;
+          wrap.classList.remove("is-on");
+          setTimeout(() => {
+            if (marker) marker.remove();
+            if (map) map.remove();
+            map = marker = null;
+            wrap.hidden = true;
+          }, 400);
+          showSheet();
+        };
+        $("aerial-back").addEventListener("click", close);
+
+        return { open };
+      })();
       buildings.forEach((g, i) => g.addEventListener("click", () => {
         if (s3.classList.contains("is-ready") && BUILDING_ACTIONS[i]) BUILDING_ACTIONS[i]();
       }));
