@@ -3041,10 +3041,3 @@ main .container {
   margin: 16px auto;
   image-rendering: pixelated;   /* QR コードの白黒の境目をぼかさない */
 }
-
-.qr-dialog__url {
-  margin: 0;
-  font-size: 0.875rem;
-  color: var(--color-text-sub);
-  overflow-wrap: anywhere;
-}
