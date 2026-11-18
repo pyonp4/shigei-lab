@@ -796,8 +796,8 @@
 .u389-p--surgery::before  { background-image: url("../images/research1/fig2_overview.svg"); }
 .u389-p--disaster { --fig-r: 1.603; }  /* research2：800×499 */
 .u389-p--disaster::before { background-image: url("../images/research2/card.png"); }
-.u389-p--vision   { --fig-r: 1.636; }  /* 画像・映像識別：research5 の図2（800×489） */
-.u389-p--vision::before   { background-image: url("../images/research5/card.jpg"); }
+.u389-p--vision   { --fig-r: 1; }  /* 画像・映像識別：research6 の図（640×640） */
+.u389-p--vision::before   { background-image: url("../images/research6/card.jpg"); }
 .u389-p--ee       { --fig-r: 1.778; }  /* 電気・電子：research4 の図2（800×450） */
 .u389-p--ee::before       { background-image: url("../images/research4/card.png"); }
 
